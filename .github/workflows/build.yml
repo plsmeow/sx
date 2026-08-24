@@ -6,6 +6,9 @@ on:
     tags:
       - "v*"
 
+env:
+  RUSTUP_TOOLCHAIN: nightly-2026-07-22
+
 jobs:
   build:
     strategy:
@@ -32,7 +35,7 @@ jobs:
           cache: npm
 
       - name: Setup Rust nightly
-        uses: dtolnay/rust-toolchain@nightly-2026-07-22
+        run: rustup toolchain install nightly-2026-07-22 --profile minimal
 
       - name: Install Linux dependencies
         if: matrix.os == 'ubuntu-22.04'
