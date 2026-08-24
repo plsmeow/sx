@@ -67,7 +67,7 @@ impl PearlLeavePlugin {
     let x_rot = randnum(-35.0, -30.0);
 
     take_bot!(index, async |bot| {
-      bot.set_direction(y_rot, x_rot);
+      let _ = bot.set_direction(y_rot, x_rot);
     });
 
     setmst(index, StateName::Looking, false).await;

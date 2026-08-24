@@ -205,7 +205,7 @@ impl MinerModule {
   async fn default_mine(bot: &Client, options: &MinerOptions) {
     bot.left_click_mine(true);
     bot.walk(WalkDirection::Forward);
-    bot.set_direction(options.direction_x.unwrap_or(0.0), 40.0 + randnum(-3.5, 3.5) as f32);
+    let _ = bot.set_direction(options.direction_x.unwrap_or(0.0), 40.0 + randnum(-3.5, 3.5) as f32);
   }
 
   async fn extended_mine(bot: &Client, options: &MinerOptions) {
@@ -235,7 +235,7 @@ impl MinerModule {
               let should_shift = randchance(0.2);
 
               if should_shift {
-                bot.set_crouching(true);
+                let _ = bot.set_crouching(true);
               }
 
               Self::look_at_block(bot, block_pos, &options.look).await;
@@ -252,7 +252,7 @@ impl MinerModule {
               }
 
               if should_shift {
-                bot.set_crouching(false);
+                let _ = bot.set_crouching(false);
               }
 
               Self::micro_offset(bot).await;
@@ -338,7 +338,7 @@ impl SalarixiModule<MinerOptions> for MinerModule {
 
       take_bot!(&index, async |bot| {
         bot.left_click_mine(false);
-        bot.set_crouching(false);
+        let _ = bot.set_crouching(false);
         bot.stop_move(&index).await;
       });
 

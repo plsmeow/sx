@@ -175,12 +175,12 @@ impl ScriptExecutor {
     if code == -1 {
       PROFILE_SYSTEM.try_get_all_connected().keys().for_each(|index| {
         if let Some(bot) = REGISTRY_SYSTEM.get_bot(index) {
-          bot.set_jumping(state);
+          let _ = bot.set_jumping(state);
         }
       });
     } else {
       if let Some(bot) = REGISTRY_SYSTEM.get_bot(&(code as u8)) {
-        bot.set_jumping(state);
+        let _ = bot.set_jumping(state);
       }
     }
   }
@@ -189,12 +189,12 @@ impl ScriptExecutor {
     if code == -1 {
       PROFILE_SYSTEM.try_get_all_connected().keys().for_each(|index| {
         if let Some(bot) = REGISTRY_SYSTEM.get_bot(index) {
-          bot.set_crouching(state);
+          let _ = bot.set_crouching(state);
         }
       });
     } else {
       if let Some(bot) = REGISTRY_SYSTEM.get_bot(&(code as u8)) {
-        bot.set_crouching(state);
+        let _ = bot.set_crouching(state);
       }
     }
   }

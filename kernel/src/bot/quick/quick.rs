@@ -138,9 +138,9 @@ impl QuickTaskManager {
             bot.jump();
           }
           QuickTask::Shift => {
-            bot.set_crouching(true);
+            let _ = bot.set_crouching(true);
             sleep!(200);
-            bot.set_crouching(false);
+            let _ = bot.set_crouching(false);
           }
           QuickTask::Fly => {
             for i in 0..randnum(3, 5) {
@@ -299,7 +299,7 @@ impl QuickTaskManager {
                     if count == 9 {
                       bot.jump();
                       sleep!(50);
-                      bot.set_crouching(true);
+                      let _ = bot.set_crouching(true);
                       sleep!(randnum(100, 150));
                     }
 
@@ -308,7 +308,7 @@ impl QuickTaskManager {
                     bot.block_interact(pos);
 
                     if count == 10 {
-                      bot.set_crouching(false);
+                      let _ = bot.set_crouching(false);
                     }
 
                     setmst(&index, StateName::Looking, false).await;

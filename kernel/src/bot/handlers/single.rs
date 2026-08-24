@@ -46,7 +46,7 @@ async fn process_init(bot: Client) {
     return;
   };
 
-  bot.set_client_information(ClientInformation {
+  let _ = bot.set_client_information(ClientInformation {
     view_distance: opts.basic.view_distance,
     chat_colors: true,
     main_hand: if let Some(arm) = opts.basic.humanoid_arm {

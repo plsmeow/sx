@@ -154,28 +154,28 @@ impl BotDefaultExt for Client {
   fn stop_jumping(&self) {
     if let Some(jumping) = self.get_component::<Jumping>() {
       if jumping.0 {
-        self.set_jumping(false);
+        let _ = self.set_jumping(false);
       }
     }
   }
 
   fn stop_crouching(&self) {
     if self.crouching() {
-      self.set_crouching(false);
+      let _ = self.set_crouching(false);
     }
   }
 
   fn start_jumping(&self) {
     if let Some(jumping) = self.get_component::<Jumping>() {
       if !jumping.0 {
-        self.set_jumping(true);
+        let _ = self.set_jumping(true);
       }
     }
   }
 
   fn start_crouching(&self) {
     if !self.crouching() {
-      self.set_crouching(true);
+      let _ = self.set_crouching(true);
     }
   }
 

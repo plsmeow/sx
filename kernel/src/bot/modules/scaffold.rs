@@ -133,7 +133,7 @@ impl ScaffoldModule {
       setmst(&index, StateName::Interacting, true).await;
 
       if !bot.crouching() {
-        bot.set_crouching(true);
+        let _ = bot.set_crouching(true);
       }
 
       Self::direct_gaze(bot, options.min_gaze_degree_x, options.max_gaze_degree_x);
@@ -197,7 +197,8 @@ impl ScaffoldModule {
       };
 
       if is_air {
-        bot.set_crouching(true);
+        let _ = bot.set_crouching(true);
+
         bot.block_interact(block_under);
         bot.swing_arm();
         sleep!(randnum(50, 100));
@@ -205,7 +206,7 @@ impl ScaffoldModule {
 
         Self::simulate_inaccuracy(bot, dir.y_rot(), dir.x_rot());
         sleep!(50);
-        bot.set_crouching(false);
+        let _ = bot.set_crouching(false);
       }
 
       setmst(&index, StateName::Looking, false).await;
@@ -344,7 +345,7 @@ impl SalarixiModule<ScaffoldOptions> for ScaffoldModule {
 
       take_bot!(&index, async |bot| {
         bot.stop_move(&index).await;
-        bot.set_crouching(false);
+        let _ = bot.set_crouching(false);
       });
 
       setmst(&index, StateName::Looking, false).await;

@@ -56,7 +56,7 @@ impl ActionModule {
         sleep(Duration::from_millis(randnum(200, 2000))).await;
       }
 
-      bot.set_jumping(true);
+      let _ = bot.set_jumping(true);
     }
   }
 
@@ -69,16 +69,16 @@ impl ActionModule {
           sleep!(randnum(900, 1800));
         }
 
-        bot.set_crouching(true);
+        let _ = bot.set_crouching(true);
         sleep!(350);
-        bot.set_crouching(false);
+        let _ = bot.set_crouching(false);
       }
     } else {
       if !options.use_sync {
         sleep!(randnum(200, 2000));
       }
 
-      bot.set_crouching(true);
+      let _ = bot.set_crouching(true);
     }
   }
 
