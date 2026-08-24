@@ -7,29 +7,13 @@ import { join } from "@tauri-apps/api/path";
 import { messages } from "../utils/message";
 import { invoke } from "@tauri-apps/api/core";
 
-/** Тип аккаунта */
-type AccountType = "offline" | "microsoft" | "session";
-
-/** Индексы типов аккаунтов, соответствующие ядру */
-const ACCOUNT_TYPE_INDEX: Record<AccountType, number> = {
-	offline: 0,
-	microsoft: 1,
-	session: 2,
-};
-
-/** Ссылка на страницу привязки Microsoft аккаунта */
-const MICROSOFT_LINK_URL = "https://www.microsoft.com/link";
-
 /** Структура данных аккаунта */
 interface Account {
 	creation_date: string;
-	account_type: AccountType;
 	initial_group: string | null;
 	password: string | null;
 	email: string | null;
 	proxy: string | null;
-	access_token: string | null;
-	uuid: string | null;
 	selected: boolean;
 }
 
@@ -62,13 +46,11 @@ class AccountModule {
 		const selectedAccountsProxy = document.getElementById("selected-accounts-proxy") as HTMLInputElement;
 
 		const addAccountBtn = document.getElementById("add-account") as HTMLButtonElement;
-		const accountTypeSelect = document.getElementById("account-type") as HTMLSelectElement;
-		const microsoftLoginBtn = document.getElementById("microsoft-login") as HTMLButtonElement;
 		const openSelectedAccountsEditorBtn = document.getElementById("edit-selected-accounts") as HTMLButtonElement;
 		const closeSelectedAccountsEditorBtn = document.getElementById("close-selected-accounts-editor") as HTMLButtonElement;
-		const removeSelectedAccountsBtn = document.getElementById("remove-selected-accounts") as HTMLButtonElement;
 		const importAccounts = document.getElementById("import-accounts") as HTMLButtonElement;
 		const exportAccounts = document.getElementById("export-accounts") as HTMLButtonElement;
+		const removeSelectedAccountsBtn = document.getElementById("remove-selected-accounts") as HTMLButtonElement;
 
 		const changeAllAccountsSelect = document.getElementById("change-all-accounts-select") as HTMLInputElement;
 
@@ -113,10 +95,6 @@ class AccountModule {
 		selectedAccountsEmail.addEventListener("input", () => this.setValueForAllSelected("email", selectedAccountsEmail.value));
 		selectedAccountsProxy.addEventListener("input", () => this.setValueForAllSelected("proxy", selectedAccountsProxy.value));
 
-		accountTypeSelect.addEventListener("change", () => this.updateAccountPanel(accountTypeSelect.value as AccountType));
-		microsoftLoginBtn.addEventListener("click", async () => await this.loginMicrosoft());
-
-		this.updateAccountPanel(accountTypeSelect.value as AccountType);
 		addAccountBtn.addEventListener("click", () => this.addAccount());
 		importAccounts.addEventListener("click", async () => await this.importAccounts());
 		exportAccounts.addEventListener("click", async () => await this.exportAccounts());
@@ -133,13 +111,10 @@ class AccountModule {
 			if (!account.selected) continue;
 
 			cleanAccounts.set(username, {
-				account_type: ACCOUNT_TYPE_INDEX[account.account_type] ?? 0,
 				initial_group: account.initial_group,
 				password: account.password,
 				email: account.email,
 				proxy: account.proxy,
-				access_token: account.access_token,
-				uuid: account.uuid,
 			});
 		}
 
@@ -161,13 +136,10 @@ class AccountModule {
 			for (const [username, account] of this.accounts) {
 				cleanAccounts[username] = {
 					creation_date: account.creation_date,
-					account_type: account.account_type,
 					initial_group: account.initial_group,
 					password: account.password,
 					email: account.email,
 					proxy: account.proxy,
-					access_token: account.access_token,
-					uuid: account.uuid,
 				};
 			}
 
@@ -265,12 +237,6 @@ class AccountModule {
 		const decoded = decoder.decode(uint8arr);
 		const accounts = Object.entries<Account>(JSON.parse(decoded));
 
-		for (const [_, account] of accounts) {
-			account.account_type ??= "offline";
-			account.access_token ??= null;
-			account.uuid ??= null;
-		}
-
 		if (accounts.length < 1) return;
 
 		for (const [username, account] of accounts) this.createAccountCard(username, account);
@@ -283,26 +249,14 @@ class AccountModule {
 	/** Метод добавления аккаунта */
 	private addAccount(): void {
 		const usernameInput = document.getElementById("account-username") as HTMLInputElement;
-		const accountType = (document.getElementById("account-type") as HTMLSelectElement).value as AccountType;
-		const value = usernameInput.value.trim();
-
-		if (accountType === "session" && value === "") {
-			logger.log(`Не удалось создать аккаунт: укажите токен сессии`, "warning");
-			messages.message("Аккаунты", `Не удалось создать аккаунт: укажите токен сессии`);
-			return;
-		}
-
-		const username = value;
+		const username = usernameInput.value;
 
 		const status = this.createAccountCard(username, {
 			creation_date: date("exact"),
-			account_type: accountType,
 			initial_group: null,
 			password: null,
 			email: null,
 			proxy: null,
-			access_token: accountType === "session" ? value : null,
-			uuid: null,
 			selected: false,
 		});
 
@@ -310,88 +264,22 @@ class AccountModule {
 			case 0:
 				this.updateAccountCounter();
 				usernameInput.value = "";
-				logger.log(`Создан новый аккаунт "${this.displayName(username)}"`, "system");
+				logger.log(`Создан новый аккаунт "${username}"`, "system");
 				break;
 			case 1:
-				logger.log(`Не удалось создать аккаунт: Accounts with empty usernames are prohibited`, "warning");
+				logger.log(`Не удалось создать аккаунт "${username}": Accounts with empty usernames are prohibited`, "warning");
 				break;
 			case 2:
-				logger.log(`Не удалось создать аккаунт "${this.displayName(username)}": Account with this username already exists`, "warning");
+				logger.log(`Не удалось создать аккаунт "${username}": Account with this username already exists`, "warning");
 				break;
 			case 3:
-				logger.log(`Не удалось создать аккаунт: Number of generated accounts is out of limits (minimum 1, maximum 200)`, "warning");
+				logger.log(`Не удалось создать аккаунт "${username}": Number of generated accounts is out of limits (minimum 1, maximum 200)`, "warning");
 				break;
 		}
 
 		if (status !== 0) {
-			messages.message("Аккаунты", `Не удалось создать аккаунт`);
+			messages.message("Аккаунты", `Не удалось создать аккаунт "${username}"`);
 		}
-	}
-
-	/** Метод обновления панели добавления аккаунта под выбранный тип */
-	private updateAccountPanel(accountType: AccountType): void {
-		const usernameInput = document.getElementById("account-username") as HTMLInputElement;
-		const addAccountBtn = document.getElementById("add-account") as HTMLButtonElement;
-		const microsoftLoginBtn = document.getElementById("microsoft-login") as HTMLButtonElement;
-
-		const isMicrosoft = accountType === "microsoft";
-		const isSession = accountType === "session";
-
-		usernameInput.style.display = isMicrosoft ? "none" : "flex";
-		addAccountBtn.style.display = isMicrosoft ? "none" : "flex";
-		microsoftLoginBtn.style.display = isMicrosoft ? "flex" : "none";
-
-		usernameInput.placeholder = isSession ? "access token" : "username";
-
-		if (isSession) {
-			usernameInput.removeAttribute("maxlength");
-		} else {
-			usernameInput.setAttribute("maxlength", "16");
-		}
-	}
-
-	/** Метод входа в Microsoft аккаунт через браузер */
-	private async loginMicrosoft(): Promise<void> {
-		try {
-			await invoke("open_url", { url: MICROSOFT_LINK_URL });
-		} catch (error) {
-			logger.log(`Ошибка открытия URL: ${error}`, "error");
-		}
-
-		const username = this.nextMicrosoftName();
-
-		const status = this.createAccountCard(username, {
-			creation_date: date("exact"),
-			account_type: "microsoft",
-			initial_group: null,
-			password: null,
-			email: null,
-			proxy: null,
-			access_token: null,
-			uuid: null,
-			selected: false,
-		});
-
-		if (status !== 0) {
-			messages.message("Аккаунты", `Не удалось создать аккаунт`);
-			return;
-		}
-
-		this.updateAccountCounter();
-		logger.log(`Создан новый аккаунт "${username}": код для привязки Microsoft появится в логе при запуске`, "system");
-		messages.message("Аккаунты", `Аккаунт "${username}" создан. Браузер открыт для привязки Microsoft, код входа появится в логе при запуске`);
-	}
-
-	/** Метод генерации имени для Microsoft аккаунта */
-	private nextMicrosoftName(): string {
-		let index = 1;
-		while (this.accounts.has(`Microsoft-${index}`)) index++;
-		return `Microsoft-${index}`;
-	}
-
-	/** Метод получения отображаемого имени аккаунта */
-	private displayName(username: string): string {
-		return username.length > 24 ? `${username.slice(0, 10)}…${username.slice(-8)}` : username;
 	}
 
 	/** Метод удаления всех выбранных аккаунтов */
@@ -450,19 +338,14 @@ class AccountModule {
 				const raw = accounts[username];
 				if (!raw) continue;
 
-				const importedType = raw["account_type"];
-				const account_type: AccountType = importedType === "microsoft" || importedType === "session" ? importedType : "offline";
 				const asString = (value: unknown): string | null => (typeof value === "string" ? value : null);
 
 				this.createAccountCard(username, {
 					creation_date: date("exact"),
-					account_type,
 					initial_group: asString(raw["initial_group"]),
 					password: asString(raw["password"]),
 					email: asString(raw["email"]),
 					proxy: asString(raw["proxy"]),
-					access_token: asString(raw["access_token"]),
-					uuid: asString(raw["uuid"]),
 					selected: false,
 				});
 			}
@@ -489,13 +372,10 @@ class AccountModule {
 
 			for (const [username, account] of this.accounts) {
 				accounts[username] = {
-					account_type: account.account_type,
 					initial_group: account.initial_group,
 					password: account.password,
 					email: account.email,
 					proxy: account.proxy,
-					access_token: account.access_token,
-					uuid: account.uuid,
 				};
 			}
 
@@ -538,13 +418,10 @@ class AccountModule {
 
 			const status = this.createAccountCard(username, {
 				creation_date: date("exact"),
-				account_type: "offline",
 				initial_group: null,
 				password: null,
 				email: null,
 				proxy: null,
-				access_token: null,
-				uuid: null,
 				selected: false,
 			});
 
@@ -638,8 +515,7 @@ class AccountModule {
 		accountSelectorMark.className = "checkmark";
 
 		const usernameText = document.createElement("span");
-		usernameText.innerText = this.displayName(username);
-		usernameText.title = username;
+		usernameText.innerText = username;
 
 		chbxContainer.appendChild(accountSelectorFlag);
 		chbxContainer.appendChild(accountSelectorMark);
@@ -753,16 +629,6 @@ class AccountModule {
 				name: "Прокси SOCKS5",
 				tag: "proxy",
 				placeholder: "socks5://35.91.83.91:1111",
-			},
-			{
-				name: "Access Token (Session)",
-				tag: "access_token",
-				placeholder: "token сессии Minecraft",
-			},
-			{
-				name: "UUID (Session)",
-				tag: "uuid",
-				placeholder: "069a79f4-44e9-4726-a5be-fca90e38aaf5",
 			},
 		];
 

@@ -28,9 +28,8 @@ use crate::sleep;
 use crate::take_profile;
 use crate::webhook::send_webhook;
 
-use super::accounts::build_account;
 use super::generators::{generate_email, generate_unique_username, generate_username_or_password};
-use super::options::{AccountOptions, AccountType, LaunchOptions};
+use super::options::{AccountOptions, LaunchOptions};
 use super::process::{current_options, process_is_active, set_options, set_process_activity};
 use azalea_viaversion::ViaVersionPlugin;
 
@@ -229,15 +228,10 @@ pub async fn launch_bots_on_server(options: LaunchOptions) -> u8 {
 
         if options.basic.use_accounts {
           for (username, opts) in &options.accounts {
-            let Some(account) = build_account(username, opts).await else {
-              continue;
-            };
-
-            let real_username = account.username().to_owned();
-            let index = INDEX_SYSTEM.register(&real_username).await;
+            let index = INDEX_SYSTEM.register(username).await;
 
             accounts.push(CustomAccount {
-              object: account,
+              object: Account::offline(username),
               options: opts.clone(),
               index,
             });
@@ -267,13 +261,10 @@ pub async fn launch_bots_on_server(options: LaunchOptions) -> u8 {
             accounts.push(CustomAccount {
               object: Account::offline(&username),
               options: AccountOptions {
-                account_type: AccountType::Offline,
                 initial_group: None,
                 password: None,
                 email: None,
                 proxy: None,
-                access_token: None,
-                uuid: None,
               },
               index,
             });

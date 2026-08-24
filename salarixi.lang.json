@@ -937,17 +937,6 @@
     },
     {
       "versions": "1.2.0-rc1",
-      "tag": "sign-in",
-      "lang": {
-        "ru": "Войти",
-        "en": "Sign In",
-        "tr": "Giriş yap",
-        "ja": "ログイン",
-        "zh": "登录"
-      }
-    },
-    {
-      "versions": "1.2.0-rc1",
       "tag": "no-accounts",
       "lang": {
         "ru": "Нет аккаунтов",

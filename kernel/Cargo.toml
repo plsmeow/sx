@@ -15,7 +15,6 @@ serde_json.workspace = true
 aes-gcm.workspace = true
 azalea.workspace = true
 azalea-viaversion.workspace = true
-uuid.workspace = true
 socks5-impl.workspace = true
 reqwest.workspace = true
 chrono.workspace = true

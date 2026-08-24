@@ -178,34 +178,21 @@ pub enum AuthMode {
   Trigger = 0x01,
 }
 
-#[derive(Clone, PartialEq, Index)]
-pub enum AccountType {
-  Offline = 0x00,
-  Microsoft = 0x01,
-  Session = 0x02,
-}
-
 #[derive(Clone)]
 pub struct AccountOptions {
-  pub account_type: AccountType,
   pub initial_group: Option<String>,
   pub password: Option<String>,
   pub email: Option<String>,
   pub proxy: Option<String>,
-  pub access_token: Option<String>,
-  pub uuid: Option<String>,
 }
 
 impl AccountOptions {
   pub fn read(buf: &mut bytes::Bytes) -> Option<Self> {
     Some(Self {
-      account_type: AccountType::from_index(u8::read(buf)?)?,
       initial_group: Option::read(buf)?,
       password: Option::read(buf)?,
       email: Option::read(buf)?,
       proxy: Option::read(buf)?,
-      access_token: Option::read(buf)?,
-      uuid: Option::read(buf)?,
     })
   }
 }

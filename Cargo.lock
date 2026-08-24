@@ -5274,7 +5274,6 @@ dependencies = [
  "serde_json",
  "socks5-impl",
  "tokio",
- "uuid",
 ]
 
 [[package]]

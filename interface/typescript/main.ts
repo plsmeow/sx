@@ -196,13 +196,10 @@ async function startBots(): Promise<void> {
 		buf.writeU8(options.accounts.size);
 		for (const [username, account] of options.accounts) {
 			buf.writeString(username);
-			buf.writeU8(account["account_type"]);
 			buf.writeOption(account["initial_group"], (some) => buf.writeString(some));
 			buf.writeOption(account["password"], (some) => buf.writeString(some));
 			buf.writeOption(account["email"], (some) => buf.writeString(some));
 			buf.writeOption(account["proxy"], (some) => buf.writeString(some));
-			buf.writeOption(account["access_token"], (some) => buf.writeString(some));
-			buf.writeOption(account["uuid"], (some) => buf.writeString(some));
 		}
 
 		buf.writeBoolean(options.plugins["instant_armor_equip"]);

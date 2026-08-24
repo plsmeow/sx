@@ -762,55 +762,6 @@ body {
   min-width: 200px;
 }
 
-.accounts-top-panel .account-type-select {
-  position: relative;
-  display: flex;
-  align-items: center;
-  height: 100%;
-}
-
-.accounts-top-panel .account-type-select select {
-  appearance: none;
-  -webkit-appearance: none;
-  height: 100%;
-  padding: 0 32px 0 12px;
-  background: transparent;
-  border: none;
-  border-radius: 0;
-  outline: none;
-  font-family: var(--global-font-family);
-  font-size: 15px;
-  color: var(--default-color);
-  cursor: pointer;
-}
-
-.accounts-top-panel .account-type-select select:hover {
-  background: var(--hover-bg);
-}
-
-.accounts-top-panel .account-type-select select option {
-  background: var(--select-bg);
-  color: var(--default-color);
-}
-
-.accounts-top-panel .account-type-select::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  right: 12px;
-  transform: translateY(-50%);
-  pointer-events: none;
-  width: 12px;
-  height: 12px;
-  background: var(--select-mark-color);
-  clip-path: polygon(50% 80%, 0 20%, 100% 20%);
-}
-
-.accounts-top-panel .input-with-button button.min {
-  gap: 6px;
-  border-left: 1px solid var(--input-border);
-}
-
 .account-table-wrapper {
   display: flex;
   flex-direction: column;
