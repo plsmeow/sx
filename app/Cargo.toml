@@ -1,0 +1,40 @@
+[package]
+name = "salarixi"
+description = "lightweight tool for minecraft botting"
+version.workspace = true
+repository.workspace = true
+authors.workspace = true
+edition.workspace = true
+
+[lib]
+name = "salarixi_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2.5.6", features = [] }
+
+[dependencies]
+salarixi-kernel.workspace = true
+salarixi-extensions.workspace = true
+azalea.workspace = true
+tauri.workspace = true
+tokio.workspace = true
+aes-gcm.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+socks5-impl.workspace = true
+reqwest.workspace = true
+chrono.workspace = true
+rand.workspace = true
+regex.workspace = true
+memory-stats.workspace = true
+open.workspace = true
+once_cell.workspace = true
+tauri-plugin-dialog.workspace = true
+tauri-plugin-fs.workspace = true
+dns-lookup.workspace = true
+discord-presence.workspace = true
+hashbrown.workspace = true
+dirs.workspace = true
+systemstat.workspace = true
+bytes.workspace = true

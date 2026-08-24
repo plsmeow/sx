@@ -1,0 +1,2501 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="interface/css/styles.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>salarixi client</title>
+
+  <script type="module" src="interface/typescript/main.ts" defer></script>
+</head>
+  
+<body>
+  <div data-tauri-drag-region class="title-bar">
+    <div data-tauri-drag-region class="left">
+      <label data-tauri-drag-region>salarixi client</label>
+    </div>
+
+    <div data-tauri-drag-region class="right">
+      <div class="info">
+        <label data-tauri-drag-region id="play-time">00:00</label>
+        <div class="splitter"></div>
+        <div class="chart-wrapper ram">
+          <label><span>RAM</span> (<span id="current-ram-usage">?</span>):</label>
+          <div data-tauri-drag-region class="chart" id="ram-usage-chart"></div>
+        </div>
+        <div class="splitter"></div>
+        <div class="chart-wrapper cpu">
+          <label><span>CPU</span> (<span id="current-cpu-usage">?</span>):</label>
+          <div data-tauri-drag-region class="chart" id="cpu-usage-chart"></div>
+        </div>
+        <div class="splitter"></div>
+        <label data-tauri-drag-region id="process-status">inactive</label>
+      </div>
+
+      <div class="controls">
+        <button id="window-minimize">─</button>
+        <button id="window-close">✕</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="particle-wrapper" id="particle-wrapper">
+    <canvas class="particle-backgroud" id="particle-background"></canvas>
+  </div>
+
+  <div class="notice-wrapper" id="update-notice" style="display: none;">
+    <div class="notice update">
+      <button class="close-notice-btn" id="close-update-notice-btn">✕</button>
+
+      <div class="header" tt="update-available">Доступно обновление</div>
+
+      <div class="info-wrapper">
+        <div class="head">
+          <img src="interface/assets/logo.png" class="logo" draggable="false">
+
+          <div class="text">
+            <div><span tt="version:">Версия:</span> <span id="new-client-version"></span></div>
+            <div><span tt="published:">Опубликовано:</span> <span id="new-client-published"></span></div>
+            <div><span tt="tag:">Бирка:</span> <span id="new-client-tag"></span></div>
+          </div>
+        </div>
+
+        <div id="open-client-release" class="open-url-btn" tt="download-new-version">Скачать новую версию</div>
+      </div>
+
+      <div class="warning" tt="update-warning">
+        ПРЕДУПРЕЖДЕНИЕ: Мы не заставляем вас срочно обновить данный клиент, мы лишь предлагаем более оптимизированную и универсальную версию!
+        Выбор комфортной версии никак не ограничен.
+      </div>
+    </div>
+  </div>
+
+  <div class="notice-wrapper" id="support-notice" style="display: none;">
+    <div class="notice support">
+      <button class="close-notice-btn" id="close-support-notice-btn">✕</button>
+
+      <div class="header" tt="support-project">Поддержи проект</div>
+
+      <div class="text" tt="support-text">
+        salarixi - это некоммерческий проект с открытым исходным кодом.
+        Поддержка в виде доната может улучшить мою мотивацию, соответственно и качество проекта!
+      </div>
+
+      <div id="open-donate-page" class="open-url-btn" tt="support">Поддержать</div>
+    </div>
+  </div>
+
+  <div class="client-settings-wrapper">
+    <button class="min" id="close-client-settings">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-x">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+        <path d="M18 6l-12 12" />
+        <path d="M6 6l12 12" />
+      </svg>
+    </button>
+
+    <div class="settings">
+      <div class="section">
+        <div class="header" tt="interface-section-global">Глобальные</div>
+
+        <div class="options">
+          <div class="column-wrap" style="width: max-content; gap: 6px;">
+            <div class="custom-select between">
+              <label tt="interface-particles:">Партиклы:</label>
+              <select id="interface_select_particles" style="width: 150px;" keep trigger>
+                <option value="enable" tt="enable">Включить</option>
+                <option value="disable" tt="disable" selected>Выключить</option>
+              </select>
+            </div>
+
+            <div class="custom-select between">
+              <label tt="interface-font:">Шрифт:</label>
+              <select id="interface_select_global-font-family" style="width: 170px;" keep trigger>
+                <option value="inter">Inter</option>
+                <option value="jetbrains-mono">JetBrains Mono</option>
+                <option value="segoe-ui">Segoe UI</option>
+              </select>
+            </div>
+
+            <div class="custom-select between">
+              <label tt="interface-messages:">Сообщения:</label>
+              <select id="interface_select_show-messages" style="width: 150px;" keep trigger>
+                <option value="show" tt="interface-show">Показать</option>
+                <option value="hide" tt="interface-hide">Скрыть</option>
+              </select>
+            </div>
+
+            <div class="custom-select between">
+              <label tt="interface-language:">Язык:</label>
+              <select id="interface_select_language" style="width: 150px;" keep></select>
+            </div>
+
+            <div class="custom-select between">
+              <label>Discord RPC:</label>
+              <select id="interface_select_discord-rpc" style="width: 150px;" keep trigger>
+                <option value="enable" tt="enable">Включить</option>
+                <option value="disable" tt="disable" selected>Выключить</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="header" tt="interface-section-panel">Панель</div>
+
+        <div class="options">
+          <div class="column-wrap" style="width: max-content; gap: 6px;">
+            <div class="custom-select between">
+              <label tt="interface-icons:">Иконки:</label>
+              <select id="interface_select_show-panel-icons" style="width: 150px;" keep trigger>
+                <option value="show" tt="interface-show">Показать</option>
+                <option value="hide" tt="interface-hide">Скрыть</option>
+              </select>
+            </div>
+
+            <div class="custom-select between">
+              <label tt="interface-font:">Шрифт:</label>
+              <select id="interface_select_panel-font-family" style="width: 170px;" keep trigger>
+                <option value="inter">Inter</option>
+                <option value="jetbrains-mono">JetBrains Mono</option>
+                <option value="segoe-ui">Segoe UI</option>
+                <option value="courier-new">Courier New</option>
+                <option value="trebuchet-ms">Trebuchet MS</option>
+              </select>
+            </div>
+
+            <div class="custom-select between">
+              <label tt="interface-font-size:">Размер шрифта:</label>
+              <select id="interface_select_panel-font-size" style="width: 100px;" keep trigger>
+                <option value="14px">14px</option>
+                <option value="15px" selected>15px</option>
+                <option value="16px">16px</option>
+                <option value="17px">17px</option>
+                <option value="18px">18px</option>
+              </select>
+            </div>
+
+            <div class="custom-select between">
+              <label tt="interface-internal-gap:">Внутренний отступ:</label>
+              <select id="interface_select_panel-internal-gap" style="width: 100px;" keep trigger>
+                <option value="2px">2px</option>
+                <option value="4px">4px</option>
+                <option value="6px" selected>6px</option>
+                <option value="8px">8px</option>
+                <option value="10px">10px</option>
+              </select>
+            </div>
+
+            <div class="custom-select between">
+              <label tt="interface-separators:">Разделители:</label>
+              <select id="interface_select_panel-separators" style="width: 140px;" keep trigger>
+                <option value="show" tt="interface-show">Показать</option>
+                <option value="hide" tt="interface-hide">Скрыть</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stylekit-panel">
+      <div class="stylekit">
+        <label tt="stylekit:">Набор стилей:</label>
+        <label id="current-stylekit">DEFAULT</label>
+      </div>
+
+      <button class="min" id="select-stylekit">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-folder-open">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <path d="M5 19l2.757 -7.351a1 1 0 0 1 .936 -.649h12.307a1 1 0 0 1 .986 1.164l-.996 5.211a2 2 0 0 1 -1.964 1.625h-14.026a2 2 0 0 1 -2 -2v-11a2 2 0 0 1 2 -2h4l3 3h7a2 2 0 0 1 2 2v2" />
+        </svg>
+      </button>
+
+      <button class="min" id="reset-stylekit">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-reload">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <path d="M19.933 13.041a8 8 0 1 1 -9.925 -8.788c3.899 -1 7.935 1.007 9.425 4.747" />
+          <path d="M20 4v5h-5" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="dashboard">
+    <button class="pretty-btn" id="main" path="main-container">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-home">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+        <path d="M5 12l-2 0l9 -9l9 9l-2 0" />
+        <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+        <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+      </svg>
+      <span class="text" tt="main">Главная</span>
+    </button>
+
+    <button class="pretty-btn" id="settings" path="settings-container">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-settings">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+        <path d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065" />
+        <path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
+      </svg>
+      <span class="text" tt="settings">Настройки</span>
+    </button>
+
+    <button class="pretty-btn" id="accounts" path="accounts-container" style="display: none;">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-users">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+        <path d="M5 7a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
+        <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+        <path d="M21 21v-2a4 4 0 0 0 -3 -3.85" />
+      </svg>
+      <span class="text" tt="accounts">Аккаунты</span>
+    </button>
+
+    <button class="pretty-btn" id="plugins" path="plugins-container">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-plug">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+        <path d="M9.785 6l8.215 8.215l-2.054 2.054a5.81 5.81 0 1 1 -8.215 -8.215l2.054 -2.054" />
+        <path d="M4 20l3.5 -3.5" />
+        <path d="M15 4l-3.5 3.5" />
+        <path d="M20 9l-3.5 3.5" />
+      </svg>
+      <span class="text" tt="plugins">Плагины</span>
+    </button>
+
+    <button class="pretty-btn" id="proxy" path="proxy-container">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-world-cog">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+        <path d="M21 12a9 9 0 1 0 -8.979 9" />
+        <path d="M3.6 9h16.8" />
+        <path d="M3.6 15h8.9" />
+        <path d="M11.5 3a17 17 0 0 0 0 18" />
+        <path d="M12.5 3a16.992 16.992 0 0 1 2.522 10.376" />
+        <path d="M17.001 19a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+        <path d="M19.001 15.5v1.5" />
+        <path d="M19.001 21v1.5" />
+        <path d="M22.032 17.25l-1.299 .75" />
+        <path d="M17.27 20l-1.3 .75" />
+        <path d="M15.97 17.25l1.3 .75" />
+        <path d="M20.733 20l1.3 .75" />
+      </svg>
+      <span class="text" tt="proxy">Прокси</span>
+    </button>
+
+    <button class="pretty-btn" id="webhook" path="webhook-container">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-webhook">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+        <path d="M4.876 13.61a4 4 0 1 0 6.124 3.39h6" />
+        <path d="M15.066 20.502a4 4 0 1 0 1.934 -7.502c-.706 0 -1.424 .179 -2 .5l-3 -5.5" />
+        <path d="M16 8a4 4 0 1 0 -8 0c0 1.506 .77 2.818 2 3.5l-3 5.5" />
+      </svg>
+      <span class="text" tt="webhook">Вебхук</span>
+    </button>
+
+    <div class="splitter"></div>
+
+    <button class="pretty-btn" id="control" path="control-container">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-device-gamepad-2">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+        <path d="M12 5h3.5a5 5 0 0 1 0 10h-5.5l-4.015 4.227a2.3 2.3 0 0 1 -3.923 -2.035l1.634 -8.173a5 5 0 0 1 4.904 -4.019h3.4" />
+        <path d="M14 15l4.07 4.284a2.3 2.3 0 0 0 3.925 -2.023l-1.6 -8.232" />
+        <path d="M8 9v2" />
+        <path d="M7 10h2" />
+        <path d="M14 10h2" />
+      </svg>
+      <span class="text" tt="control">Управление</span>
+    </button>
+
+    <button class="pretty-btn" id="script" path="script-container">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-code-asterisk">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+        <path d="M6 19a2 2 0 0 1 -2 -2v-4l-1 -1l1 -1v-4a2 2 0 0 1 2 -2" />
+        <path d="M12 11.875l3 -1.687" />
+        <path d="M12 11.875v3.375" />
+        <path d="M12 11.875l-3 -1.687" />
+        <path d="M12 11.875l3 1.688" />
+        <path d="M12 8.5v3.375" />
+        <path d="M12 11.875l-3 1.688" />
+        <path d="M18 19a2 2 0 0 0 2 -2v-4l1 -1l-1 -1v-4a2 2 0 0 0 -2 -2" />
+      </svg>
+      <span class="text" tt="script">Сценарий</span>
+    </button>
+
+    <button class="pretty-btn" id="monitoring" path="monitoring-container">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-eye">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+        <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+        <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
+      </svg>
+      <span class="text" tt="monitoring">Мониторинг</span>
+    </button>
+
+    <button class="pretty-btn" id="analysis" path="analysis-container">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chart-pie-3">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+        <path d="M12 12l-6.5 5.5" />
+        <path d="M12 3v9h9" />
+        <path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
+      </svg>
+      <span class="text" tt="analysis">Анализ</span>
+    </button>
+
+    <div class="splitter"></div>
+
+    <button class="pretty-btn" id="anti-captcha" path="anti-captcha-container">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-bug">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+        <path d="M9 9v-1a3 3 0 0 1 6 0v1" />
+        <path d="M8 9h8a6 6 0 0 1 1 3v3a5 5 0 0 1 -10 0v-3a6 6 0 0 1 1 -3" />
+        <path d="M3 13l4 0" />
+        <path d="M17 13l4 0" />
+        <path d="M12 20l0 -6" />
+        <path d="M4 19l3.35 -2" />
+        <path d="M20 19l-3.35 -2" />
+        <path d="M4 7l3.75 2.4" />
+        <path d="M20 7l-3.75 2.4" />
+      </svg>
+      <span class="text" tt="anti-captcha">Анти-Капча</span>
+    </button>
+
+    <button class="pretty-btn" id="scanner" path="scanner-container">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-world-search">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+        <path d="M21 12a9 9 0 1 0 -9 9" />
+        <path d="M3.6 9h16.8" />
+        <path d="M3.6 15h7.9" />
+        <path d="M11.5 3a17 17 0 0 0 0 18" />
+        <path d="M12.5 3a16.984 16.984 0 0 1 2.574 8.62" />
+        <path d="M15 18a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+        <path d="M20.2 20.2l1.8 1.8" />
+      </svg>
+      <span class="text" tt="scanner">Сканер</span>
+    </button>
+
+    <button class="pretty-btn" id="ping" path="ping-container">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-activity">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+        <path d="M3 12h4l3 8l4 -16l3 8h4" />
+      </svg>
+      <span class="text" tt="ping">Пинг</span>
+    </button>
+
+    <button class="pretty-btn" id="radar" path="radar-container">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-radar-2">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+        <path d="M11 12a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+        <path d="M15.51 15.56a5 5 0 1 0 -3.51 1.44" />
+        <path d="M18.832 17.86a9 9 0 1 0 -6.832 3.14" />
+        <path d="M12 12v9" />
+      </svg>
+      <span class="text" tt="radar">Радар</span>
+    </button>
+
+    <div class="splitter"></div>
+
+    <button class="pretty-btn" id="journal" path="journal-container">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-news">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+        <path d="M16 6h3a1 1 0 0 1 1 1v11a2 2 0 0 1 -4 0v-13a1 1 0 0 0 -1 -1h-10a1 1 0 0 0 -1 1v12a3 3 0 0 0 3 3h11" />
+        <path d="M8 8l4 0" />
+        <path d="M8 12l4 0" />
+        <path d="M8 16l4 0" />
+      </svg>
+      <span class="text" tt="journal">Журнал</span>
+    </button>
+
+    <button class="pretty-btn" id="config" path="config-container">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-user-cog">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+        <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+        <path d="M6 21v-2a4 4 0 0 1 4 -4h2.5" />
+        <path d="M17.001 19a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+        <path d="M19.001 15.5v1.5" />
+        <path d="M19.001 21v1.5" />
+        <path d="M22.032 17.25l-1.299 .75" />
+        <path d="M17.27 20l-1.3 .75" />
+        <path d="M15.97 17.25l1.3 .75" />
+        <path d="M20.733 20l1.3 .75" />
+      </svg>
+      <span class="text" tt="config">Конфиг</span>
+    </button>
+
+    <button class="pretty-btn" id="session" path="session-container">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-server-cog">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+        <path d="M3 7a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v2a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3v-2" />
+        <path d="M12 20h-6a3 3 0 0 1 -3 -3v-2a3 3 0 0 1 3 -3h10.5" />
+        <path d="M16 18a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+        <path d="M18 14.5v1.5" />
+        <path d="M18 20v1.5" />
+        <path d="M21.032 16.25l-1.299 .75" />
+        <path d="M16.27 19l-1.3 .75" />
+        <path d="M14.97 16.25l1.3 .75" />
+        <path d="M19.733 19l1.3 .75" />
+        <path d="M7 8v.01" />
+        <path d="M7 16v.01" />
+      </svg>
+      <span class="text" tt="session">Сессия</span>
+    </button>
+
+    <div class="splitter"></div>
+
+    <button class="pretty-btn" id="documentation" path="documentation-container">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-book">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+        <path d="M3 19a9 9 0 0 1 9 0a9 9 0 0 1 9 0" />
+        <path d="M3 6a9 9 0 0 1 9 0a9 9 0 0 1 9 0" />
+        <path d="M3 6l0 13" />
+        <path d="M12 6l0 13" />
+        <path d="M21 6l0 13" />
+      </svg>
+      <span class="text" tt="documentation">Документация</span>
+    </button>
+
+    <button class="pretty-btn" id="about" path="about-container">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-info-circle">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+        <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" />
+        <path d="M12 9h.01" />
+        <path d="M11 12h1v4h1" />
+      </svg>
+      <span class="text" tt="about">О проекте</span>
+    </button>
+  </div>
+  
+  <div class="messages-wrapper" id="messages-wrapper"></div>
+
+  <div class="main-wrapper centered" id="main-container" global="true">
+    <div class="column-wrap">
+      <div class="form-input small">
+        <label for="settings_option_address" class="text" tt="server-address">Адрес сервера</label>
+        <input type="text" id="settings_option_address" key="address" default="localhost" placeholder="127.0.0.1:25565" autocomplete="off" keep launch-option>
+      </div> 
+    
+      <div class="form-input small" id="settings-option-bots-count-container">
+        <label for="settings_option_bots-count" class="text" tt="bots-count">Кол-во ботов</label>
+        <input type="number" id="settings_option_bots-count" key="bots_count" default="3" placeholder="20" autocomplete="off" keep launch-option>
+      </div>
+
+      <div class="form-input small">
+        <label for="settings_option_join-delay" class="text" tt="join-delay">Задержка подключений</label>
+        <input type="number" id="settings_option_join-delay" key="join_delay" default="4500" placeholder="3000" autocomplete="off" keep launch-option>
+      </div>
+    </div>
+
+    <div class="column-wrap">
+      <div class="btn-group-flex" style="margin-top: 30px;">
+        <button class="fixed" id="start" tt="launch">Запустить</button>
+        <button class="fixed" id="stop" tt="stop">Остановить</button>
+      </div>
+
+      <div class="btn-group-flex">
+        <button class="fixed" id="random" tt="generate">Генерация</button>
+        <button class="fixed" id="clear" tt="clear">Очистить</button>
+      </div>
+    </div>
+
+    <button class="min" id="open-client-settings">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-adjustments">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+        <path d="M4 10a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+        <path d="M6 4v4" />
+        <path d="M6 12v8" />
+        <path d="M10 16a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+        <path d="M12 4v10" />
+        <path d="M12 18v2" />
+        <path d="M16 7a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+        <path d="M18 4v1" />
+        <path d="M18 9v11" />
+      </svg>
+    </button>
+  </div>
+
+  <div class="main-wrapper centered" id="settings-container" style="display: none;" global="true">
+    <div class="settings-layout">
+      <div class="settings-column left">
+        <div class="spliter" style="margin: 0; margin-bottom: 25px;">
+          <span class="name" tt="basic-settings">Основные настройки</span>
+        </div>
+
+        <div class="column-wrap" style="gap: 10px; margin-bottom: 10px;">
+          <div class="custom-select between">
+            <label tt="nickname-type:">Никнейм:</label>
+            <select id="settings_select_nickname-type" key="nickname_type" keep trigger launch-option>
+              <option value="legit" selected tt="nickname-legit">Легитный</option>
+              <option value="random" tt="nickname-random">Случайный</option>
+              <option value="custom" tt="nickname-custom">Кастомный</option>
+            </select>
+          </div>
+
+          <div class="custom-select between">
+            <label tt="password-type:">Пароль:</label>
+            <select id="settings_select_password-type" key="password_type" keep trigger launch-option>
+              <option value="without" tt="without-password">Без пароля</option>
+              <option value="legit" tt="password-legit" selected>Легитный</option>
+              <option value="random" selected tt="password-random">Случайный</option>
+              <option value="custom" tt="password-custom">Кастомный</option>
+            </select>
+          </div>
+
+          <div class="custom-select between">
+            <label tt="email-type:">Эл. почта:</label>
+            <select id="settings_select_email-type" key="email_type" keep trigger launch-option>
+              <option value="without" tt="without-email" selected>Без почты</option>
+              <option value="random" selected tt="email-random">Случайная</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-input" id="custom-nickname-template-container" style="display: none;">
+          <label for="settings_option_nickname-template" class="text" tt="nickname-template">Шаблон никнейма</label>
+          <input type="text" id="settings_option_nickname-template" placeholder="player_#m#m" value="player_#m#m" keep key="nickname_template" default="player_#m#m" launch-option>
+        </div>
+
+        <div class="form-input" id="custom-password-template-container" style="display: none;">
+          <label for="settings_option_password-template" class="text" tt="password-template">Шаблон пароля</label>
+          <input type="text" id="settings_option_password-template" placeholder="#m#l#m#n" value="#m#l#m#n" keep key="password_template" default="#m#l#m#n" launch-option>
+        </div>
+    
+        <div class="hidden" id="auto-register-input-container">
+          <div class="spliter">
+            <span class="name" tt="register-settings">Настройки регистрации</span>
+          </div>
+
+          <div class="custom-select" style="margin-top: 10px; margin-bottom: 10px;">
+            <label tt="mode:">Режим:</label>
+            <select id="settings_select_register-mode" key="register_mode" keep trigger launch-option>
+              <option value="default" selected tt="mode-default">Обычный</option>
+              <option value="trigger" tt="mode-trigger">Триггер</option>
+            </select>
+          </div>
+
+          <div class="form-input">
+            <label for="settings_option_register-command" class="text" tt="register-command">Команда регистрации</label>
+            <input type="text" id="settings_option_register-command" placeholder="/register" value="/register" keep key="register_command" default="/register" launch-option>
+          </div>
+
+          <div class="form-input">
+            <label for="settings_option_register-template" class="text" tt="register-template">Шаблон регистрации</label>
+            <input type="text" id="settings_option_register-template" placeholder="$cmd $pass" value="$cmd $pass" keep key="register_template" default="$cmd $pass" launch-option>
+          </div>
+
+          <div class="form-input" id="register-min-delay-container">
+            <label for="settings_option_register-min-delay" class="text" tt="min-delay">Задержка (минимум)</label>
+            <input type="number" id="settings_option_register-min-delay" placeholder="2000" value="2000" keep key="register_min_delay" default="2000" launch-option>
+          </div>
+
+          <div class="form-input" id="register-max-delay-container">
+            <label for="settings_option_register-max-delay" class="text" tt="max-delay">Задержка (максимум)</label>
+            <input type="number" id="settings_option_register-max-delay" placeholder="5000" value="5000" keep key="register_max_delay" default="5000" launch-option>
+          </div>
+
+          <div class="form-input" id="register-trigger-container" style="display: none;">
+            <label for="settings_option_register-trigger" class="text" tt="trigger-message">Триггер (сообщение)</label>
+            <input type="text" id="settings_option_register-trigger" placeholder="зарегистрируйтесь" value="зарегистрируйтесь" keep key="register_trigger" default="зарегистрируйтесь" launch-option>
+          </div>
+        </div>
+
+        <div class="hidden" id="auto-login-input-container">
+          <div class="spliter">
+            <span class="name" tt="login-settings">Настройки логина</span>
+          </div>
+
+          <div class="custom-select" style="margin-top: 10px; margin-bottom: 10px;">
+            <label tt="mode:">Режим:</label>
+            <select id="settings_select_login-mode" key="login_mode" keep trigger launch-option>
+              <option value="default" selected tt="mode-default">Обычный</option>
+              <option value="trigger" tt="mode-trigger">Триггер</option>
+            </select>
+          </div>
+
+          <div class="form-input">
+            <label for="settings_option_login-command" class="text" tt="login-command">Команда логина</label>
+            <input type="text" id="settings_option_login-command" placeholder="/login" value="/login" keep key="login_command" default="/login" launch-option>
+          </div>
+
+          <div class="form-input">
+            <label for="settings_option_login-template" class="text" tt="login-template">Шаблон логина</label>
+            <input type="text" id="settings_option_login-template" placeholder="$cmd $pass" value="$cmd $pass" keep key="login_template" default="$cmd $pass" launch-option>
+          </div>
+
+          <div class="form-input" id="login-min-delay-container">
+            <label for="settings_option_login-min-delay" class="text" tt="min-delay">Задержка (минимум)</label>
+            <input type="number" id="settings_option_login-min-delay" placeholder="2000" value="2000" keep key="login_min_delay" default="2000" launch-option>
+          </div>
+
+          <div class="form-input" id="login-max-delay-container">
+            <label for="settings_option_login-max-delay" class="text" tt="max-delay">Задержка (максимум)</label>
+            <input type="number" id="settings_option_login-max-delay" placeholder="3000" value="3000" keep key="login_max_delay" default="3000" launch-option>
+          </div>
+
+          <div class="form-input" id="login-trigger-container" style="display: none;">
+            <label for="settings_option_login-trigger" class="text" tt="trigger-message">Триггер (сообщение)</label>
+            <input type="text" id="settings_option_login-trigger" placeholder="авторизируйтесь" value="авторизируйтесь" keep key="login_trigger" default="авторизируйтесь" launch-option>
+          </div>
+        </div>
+
+        <div class="hidden" id="auto-rejoin-input-container">
+          <div class="spliter">
+            <span class="name" tt="reconnection-settings">Настройки переподключения</span>
+          </div>
+
+          <div class="form-input">
+            <label for="settings_option_rejoin-delay" class="text" tt="rejoin-delay">Задержка переподключения</label>
+            <input type="number" id="settings_option_rejoin-delay" placeholder="4000" value="4000" key="rejoin_delay" default="4000" launch-option keep>
+          </div>
+        </div>
+
+        <div class="spliter">
+          <span class="name" tt="monitoring-settings">Настройки мониторинга</span>
+        </div>
+
+        <div class="form-input">
+          <label for="monitoring_option_update-frequency" class="text" tt="update-frequency">Частота обновлений</label>
+          <input type="number" id="monitoring_option_update-frequency" placeholder="1000" value="1000" key="monitoring_update_rate" default="1000" launch-option keep>
+        </div>
+
+        <div class="form-input">
+          <label for="monitoring_option_chat-history-length" class="text" tt="chat-history-length">Длина истории чата</label>
+          <input type="number" id="monitoring_option_chat-history-length" placeholder="50" value="50" keep>
+        </div>
+
+        <div class="spliter">
+          <span class="name" tt="additional-settings">Дополнительные настройки</span>
+        </div>
+
+        <div class="form-input">
+          <label for="settings_option_view-distance" class="text" tt="view-distance">Дистанция прогрузки</label>
+          <input type="number" id="settings_option_view-distance" placeholder="8" value="8" keep key="view_distance" default="8" launch-option>
+        </div>
+
+        <div class="form-input">
+          <label for="settings_option_humanoid-arm" class="text" tt="dominant-hand">Ведущая рука</label>
+          <input type="text" id="settings_option_humanoid-arm" placeholder="left / right" value="right" keep key="humanoid_arm" launch-option>
+        </div>
+      </div>
+
+      <div class="settings-column right">
+        <div class="checkbox-group">
+          <label class="checkbox-container">
+            <input type="checkbox" id="settings_chbx_use-auto-register" keep key="use_auto_register" trigger launch-option checked>
+            <span class="checkmark"></span>
+            <span tt="use-auto-register">Использовать Auto-Register</span>
+          </label>
+
+          <label class="checkbox-container">
+            <input type="checkbox" id="settings_chbx_use-auto-login" keep key="use_auto_login" trigger launch-option>
+            <span class="checkmark"></span>
+            <span tt="use-auto-login">Использовать Auto-Login</span>
+          </label>
+
+          <label class="checkbox-container">
+            <input type="checkbox" id="settings_chbx_use-double-auth" keep key="use_double_auth" launch-option>
+            <span class="checkmark"></span>
+            <span tt="use-double-auth">Использовать Double-Auth</span>
+          </label>
+
+          <div class="horizontal-spliter"></div>
+
+          <label class="checkbox-container">
+            <input type="checkbox" id="settings_chbx_use-auto-rejoin" keep key="use_auto_rejoin" trigger launch-option checked>
+            <span class="checkmark"></span>
+            <span tt="use-auto-rejoin">Использовать Auto-Rejoin</span>
+          </label>
+
+          <label class="checkbox-container">
+            <input type="checkbox" id="settings_chbx_use-auto-respawn" keep key="use_auto_respawn" launch-option checked>
+            <span class="checkmark"></span>
+            <span tt="use-auto-respawn">Использовать Auto-Respawn</span>
+          </label>
+
+          <label class="checkbox-container">
+            <input type="checkbox" id="settings_chbx_use-accept-rp" keep key="use_accept_rp" launch-option checked>
+            <span class="checkmark"></span>
+            <span tt="use-accept-rp">Использовать Accept-RP</span>
+          </label>
+
+          <label class="checkbox-container">
+            <input type="checkbox" id="settings_chbx_use-pathfinder" keep key="use_pathfinder" launch-option checked>
+            <span class="checkmark"></span>
+            <span tt="use-pathfinder">Использовать Pathfinder</span>
+          </label>
+
+          <label class="checkbox-container">
+            <input type="checkbox" id="settings_chbx_use-auto-script" keep key="use_auto_script" launch-option>
+            <span class="checkmark"></span>
+            <span tt="use-auto-script">Использовать Auto-Script</span>
+          </label>
+
+          <div class="horizontal-spliter"></div>
+
+          <label class="checkbox-container">
+            <input type="checkbox" id="settings_chbx_use-proxy" keep key="use_proxy" trigger launch-option>
+            <span class="checkmark"></span>
+            <span tt="use-proxy">Использовать прокси</span>
+          </label>
+
+          <label class="checkbox-container">
+            <input type="checkbox" id="settings_chbx_use-accounts" keep key="use_accounts" trigger launch-option>
+            <span class="checkmark"></span>
+            <span tt="use-accounts">Использовать аккаунты</span>
+          </label>
+
+          <label class="checkbox-container">
+            <input type="checkbox" id="settings_chbx_use-anti-captcha" keep key="use_anti_captcha" launch-option>
+            <span class="checkmark"></span>
+            <span tt="use-anti-captcha">Использовать анти-капчу</span>
+          </label>
+
+          <label class="checkbox-container">
+            <input type="checkbox" id="settings_chbx_use-webhook" keep key="use_webhook" launch-option>
+            <span class="checkmark"></span>
+            <span tt="use-webhook">Использовать вебхук</span>
+          </label>
+
+          <div class="horizontal-spliter"></div>
+
+          <label class="checkbox-container">
+            <input type="checkbox" id="settings_chbx_monitoring-optimization" keep key="monitoring_optimization" trigger launch-option>
+            <span class="checkmark"></span>
+            <span tt="monitoring-optimization">Оптимизация мониторинга</span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-wrapper centered" id="accounts-container" style="display: none;" global="true">
+    <div class="accounts-top-panel">
+      <div class="left">
+        <button class="min" id="change-account-panel">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-switch-2">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M3 17h5l1.67 -2.386m3.66 -5.227l1.67 -2.387h6" />
+            <path d="M18 4l3 3l-3 3" />
+            <path d="M3 7h5l7 10h6" />
+            <path d="M18 20l3 -3l-3 -3" />
+          </svg>
+        </button>
+
+        <div class="input-with-button" id="default-account-panel">
+          <input type="text" id="account-username" placeholder="username" maxlength="16">
+
+          <button class="min" id="add-account">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-user-plus">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+              <path d="M16 19h6" />
+              <path d="M19 16v6" />
+              <path d="M6 21v-2a4 4 0 0 1 4 -4h4" />
+            </svg>
+          </button>
+        </div>
+
+        <div class="input-with-button" id="generation-account-panel" style="display: none;">
+          <input type="text" id="account-username-template" placeholder="username template" style="max-width: 170px; min-width: 170px;" keep private>
+          <input type="number" id="generated-account-count" placeholder="count" style="max-width: 80px; min-width: 80px;" keep private>
+
+          <button class="min" id="generate-accounts">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-wand">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M6 21l15 -15l-3 -3l-15 15l3 3" />
+              <path d="M15 6l3 3" />
+              <path d="M9 3a2 2 0 0 0 2 2a2 2 0 0 0 -2 2a2 2 0 0 0 -2 -2a2 2 0 0 0 2 -2" />
+              <path d="M19 13a2 2 0 0 0 2 2a2 2 0 0 0 -2 2a2 2 0 0 0 -2 -2a2 2 0 0 0 2 -2" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="right">
+        <button class="min" id="edit-selected-accounts" disabled>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
+            <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415" />
+            <path d="M16 5l3 3" />
+          </svg>
+        </button>
+
+        <button class="min" id="remove-selected-accounts" disabled>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-trash">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M4 7l16 0" />
+            <path d="M10 11l0 6" />
+            <path d="M14 11l0 6" />
+            <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+            <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="account-table-wrapper">
+      <div class="account-table-header">
+        <div class="header-cell username-header">
+          <label class="checkbox-container">
+            <input type="checkbox" id="change-all-accounts-select">
+            <span class="checkmark"></span>
+          </label>
+          <span tt="username">Имя пользователя</span>
+          <span id="selected-account-counter" style="margin-left: 4px;"></span>
+        </div>
+        <div class="header-cell date-header" tt="creation-date">Дата создания</div>
+        <div class="header-cell actions-header" tt="actions">Действия</div>
+      </div>
+
+      <div class="account-list" id="account-list"></div>
+    </div>
+
+    <div class="accounts-bottom-panel">
+      <div class="account-counter">
+        <label tt="total-accounts:">Всего аккаунтов:</label>
+        <label id="account-counter">0</label>
+      </div>
+
+      <div style="display: flex; gap: 6px;">
+        <button id="import-accounts">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-import">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+            <path d="M5 13v-8a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2h-5.5m-9.5 -2h7m-3 -3l3 3l-3 3" />
+          </svg>
+
+          <span tt="import">Импорт</span>
+        </button>
+
+        <button id="export-accounts">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-share">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M3 12a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+            <path d="M15 6a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+            <path d="M15 18a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+            <path d="M8.7 10.7l6.6 -3.4" />
+            <path d="M8.7 13.3l6.6 3.4" />
+          </svg>
+
+          <span tt="export">Экспорт</span>
+        </button>
+      </div>
+    </div>
+
+    <div id="account-wrappers">
+      <div class="cover" id="selected-accounts-editor">
+        <div class="panel with-header" style="margin-bottom: 20px;">
+          <div class="left">
+            <div class="header">Редактирование выделенных аккаунтов</div>
+          </div>
+
+          <div class="right">
+            <button class="btn min" id="close-selected-accounts-editor">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-x">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M18 6l-12 12" />
+                <path d="M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="account-settings">
+          <div class="pretty-input-wrapper">
+            <p class="signature fix">Первоначальная группа</p>
+            <input type="text" id="selected-accounts-initial-group" placeholder="my_group">
+          </div>
+
+          <div class="pretty-input-wrapper">
+            <p class="signature fix">Пароль</p>
+            <input type="text" id="selected-accounts-password" placeholder="qwerty12345">
+          </div>
+
+          <div class="pretty-input-wrapper">
+            <p class="signature fix">Эл. почта</p>
+            <input type="text" id="selected-accounts-email" placeholder="qwerty@gmail.com">
+          </div>
+
+          <div class="pretty-input-wrapper">
+            <p class="signature fix">Прокси SOCKS5</p>
+            <input type="text" id="selected-accounts-proxy" placeholder="socks5://35.91.83.91:1111">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-wrapper" id="plugins-container" style="display: none;" global="true">
+    <div class="plugin-list" id="plugin-list"></div>
+  </div>
+
+  <div class="main-wrapper centered" id="proxy-container" style="display: none;" global="true">
+    <div class="between-wrapper">
+      <div class="left">
+        <div class="pretty-textarea" aria-labelledby="ta-label">
+          <div class="frame">
+            <label id="ta-label" class="label" tt="proxy-list">Список прокси</label>
+            <textarea id="proxy-list" placeholder="Введите список прокси..." keep key="proxy_list" private launch-option></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="right">
+        <div class="btn-group-column">
+          <button id="clear-proxy-list" style="width: 190px;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-trash">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M4 7l16 0" />
+              <path d="M10 11l0 6" />
+              <path d="M14 11l0 6" />
+              <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+              <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+            </svg>
+            <span tt="clear-list">Очистить список</span>
+          </button>
+
+          <button id="check-proxies" style="width: 190px;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-brand-speedtest">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M5.636 19.364a9 9 0 1 1 12.728 0" />
+              <path d="M16 9l-4 4" />
+            </svg>
+            <span tt="check-proxies">Проверить прокси</span>
+          </button>
+        </div>
+        
+        <div class="sep"></div>
+
+        <div class="proxy-finder">
+          <div class="column-wrap" style="gap: 6px;">
+            <div class="custom-select between">
+              <label tt="algorithm:">Алгоритм:</label>
+              <select id="proxy-finder_select_algorithm" keep trigger>
+                <option value="trusted" selected>Trusted</option>
+                <option value="untrusted">Untrusted</option>
+                <option value="mixed">Mixed</option>
+              </select>
+            </div>
+
+            <div class="custom-select between">
+              <label tt="country:">Страна:</label>
+              <select id="proxy-finder_select_country" keep>
+                <option value="any" tt="country-any">Любая</option>
+                <option value="ru" tt="country-ru">Россия</option>
+                <option value="us" tt="country-us">США</option>
+                <option value="cn" tt="country-cn">Китай</option>
+                <option value="fr" tt="country-fr">Франция</option>
+                <option value="de" tt="country-de">Германия</option>
+                <option value="jp" tt="country-jp">Япония</option>
+                <option value="br" tt="country-br">Бразилия</option>
+                <option value="ua" tt="country-ua">Украина</option>
+                <option value="nl" tt="country-nl">Нидерланды</option>
+                <option value="ca" tt="country-ca">Канада</option>
+                <option value="id" tt="country-id">Индонезия</option>
+                <option value="th" tt="country-th">Таиланд</option>
+              </select>
+            </div>
+
+            <div class="custom-select between">
+              <label tt="port:">Порт:</label>
+              <select id="proxy-finder_select_port" keep>
+                <option value="any" tt="port-any">Любой</option>
+                <option value="4145">4145</option>
+                <option value="1080">1080</option>
+                <option value="5566">5566</option>
+                <option value="9090">9090</option>
+                <option value="7302">7302</option>
+                <option value="9064">9064</option>
+                <option value="5555">5555</option>
+              </select>
+            </div>
+
+            <div class="custom-select between">
+              <label tt="count:">Кол-во:</label>
+              <select id="proxy-finder_select_count" keep>
+                <option value="20">20</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+                <option value="200">200</option>
+                <option value="500">500</option>
+                <option value="1500">1500</option>
+                <option value="3000">3000</option>
+                <option value="20000">20000</option>
+                <option value="max" tt="count-max" selected>Максимум</option>
+              </select>
+            </div>
+          </div>
+
+          <button class="green" id="find-proxies" style="width: 170px; margin-top: 20px;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-world-search">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M21 12a9 9 0 1 0 -9 9" />
+              <path d="M3.6 9h16.8" />
+              <path d="M3.6 15h7.9" />
+              <path d="M11.5 3a17 17 0 0 0 0 18" />
+              <path d="M12.5 3a16.984 16.984 0 0 1 2.574 8.62" />
+              <path d="M15 18a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+              <path d="M20.2 20.2l1.8 1.8" />
+            </svg>
+            <span tt="find-proxies">Найти прокси</span>
+          </button>
+
+          <p class="status" id="proxy-finder-status">Поиск неактивен</p>
+        </div>
+
+        <div class="sep"></div>
+
+        <div class="meta">
+          <p class="proxy-counter" style="margin-top: 10px;"><span tt="proxy-counter:">Кол-во прокси:</span> <span id="proxy-counter">0</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-wrapper centered" id="anti-captcha-container" style="display: none;" global="true">
+    <div class="anti-captcha-wrapper" id="anti-captcha-settings">
+      <div class="column-wrap" style="gap: 6px; width: max-content;">
+        <div class="custom-select between">
+          <label tt="captcha-type:">Тип капчи:</label>
+          <select id="captcha-bypass_select_captcha-type" section="captcha_bypass" key="captcha_type" keep trigger launch-option>
+            <option value="web">Web</option>
+            <option value="map">Map</option>
+          </select>
+        </div>
+
+        <div id="anti-map-captha-selects-container" style="display: none; flex-direction: column; gap: 6px;">
+          <div class="custom-select between">
+            <label tt="captcha-solve-mode:">Режим:</label>
+            <select id="captcha-bypass_select_solve-mode" section="captcha_bypass" key="solve_mode" keep trigger launch-option>
+              <option value="manual" tt="manual-mode">Ручной</option>
+              <option value="auto" tt="auto-mode">Авто</option>
+            </select>
+          </div>
+
+          <div class="custom-select between" id="anti-map-captcha-select-api-service-container" style="display: none;">
+            <label tt="api-service:">API сервис:</label>
+            <select id="captcha-bypass_select_captcha-service" section="captcha_bypass" key="api_service" keep launch-option>
+              <option value="2captcha">2captcha.com</option>
+              <option value="truecaptcha">truecaptcha.org</option>
+            </select>
+          </div>
+          
+          <div class="custom-select between">
+            <label tt="captcha-subtype:">Подтип капчи:</label>
+            <select id="captcha-bypass_select_captcha-subtype" section="captcha_bypass" key="captcha_subtype" keep trigger launch-option>
+              <option value="inventory">Inventory</option>
+              <option value="frame">Frame</option>
+            </select>
+          </div>
+
+          <div class="custom-select between" id="anti-map-captcha-select-size-container" style="display: none;">
+            <label tt="size:">Размер:</label>
+            <select id="captcha-bypass_select_captcha-size" section="captcha_bypass" key="captcha_size" keep trigger launch-option>
+              <option value="fixed" tt="size-fixed">Фиксированный</option>
+              <option value="dynamic" tt="size-dynamic">Динамический</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="options" id="anti-web-captcha-options">
+        <div class="form-input">
+          <label for="captcha-bypass_web_regex" class="text" tt="captcha-regex">Регулярное выражение</label>
+          <input type="text" id="captcha-bypass_web_regex" placeholder="https?://[^\s]+" value="https?://[^\s]+" keep section="captcha_bypass" key="regex" default="https?://[^\s]+" launch-option>
+        </div>
+
+        <div class="form-input">
+          <label for="captcha-bypass_web_required-url-part" class="text" tt="captcha-url-part">Обязательная часть ссылки</label>
+          <input type="text" id="captcha-bypass_web_required-url-part" placeholder="anti-bot" keep section="captcha_bypass" key="required_url_part" launch-option>
+        </div>
+      </div>
+
+      <div class="options" id="anti-map-captcha-options" style="display: none;">
+        <div class="form-input" id="anti-map-captcha-number-of-columns-container" style="display: none;">
+          <label for="captcha-bypass_map_number-of-columns" class="text" tt="number-of-columns">Количество коллон</label>
+          <input type="number" id="captcha-bypass_map_number-of-columns" placeholder="4" value="4" keep section="captcha_bypass" key="number_of_columns" default="4" launch-option>
+        </div>
+
+        <div class="form-input" id="anti-map-captcha-number-of-rows-container" style="display: none;">
+          <label for="captcha-bypass_map_number-of-rows" class="text" tt="number-of-rows">Количество рядов</label>
+          <input type="number" id="captcha-bypass_map_number-of-rows" placeholder="3" value="3" keep section="captcha_bypass" key="number_of_rows" default="3" launch-option>
+        </div>
+
+        <div class="form-input" id="anti-map-captcha-max-pause" style="display: none;">
+          <label for="captcha-bypass_map_max-pause" class="text" tt="max-pause">Максимальная пауза</label>
+          <input type="number" id="captcha-bypass_map_max-pause" placeholder="1400" value="1400" keep section="captcha_bypass" key="max_pause" default="1400" launch-option>
+        </div>
+
+        <div class="form-input" id="anti-map-captcha-user-id-container" style="display: none;">
+          <label for="captcha-bypass_web_map-captcha-user-id" class="text" tt="username">Имя пользователя</label>
+          <input type="text" id="captcha-bypass_map-captcha-user-id" placeholder="john_doe" section="captcha_bypass" key="user_id" launch-option keep private>
+        </div>
+
+        <div class="form-input" id="anti-map-captcha-api-key-container" style="display: none;">
+          <label for="captcha-bypass_web_map-captcha-api-key" class="text" tt="api-key">API ключ</label>
+          <input type="text" id="captcha-bypass_map-captcha-api-key" placeholder="xxxx-xxxx-xxxxxxxx-xx" section="captcha_bypass" key="api_key" launch-option keep private>
+        </div>
+      </div>
+    </div>
+
+    <div class="anti-captcha-wrapper" id="anti-captcha-cards" style="display: none;"></div>
+
+    <div id="anti-captcha-wrappers"></div>
+  </div>
+
+  <div class="main-wrapper" id="webhook-container" style="display: none;" global="true">
+    <div class="form-input">
+      <label for="webhook_url" class="text" tt="webhook-link">Ссылка</label>
+      <input type="text" id="webhook_url" placeholder="https://discord.com/api/webhooks/..." keep section="webhook" key="url" private launch-option>
+    </div>
+
+    <div class="checkbox-group webhook-options">
+      <label class="checkbox-container">
+        <input type="checkbox" id="webhook_send-information" keep section="webhook" key="send_information" private launch-option>
+        <span class="checkmark"></span>
+        <span tt="webhook-information">Информация</span>
+      </label>
+
+      <label class="checkbox-container">
+        <input type="checkbox" id="webhook_send-data" keep section="webhook" private key="send_data" launch-option>
+        <span class="checkmark"></span>
+        <span tt="webhook-data">Данные</span>
+      </label>
+
+      <label class="checkbox-container">
+        <input type="checkbox" id="webhook_send-actions" keep section="webhook" private key="send_actions" launch-option>
+        <span class="checkmark"></span>
+        <span tt="webhook-actions">Действия</span>
+      </label>
+    </div>
+  </div>
+
+  <div class="main-wrapper" id="control-container" style="display: none;" global="true">
+    <input type="text" class="control-group" id="control-group" placeholder="Группа">
+
+    <div class="control-dashboard">
+      <div class="button-list">
+        <button id="control-chat" path="control-chat-container">
+          <span>‒</span>
+          <label tt="chat">Чат</label>
+        </button>
+
+        <button id="control-actions" path="control-action-container">
+          <span>‒</span>
+          <label tt="actions">Действия</label>
+        </button>
+
+        <button id="control-inventory" path="control-inventory-container">
+          <span>‒</span>
+          <label tt="inventory">Инвентарь</label>
+        </button>
+
+        <button id="control-movement" path="control-movement-container">
+          <span>‒</span>
+          <label tt="movement">Движение</label>
+        </button>
+
+        <div class="spliter"></div>
+
+        <button id="control-anti-afk" path="control-anti-afk-container">
+          <span>‒</span>
+          <label tt="anti-afk">Анти-АФК</label>
+        </button>
+
+        <button id="control-stalker" path="control-stalker-container">
+          <span>‒</span>
+          <label tt="stalker">Сталкер</label>
+        </button>
+
+        <div class="spliter"></div>
+
+        <button id="control-flight" path="control-flight-container">
+          <span>‒</span>
+          <label tt="flight">Полёт</label>
+        </button>
+
+        <button id="control-killaura" path="control-killaura-container">
+          <span>‒</span>
+          <label tt="killaura">Киллаура</label>
+        </button>
+
+        <button id="control-scaffold" path="control-scaffold-container">
+          <span>‒</span>
+          <label tt="scaffold">Скаффолд</label>
+        </button>
+
+        <button id="control-anti-fall" path="control-anti-fall-container">
+          <span>‒</span>
+          <label tt="anti-fall">Анти-Падение</label>
+        </button>
+
+        <button id="control-bow-aim" path="control-bow-aim-container">
+          <span>‒</span>
+          <label tt="bow-aim">Лук аим</label>
+        </button>
+
+        <div class="spliter"></div>
+
+        <button id="control-stealer" path="control-stealer-container">
+          <span>‒</span>
+          <label tt="stealer">Стиллер</label>
+        </button>
+
+        <button id="control-miner" path="control-miner-container">
+          <span>‒</span>
+          <label tt="miner">Майнер</label>
+        </button>
+
+        <button id="control-farmer" path="control-farmer-container">
+          <span>‒</span>
+          <label tt="farmer">Фермер</label>
+        </button>
+      </div>
+    </div>
+
+    <div class="control-wrapper" id="control-chat-container" style="display: flex;" sector="true">
+      <div class="columns">
+        <div class="wrap left">
+          <div class="custom-select">
+            <label tt="mode:">Режим:</label>
+            <select id="module_chat_select_mode" module-index="0" ordinal="0" keep trigger>
+              <option value="message" tt="message">Сообщение</option>
+              <option value="spamming" tt="spamming">Спамминг</option>
+            </select>
+          </div>
+
+          <div class="input-wrap">
+            <div class="form-input">
+              <label for="module_chat_option_message" class="text" tt="message">Сообщение</label>
+              <input type="text" module-index="0" ordinal="1" id="module_chat_option_message" placeholder="Привет, мир!" keep>
+            </div>
+
+            <div class="hidden-wrapper input" id="chat-spamming-input-container">
+              <div class="form-input">
+                <label for="module_chat_option_spamming-min-delay" class="text" tt="min-delay">Задержка (минимум)</label>
+                <input type="number" module-index="0" ordinal="2" id="module_chat_option_spamming-min-delay" placeholder="2000" num-type="u64" optional="true" keep>
+              </div>
+
+              <div class="form-input">
+                <label for="module_chat_option_spamming-max-delay" class="text" tt="max-delay">Задержка (максимум)</label>
+                <input type="number" module-index="0" ordinal="3" id="module_chat_option_spamming-max-delay" placeholder="4000" num-type="u64" optional="true" keep>
+              </div>
+            </div>
+          </div>
+
+          <div class="btn-group-flex" style="margin-top: 25px;">
+            <div class="btn-group-flex" id="chat-default-btns-container">
+              <button class="toggler" module-toggler module-index="0" state="1" tt="send">Отправить</button>
+            </div>
+
+            <div class="btn-group-flex" id="chat-spamming-btns-container" style="display: none;">
+              <button class="toggler" module-toggler module-index="0" state="1" tt="control-start">Старт</button>
+              <button class="toggler" module-toggler module-index="0" state="0" tt="control-stop">Стоп</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="wrap right">
+          <div class="checkbox-group">
+            <label class="checkbox-container">
+              <input type="checkbox" module-index="0" ordinal="4" id="module_chat_chbx_use-sync" keep checked>
+              <span class="checkmark"></span>
+              <span tt="sync">Синхронность</span>
+            </label>
+
+            <div class="horizontal-spliter"></div>
+
+            <label class="checkbox-container">
+              <input type="checkbox" module-index="0" ordinal="5" id="module_chat_chbx_use-global-chat" keep>
+              <span class="checkmark"></span>
+              <span tt="global-chat">Глобальный чат</span>
+            </label>
+
+            <div class="horizontal-spliter"></div>
+
+            <label class="checkbox-container">
+              <input type="checkbox" module-index="0" ordinal="6" id="module_chat_chbx_use-text-mutation" keep checked>
+              <span class="checkmark"></span>
+              <span tt="text-mutation">Мутация текста</span>
+            </label>
+
+            <label class="checkbox-container">
+              <input type="checkbox" module-index="0" ordinal="7" id="module_chat_chbx_use-magic-text" keep>
+              <span class="checkmark"></span>
+              <span tt="magic-text">Магический текст</span>
+            </label>
+
+            <div class="hidden-wrapper" id="chat-spamming-chbx-container">
+              <div class="horizontal-spliter"></div>
+
+              <label class="checkbox-container">
+                <input type="checkbox" module-index="0" ordinal="8" id="module_chat_chbx_use-anti-repetition" keep>
+                <span class="checkmark"></span>
+                <span tt="anti-repetition">Анти-Повтор</span>
+              </label>
+
+              <label class="checkbox-container">
+                <input type="checkbox" module-index="0" ordinal="9" id="module_chat_chbx_bypass" keep>
+                <span class="checkmark"></span>
+                <span tt="bypass">Обход</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="control-wrapper" id="control-action-container" style="display: none;" sector="true">
+      <div class="columns">
+        <div class="wrap left">
+          <div class="custom-select">
+            <label tt="action:">Действие:</label>
+            <select id="module_action_select_action" module-index="1" ordinal="0" keep>
+              <option value="jumping" tt="jumping">Джампинг</option>
+              <option value="shifting" tt="shifting">Шифтинг</option>
+              <option value="waving" tt="waving">Махание рукой</option>
+            </select>
+          </div>
+
+          <div class="btn-group-flex" style="margin-top: 25px;">
+            <button class="toggler" module-toggler module-index="1" state="1" tt="control-start">Старт</button>
+            <button class="toggler" module-toggler module-index="1" state="0" tt="control-stop">Стоп</button>
+          </div>
+        </div>
+
+        <div class="wrap right">
+          <div class="checkbox-group">
+            <label class="checkbox-container">
+              <input type="checkbox" module-index="1" ordinal="1" id="module_action_chbx_use-sync" keep checked>
+              <span class="checkmark"></span>
+              <span tt="sync">Синхронность</span>
+            </label>
+
+            <div class="horizontal-spliter"></div>
+
+            <label class="checkbox-container">
+              <input type="checkbox" module-index="1" ordinal="2" id="module_action_chbx_use-impulsiveness" keep checked>
+              <span class="checkmark"></span>
+              <span tt="impulsiveness">Импульсивность</span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="control-wrapper" id="control-inventory-container" style="display: none;" sector="true">
+      <div class="columns">
+        <div class="wrap left">
+          <div class="custom-select">
+            <label tt="mode:">Режим:</label>
+            <select id="module_inventory_select_mode" keep trigger>
+              <option value="basic" tt="basic">Базовый</option>
+              <option value="interaction" tt="interaction">Взаимодействие</option>
+              <option value="swap" tt="swap">Перемещение</option>
+            </select>
+          </div>
+
+          <div class="input-wrap">
+            <div class="hidden-wrapper input" id="inventory-basic-input-container" style="display: flex;">
+              <div class="form-input">
+                <label for="module_inventory_option_slot-index" class="text" tt="slot-index">Индекс слота</label>
+                <input type="number" module-index="2" ordinal="0" num-type="u16" optional="true" id="module_inventory_option_slot-index" placeholder="36" keep>
+              </div>
+            </div>
+
+            <div class="hidden-wrapper input" id="inventory-swap-input-container">
+              <div class="form-input">
+                <label for="module_inventory_option_target-slot-index" class="text" tt="target-slot">Заменить на</label>
+                <input type="number" module-index="2" ordinal="1" num-type="u16" optional="true" id="module_inventory_option_target-slot-index" placeholder="20" keep>
+              </div>
+            </div>
+          </div>
+
+          <div id="inventory-basic-btn-container" style="flex-direction: column; margin-top: 25px;">
+            <div class="btn-group-flex">
+              <button class="toggler" module-toggler module-index="2" state="0" tt="select">Выбрать</button>
+              <button class="toggler" module-toggler module-index="2" state="1" tt="drop">Выбросить</button>
+            </div>
+
+            <div class="btn-group-flex">
+              <button class="toggler" module-toggler module-index="2" state="2" tt="left-click">Клик (ЛКМ)</button>
+              <button class="toggler" module-toggler module-index="2" state="3" tt="right-click">Клик (ПКМ)</button>
+            </div>
+          </div>
+
+          <div id="inventory-swap-btn-container" style="display: none; margin-top: 25px;">
+            <div class="btn-group-flex">
+              <button class="toggler" module-toggler module-index="2" state="4" tt="move">Переместить</button>
+            </div>
+          </div>
+
+          <div id="inventory-interaction-btn-container" style="display: none;">
+            <div class="btn-group-flex">
+              <button class="toggler" module-toggler module-index="2" state="5" tt="start-use" style="min-width: 130px;">Использовать</button>
+              <button class="toggler" module-toggler module-index="2" state="6" tt="release-use" style="min-width: 130px;">Завершить</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="control-wrapper" id="control-movement-container" style="display: none;" sector="true">
+      <div class="columns">
+        <div class="wrap left">
+          <div class="column-wrap" style="gap: 6px;">
+            <div class="custom-select between">
+              <label tt="mode:">Режим:</label>
+              <select id="module_movement_select_mode" module-index="3" ordinal="0" keep trigger>
+                <option value="default" tt="default">Обычный</option>
+                <option value="pathfinder" tt="pathfinder">Pathfinder</option>
+              </select>
+            </div>
+
+            <div class="custom-select between" id="select-movement-direction-container">
+              <label tt="direction:">Движение:</label>
+              <select id="module_movement_select_movement-direction" module-index="3" ordinal="1" keep>
+                <option value="forward" tt="forward">Вперёд</option>
+                <option value="backward" tt="backward">Назад</option>
+                <option value="left" tt="left">Влево</option>
+                <option value="right" tt="right">Вправо</option>
+                <option value="forward-left" tt="forward-left">Вперёд и влево</option>
+                <option value="forward-right" tt="forward-right">Вперёд и вправо</option>
+                <option value="backward-left" tt="backward-left">Назад и влево</option>
+                <option value="backward-right" tt="backward-right">Назад и вправо</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="input-wrap">
+            <div class="hidden-wrapper input" id="movement-pathfinder-input-container">
+              <div class="form-input">
+                <label for="module_movement_option_goal-x" class="text" tt="coord-x">Координата X</label>
+                <input type="number" module-index="3" ordinal="2" num-type="i32" optional="true" id="module_movement_option_goal-x" placeholder="504" keep>
+              </div>
+
+              <div class="form-input">
+                <label for="module_movement_option_goal-z" class="text" tt="coord-z">Координата Z</label>
+                <input type="number" module-index="3" ordinal="3" num-type="i32" optional="true" id="module_movement_option_goal-z" placeholder="233" keep>
+              </div>
+            </div>
+          </div>
+
+          <div class="btn-group-flex" style="margin-top: 25px;">
+            <button class="toggler" module-toggler module-index="3" state="1" tt="control-start">Старт</button>
+            <button class="toggler" module-toggler module-index="3" state="0" tt="control-stop">Стоп</button>
+          </div>
+        </div>
+
+        <div class="wrap right">
+          <div class="checkbox-group">
+            <label class="checkbox-container">
+              <input type="checkbox" module-index="3" ordinal="4" id="module_movement_chbx_use-sync" keep>
+              <span class="checkmark"></span>
+              <span tt="sync">Синхронность</span>
+            </label>
+
+            <div class="hidden-wrapper" id="movement-impulsiveness-container" style="display: flex;">
+              <div class="horizontal-spliter"></div>
+
+              <label class="checkbox-container">
+                <input type="checkbox" module-index="3" ordinal="5" id="module_movement_chbx_use-impulsiveness" keep>
+                <span class="checkmark"></span>
+                <span tt="impulsiveness">Импульсивность</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="control-wrapper" id="control-anti-afk-container" style="display: none;" sector="true">
+      <div class="columns">
+        <div class="wrap left">
+          <div class="custom-select">
+            <label tt="mode:">Режим:</label>
+            <select id="module_anti-afk_select_mode" module-index="4" ordinal="0" keep>
+              <option value="minimal" tt="minimal">Минимальный</option>
+              <option value="normal" tt="normal">Нормальный</option>
+              <option value="advanced" tt="advanced">Продвинутый</option>
+            </select>
+          </div>
+
+          <div class="input-wrap">
+            <div class="form-input">
+              <label for="module_anti-afk_option_min-delay" class="text" tt="min-delay">Задержка (минимум)</label>
+              <input type="number" module-index="4" ordinal="1" num-type="u64" optional="true" id="module_anti-afk_option_min-delay" placeholder="1000" keep>
+            </div>
+
+            <div class="form-input">
+              <label for="module_anti-afk_option_max-delay" class="text" tt="max-delay">Задержка (максимум)</label>
+              <input type="number" module-index="4" ordinal="2" num-type="u64" optional="true" id="module_anti-afk_option_max-delay" placeholder="2500" keep>
+            </div>
+          </div>
+
+          <div class="btn-group-flex" style="margin-top: 25px;">
+            <button class="toggler" module-toggler module-index="4" state="1" tt="control-start">Старт</button>
+            <button class="toggler" module-toggler module-index="4" state="0" tt="control-stop">Стоп</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="control-wrapper" id="control-stalker-container" style="display: none;" sector="true">
+      <div class="columns">
+        <div class="wrap left">
+          <div class="custom-select">
+            <label tt="mode:">Режим:</label>
+            <select id="module_stalker_select_mode" module-index="5" ordinal="0" keep>
+              <option value="default" tt="default">Обычный</option>
+              <option value="advanced" tt="advanced">Продвинутый</option>
+            </select>
+          </div>
+
+          <div class="input-wrap">
+            <div class="form-input">
+              <label for="module_stalker_option_target-nickname" class="text" tt="target-nickname">Никнейм цели</label>
+              <input type="text" module-index="5" ordinal="1" id="module_stalker_option_target-nickname" placeholder="player_123" keep>
+            </div>
+
+            <div class="form-input">
+              <label for="module_stalker_option_min-distance" class="text" tt="min-distance">Минимальная дистанция</label>
+              <input type="number" module-index="5" ordinal="2" num-type="f64" optional="true" id="module_stalker_option_min-distance" placeholder="6" keep>
+            </div>
+
+            <div class="form-input">
+              <label for="module_stalker_option_max-distance" class="text" tt="max-distance">Максимальная дистанция</label>
+              <input type="number" module-index="5" ordinal="3" num-type="f64" optional="true" id="module_stalker_option_max-distance" placeholder="100" keep>
+            </div>
+          </div>
+
+          <div class="btn-group-flex" style="margin-top: 25px;">
+            <button class="toggler" module-toggler module-index="5" state="1" tt="control-start">Старт</button>
+            <button class="toggler" module-toggler module-index="5" state="0" tt="control-stop">Стоп</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="control-wrapper" id="control-flight-container" style="display: none;" sector="true">
+      <div class="columns">
+        <div class="wrap left">
+          <div class="column-wrap" style="gap: 6px;">
+            <div class="custom-select between">
+              <label tt="mode:">Режим:</label>
+              <select id="module_flight_select_mode" module-index="6" ordinal="0" keep>
+                <option value="vanilla" tt="vanilla">Vanilla</option>
+                <option value="jump-fly" tt="jump-fly">Jump-Fly</option>
+                <option value="teleport-fly" tt="teleport-fly">Teleport-Fly</option>
+                <option value="bug-fly" selected tt="bug-fly">Bug-Fly</option>
+              </select>
+            </div>
+
+            <div class="custom-select between">
+              <label tt="settings:">Настройки:</label>
+              <select id="module_flight_select_settings" module-index="6" ordinal="1" keep trigger>
+                <option value="adaptive" tt="adaptive-settings">Адаптивные</option>
+                <option value="manual" tt="manual-settings">Ручные</option>
+              </select>
+            </div>
+
+            <div class="custom-select between" id="flight-select-anti-cheat-container">
+              <label tt="anti-cheat:">Анти-чит:</label>
+              <select id="module_flight_select_anti-cheat" module-index="6" ordinal="2" keep>
+                <option value="vulcan">Vulcan</option>
+                <option value="grim">Grim</option>
+                <option value="intave">Intave</option>
+                <option value="none">─</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="input-wrap">
+            <div class="hidden-wrapper input" id="flight-manual-settings-container">
+              <div class="form-input">
+                <label for="module_flight_option_min-delay" class="text" tt="min-delay">Задержка (минимум)</label>
+                <input type="number" module-index="6" ordinal="3" num-type="u64" optional="true" id="module_flight_option_min-delay" placeholder="100" keep>
+              </div>
+
+              <div class="form-input">
+                <label for="module_flight_option_max-delay" class="text" tt="max-delay">Задержка (максимум)</label>
+                <input type="number" module-index="6" ordinal="4" num-type="u64" optional="true" id="module_flight_option_max-delay" placeholder="200" keep>
+              </div>
+
+              <div class="form-input">
+                <label for="module_flight_option_min-change-y" class="text" tt="min-change-y">Изменение по Y (минимум)</label>
+                <input type="number" module-index="6" ordinal="5" num-type="f64" optional="true" id="module_flight_option_min-change-y" placeholder="0.15" keep>
+              </div>
+
+              <div class="form-input">
+                <label for="module_flight_option_max-change-y" class="text" tt="max-change-y">Изменение по Y (максимум)</label>
+                <input type="number" module-index="6" ordinal="6" num-type="f64" optional="true" id="module_flight_option_max-change-y" placeholder="0.28" keep>
+              </div>
+
+              <div class="form-input">
+                <label for="module_flight_option_use-ground-spoof" class="text" tt="use-ground-spoof">Использовать Ground-Spoof</label>
+                <input type="text" module-index="6" ordinal="7" optional="true" id="module_flight_option_use-ground-spoof" placeholder="true | false" keep>
+              </div>
+            </div>
+          </div>
+
+          <div class="btn-group-flex" style="margin-top: 25px;">
+            <button class="toggler" module-toggler module-index="6" state="1" tt="control-start">Старт</button>
+            <button class="toggler" module-toggler module-index="6" state="0" tt="control-stop">Стоп</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="control-wrapper" id="control-killaura-container" style="display: none;" sector="true">
+      <div class="columns">
+        <div class="wrap left">
+          <div class="column-wrap" style="gap: 6px;">
+            <div class="custom-select between">
+              <label tt="behavior:">Поведение:</label>
+              <select id="module_killaura_select_behavior" module-index="7" ordinal="0" keep>
+                <option value="moderate" tt="moderate">Умеренное</option>
+                <option value="aggressive" tt="aggressive">Агрессивное</option>
+              </select>
+            </div>
+
+            <div class="custom-select between">
+              <label tt="settings:">Настройки:</label>
+              <select id="module_killaura_select_settings" module-index="7" ordinal="1" keep trigger>
+                <option value="adaptive" tt="adaptive-settings">Адаптивные</option>
+                <option value="manual" tt="manual-settings">Ручные</option>
+              </select>
+            </div>
+
+            <div class="custom-select between" id="select-killaura-weapon-container">
+              <label tt="weapon:">Оружие:</label>
+              <select id="module_killaura_select_weapon" module-index="7" ordinal="2" keep>
+                <option value="sword" tt="sword">Меч</option>
+                <option value="axe" tt="axe">Топор</option>
+              </select>
+            </div>
+
+            <div class="custom-select between">
+              <label tt="target:">Цель:</label>
+              <select id="module_killaura_select_target" module-index="7" ordinal="3" keep trigger>
+                <option value="player" tt="player">Игрок</option>
+                <option value="monster" tt="monster">Монстр</option>
+                <option value="animal" tt="animal">Животное</option>
+                <option value="vehicle" tt="vehicle">Транспорт</option>
+                <option value="any" tt="any">Любая</option>
+                <option value="custom" tt="custom-target">Своя цель</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="input-wrap">
+            <div class="hidden-wrapper input" id="killaura-custom-goal-input-container">
+              <div class="form-input">
+                <label for="module_killaura_option_target-nickname" class="text" tt="target-nickname">Никнейм цели</label>
+                <input type="text" module-index="7" ordinal="4" optional="true" id="module_killaura_option_target-nickname" placeholder="player_123" keep>
+              </div>
+            </div>
+
+            <div class="hidden-wrapper input" id="killaura-weapon-slot-container">
+              <div class="form-input">
+                <label for="module_killaura_option_slot" class="text" tt="weapon-slot">Слот с оружием</label>
+                <input type="number" module-index="7" ordinal="5" num-type="u8" optional="true" id="module_killaura_option_slot" placeholder="0" keep>
+              </div>
+            </div>
+
+            <div class="hidden-wrapper input" id="killaura-manual-settings-container">
+              <div class="form-input">
+                <label for="module_killaura_option_attack-distance" class="text" tt="attack-distance">Дистанция атаки</label>
+                <input type="number" module-index="7" ordinal="6" num-type="f64" optional="true" id="module_killaura_option_attack-distance" placeholder="3.1" keep>
+              </div>
+
+              <div class="form-input">
+                <label for="module_killaura_option_delay" class="text" tt="delay">Задержка</label>
+                <input type="number" module-index="7" ordinal="7" num-type="u64" optional="true" id="module_killaura_option_delay" placeholder="500" keep>
+              </div>
+            </div>
+
+            <div class="hidden-wrapper input" id="killaura-chase-settings-container">
+              <div class="form-input">
+                <label for="module_killaura_option_chase-distance" class="text" tt="max-chase-distance">Макс. дистанция преследования</label>
+                <input type="number" module-index="7" ordinal="8" num-type="f64" optional="true" id="module_killaura_option_chase-distance" placeholder="10.0" keep>
+              </div>
+
+              <div class="form-input">
+                <label for="module_killaura_option_min-distance-to-target" class="text" tt="min-chase-distance">Мин. дистанция преследования</label>
+                <input type="number" module-index="7" ordinal="9" num-type="f64" optional="true" id="module_killaura_option_min-distance-to-target" placeholder="3.0" keep>
+              </div>
+            </div>
+          </div>
+
+          <div class="btn-group-flex" style="margin-top: 25px;">
+            <button class="toggler" module-toggler module-index="7" state="1" tt="control-start">Старт</button>
+            <button class="toggler" module-toggler module-index="7" state="0" tt="control-stop">Стоп</button>
+          </div>
+        </div>
+
+        <div class="wrap right">
+          <div class="checkbox-group">
+            <label class="checkbox-container">
+              <input type="checkbox" module-index="7" ordinal="10" id="module_killaura_chbx_use-auto-weapon" keep trigger checked>
+              <span class="checkmark"></span>
+              <span tt="auto-weapon">Авто оружие</span>
+            </label>
+
+            <div class="horizontal-spliter"></div>
+
+            <label class="checkbox-container">
+              <input type="checkbox" module-index="7" ordinal="11" id="module_killaura_chbx_use-dodging" keep>
+              <span class="checkmark"></span>
+              <span tt="dodging">Доджинг</span>
+            </label>
+
+            <label class="checkbox-container">
+              <input type="checkbox" module-index="7" ordinal="12" id="module_killaura_chbx_use-chase" keep trigger>
+              <span class="checkmark"></span>
+              <span tt="chase">Преследование</span>
+            </label>
+
+            <div class="horizontal-spliter"></div>
+
+            <label class="checkbox-container">
+              <input type="checkbox" module-index="7" ordinal="13" id="module_killaura_chbx_use-critical" keep>
+              <span class="checkmark"></span>
+              <span tt="critical-hits">Критические удары</span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="control-wrapper" id="control-scaffold-container" style="display: none;" sector="true">
+      <div class="columns">
+        <div class="wrap left">
+          <div class="custom-select">
+            <label tt="mode:">Режим:</label>
+            <select id="module_scaffold_select_mode" module-index="8" ordinal="0" keep>
+              <option value="noob-bridge" tt="noob-bridge">Noob Bridge</option>
+              <option value="ninja-bridge" selected tt="ninja-bridge">Ninja Bridge</option>
+              <option value="god-bridge" tt="god-bridge">God Bridge</option>
+              <option value="jump-bridge" tt="jump-bridge">Jump Bridge</option>
+            </select>
+          </div>
+
+          <div class="input-wrap">
+            <div class="form-input">
+              <label for="module_scaffold_option_delay" class="text" tt="delay">Задержка</label>
+              <input type="number" module-index="8" ordinal="1" num-type="u64" optional="true" id="module_scaffold_option_delay" placeholder="50" keep>
+            </div>
+
+            <div class="form-input">
+              <label for="module_scaffold_option_min-gaze-degree-x" class="text" tt="min-gaze-x">Взгляд по X (минимум)</label>
+              <input type="number" module-index="8" ordinal="2" num-type="f32" optional="true" id="module_scaffold_option_min-gaze-degree-x" placeholder="80.0" keep>
+            </div>
+
+            <div class="form-input">
+              <label for="module_scaffold_option_max-gaze-degree-x" class="text" tt="max-gaze-x">Взгляд по X (максимум)</label>
+              <input type="number" module-index="8" ordinal="3" num-type="f32" optional="true" id="module_scaffold_option_max-gaze-degree-x" placeholder="83.0" keep>
+            </div>
+          </div>
+
+          <div class="btn-group-flex" style="margin-top: 25px;">
+            <button class="toggler" module-toggler module-index="8" state="1" tt="control-start">Старт</button>
+            <button class="toggler" module-toggler module-index="8" state="0" tt="control-stop">Стоп</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="control-wrapper" id="control-anti-fall-container" style="display: none;" sector="true">
+      <div class="columns">
+        <div class="wrap left">
+          <div class="custom-select">
+            <label tt="mode:">Режим:</label>
+            <select id="module_anti-fall_select_mode" module-index="9" ordinal="0" keep>
+              <option value="hovering" tt="hovering">Hovering</option>
+              <option value="teleport" tt="teleport">Teleport</option>
+              <option value="water-drop" tt="water-drop">Water-Drop</option>
+              <option value="fall-spoof" disabled tt="fall-spoof">Fall-Spoof</option>
+            </select>
+          </div>
+
+          <div class="input-wrap">
+            <div class="form-input">
+              <label for="module_anti-fall_option_distance-to-ground" class="text" tt="trigger-distance">Триггер (расстояние до земли)</label>
+              <input type="number" module-index="9" ordinal="1" num-type="i32" optional="true" id="module_anti-fall_option_distance-to-ground" placeholder="4" keep>
+            </div>
+
+            <div class="form-input">
+              <label for="module_anti-fall_option_fall-velocity" class="text" tt="trigger-velocity">Триггер (скорость падения)</label>
+              <input type="number" module-index="9" ordinal="2" num-type="f64" optional="true" id="module_anti-fall_option_fall-velocity" placeholder="-0.5" keep>
+            </div>
+
+            <div class="form-input">
+              <label for="module_anti-fall_option_delay" class="text" tt="delay">Задержка</label>
+              <input type="number" module-index="9" ordinal="3" num-type="u64" optional="true" id="module_anti-fall_option_delay" placeholder="50" keep>
+            </div>
+          </div>
+
+          <div class="btn-group-flex" style="margin-top: 25px;">
+            <button class="toggler" module-toggler module-index="9" state="1" tt="control-start">Старт</button>
+            <button class="toggler" module-toggler module-index="9" state="0" tt="control-stop">Стоп</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="control-wrapper" id="control-bow-aim-container" style="display: none;" sector="true">
+      <div class="columns">
+        <div class="wrap left">
+          <div class="custom-select">
+            <label tt="target:">Цель:</label>
+            <select id="module_bow-aim_select_target" module-index="10" ordinal="0" keep trigger>
+              <option value="player" tt="player">Игрок</option>
+              <option value="monster" tt="monster">Монстр</option>
+              <option value="animal" tt="animal">Животное</option>
+              <option value="vehicle" tt="vehicle">Транспорт</option>
+              <option value="any" tt="any">Любая</option>
+              <option value="custom" tt="custom-target">Своя цель</option>
+            </select>
+          </div>
+
+          <div class="input-wrap">
+            <div class="hidden-wrapper input" id="bow-aim-custom-goal-input-container">
+              <div class="form-input">
+                <label for="module_bow-aim_option_target-nickname" class="text" tt="target-nickname">Никнейм цели</label>
+                <input type="text" module-index="10" ordinal="1" optional="true" id="module_bow-aim_option_target-nickname" placeholder="player_123" keep>
+              </div>
+            </div>
+
+            <div class="form-input">
+              <label for="module_bow-aim_option_delay" class="text" tt="delay">Задержка</label>
+              <input type="number" module-index="10" ordinal="2" num-type="u64" optional="true" id="module_bow-aim_option_delay" placeholder="50" keep>
+            </div>
+
+            <div class="form-input">
+              <label for="module_bow-aim_option_max-distance" class="text" tt="max-distance">Максимальная дистанция</label>
+              <input type="number" module-index="10" ordinal="3" num-type="f64" optional="true" id="module_bow-aim_option_max-distance" placeholder="70" keep>
+            </div>
+          </div>
+
+          <div class="btn-group-flex" style="margin-top: 25px;">
+            <button class="toggler" module-toggler module-index="10" state="1" tt="control-start">Старт</button>
+            <button class="toggler" module-toggler module-index="10" state="0" tt="control-stop">Стоп</button>
+          </div>
+        </div>
+
+        <div class="wrap right">
+          <div class="checkbox-group">
+            <label class="checkbox-container">
+              <input type="checkbox" module-index="10" ordinal="4" id="module_killaura_chbx_use-prediction" keep>
+              <span class="checkmark"></span>
+              <span tt="prediction">Предугадывание</span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="control-wrapper" id="control-stealer-container" style="display: none;" sector="true">
+      <div class="columns">
+        <div class="wrap left">
+          <div class="custom-select">
+            <label tt="target:">Цель:</label>
+            <select id="module_stealer_select_target" module-index="11" ordinal="0" keep>
+              <option value="chest" tt="chest">Сундук</option>
+              <option value="barrel" tt="barrel">Бочка</option>
+              <option value="shulker" tt="shulker">Шалкер</option>
+            </select>
+          </div>
+
+          <div class="input-wrap">
+            <div class="form-input">
+              <label for="module_stealer_option_radius" class="text" tt="interaction-radius">Радиус взаимодействия</label>
+              <input type="number" module-index="11" ordinal="1" num-type="i32" optional="true" id="module_stealer_option_radius" placeholder="5" keep>
+            </div>
+
+            <div class="form-input">
+              <label for="module_stealer_option_delay" class="text" tt="delay">Задержка</label>
+              <input type="number" module-index="11" ordinal="2" num-type="u64" optional="true" id="module_stealer_option_delay" placeholder="1000" keep>
+            </div>
+          </div>
+
+          <div class="btn-group-flex" style="margin-top: 25px;">
+            <button class="toggler" module-toggler module-index="11" state="1" tt="control-start">Старт</button>
+            <button class="toggler" module-toggler module-index="11" state="0" tt="control-stop">Стоп</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="control-wrapper" id="control-miner-container" style="display: none;" sector="true">
+      <div class="columns">
+        <div class="wrap left">
+          <div class="column-wrap" style="width: max-content; gap: 6px;">
+            <div class="custom-select between">
+              <label tt="mode:">Режим:</label>
+              <select id="module_miner_select_mode" module-index="12" ordinal="0" keep trigger>
+                <option value="default" tt="default">Обычный</option>
+                <option value="extended" tt="extended">Расширенный</option>
+              </select>
+            </div>
+
+            <div class="custom-select between" id="miner-tunnel-select-container" style="display: none;">
+              <label tt="tunnel:">Тунель:</label>
+              <select id="module_miner_select_tunnel" module-index="12" ordinal="1" keep>
+                <option value="2x2x2">2x2x2</option>
+                <option value="3x2x2">3x2x2</option>
+                <option value="2x3x3">2x3x3</option>
+                <option value="3x3x3">3x3x3</option>
+              </select>
+            </div>
+
+            <div class="custom-select between" id="miner-look-select-container" style="display: none;">
+              <label tt="look:">Поворот:</label>
+              <select id="module_miner_select_look" module-index="12" ordinal="2" keep>
+                <option value="smooth" tt="smooth">Плавный</option>
+                <option value="cutting" tt="cutting">Резкий</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="input-wrap">
+            <div class="form-input">
+              <label for="module_miner_option_direction-x" class="text" tt="direction-y">Направление взгляда по Y</label>
+              <input type="number" module-index="12" ordinal="3" num-type="f32" optional="true" id="module_miner_option_direction-x" placeholder="0" keep>
+            </div>
+
+            <div class="form-input">
+              <label for="module_miner_option_slot" class="text" tt="tool-slot">Слот с инструментом</label>
+              <input type="number" module-index="12" ordinal="4" num-type="u32" optional="true" id="module_miner_option_slot" placeholder="0-8" keep>
+            </div>
+
+            <div class="form-input">
+              <label for="module_miner_option_delay" class="text" tt="delay">Задержка</label>
+              <input type="number" module-index="12" ordinal="5" num-type="u64" optional="true" id="module_miner_option_delay" placeholder="200" keep>
+            </div>
+          </div>
+
+          <div class="btn-group-flex" style="margin-top: 25px;">
+            <button class="toggler" module-toggler module-index="12" state="1" tt="control-start">Старт</button>
+            <button class="toggler" module-toggler module-index="12" state="0" tt="control-stop">Стоп</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="control-wrapper" id="control-farmer-container" style="display: none;" sector="true">
+      <div class="columns">
+        <div class="wrap left">
+          <div class="custom-select" id="farmer-mode-select-container">
+            <label tt="mode:">Режим:</label>
+            <select id="module_farmer_select_mode" module-index="13" ordinal="0" keep>
+              <option value="normal" tt="normal">Нормальный</option>
+              <option value="quick" tt="quick">Быстрый</option>
+              <option value="ultra" tt="ultra">Ультра</option>
+            </select>
+          </div>
+
+          <div class="input-wrap">
+            <div class="form-input">
+              <label for="module_farmer_option_delay" class="text" tt="delay">Задержка</label>
+              <input type="number" module-index="13" ordinal="1" num-type="u64" optional="true" id="module_farmer_option_delay" placeholder="100" keep>
+            </div>
+          </div>
+
+          <div class="btn-group-flex" style="margin-top: 25px;">
+            <button class="toggler" module-toggler module-index="13" state="1" tt="control-start">Старт</button>
+            <button class="toggler" module-toggler module-index="13" state="0" tt="control-stop">Стоп</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-wrapper" id="script-container" style="display: none;" global="true">
+    <div class="script-editor-wrapper">
+      <div class="editor-container">
+        <div class="line-counter" id="line-counter">1</div>
+        <textarea id="user-script" class="editor" keep private placeholder="// let username = current_bot_username();"></textarea>
+      </div>
+
+      <div class="controls">
+        <button id="execute-script">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-player-play">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M7 4v16l13 -8l-13 -8" />
+          </svg>
+          <span tt="execute">Выполнить</span>
+        </button>
+
+        <button id="execute-script-separately">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-switch-2">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M3 17h5l1.67 -2.386m3.66 -5.227l1.67 -2.387h6" />
+            <path d="M18 4l3 3l-3 3" />
+            <path d="M3 7h5l7 10h6" />
+            <path d="M18 20l3 -3l-3 -3" />
+          </svg>
+          <span tt="execute-separately">Выполнить отдельно</span>
+        </button>
+
+        <button id="stop-script">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-player-pause">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M6 6a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v12a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1l0 -12" />
+            <path d="M14 6a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v12a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1l0 -12" />
+          </svg>
+          <span tt="stop">Остановить</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-wrapper centered" id="monitoring-container" style="display: none;" global="true">
+    <img src="interface/assets/steve.png" id="steve-img" draggable="false" style="display: none;">
+
+    <h1 class="info-text" id="monitoring-status-text" tt="bots-objects-missing">Объекты ботов отсутствуют</h1>
+
+    <div class="monitoring-wrapper" id="bot-cards-container" style="display: none;"></div>
+    <div id="bot-wrappers-container"></div>
+  </div>
+
+  <div class="main-wrapper centered" id="analysis-container" style="display: none;" global="true">
+    <h1 class="info-text" tt="info-text">Данный раздел не работает</h1>
+  </div>
+
+  <div class="main-wrapper" id="scanner-container" style="display: none;" global="true">
+    <div class="scanner-wrapper">
+      <div class="panel">
+        <div class="inputs">
+          <div class="form-input">
+            <label class="text" tt="cidr">Диапазон (CIDR)</label>
+            <input type="text" id="scanner-ip-range" placeholder="172.16.0.1/12" keep private>
+          </div>
+
+          <div class="form-input">
+            <label class="text" tt="task-count">Количество задач</label>
+            <input type="number" id="scanner-task-count" placeholder="1-100" value="10" keep private>
+          </div>
+
+          <div class="form-input">
+            <label class="text" tt="target-port">Целевой порт</label>
+            <input type="number" id="scanner-target-port" placeholder="25565" value="25565" keep private>
+          </div>
+
+          <div class="form-input">
+            <label class="text" tt="timeout-ms">Таймаут (мс)</label>
+            <input type="number" id="scanner-timeout" placeholder="8000" value="8000" keep private>
+          </div>
+        </div>
+
+        <div class="buttons">
+          <button id="start-network-scanning">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-world-search">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M21 12a9 9 0 1 0 -9 9" />
+              <path d="M3.6 9h16.8" />
+              <path d="M3.6 15h7.9" />
+              <path d="M11.5 3a17 17 0 0 0 0 18" />
+              <path d="M12.5 3a16.984 16.984 0 0 1 2.574 8.62" />
+              <path d="M15 18a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+              <path d="M20.2 20.2l1.8 1.8" />
+            </svg>
+            <span tt="scan">Сканировать</span>
+          </button>
+
+          <button id="stop-network-scanning">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M3 5a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-14" />
+            </svg>
+            <span tt="stop">Остановить</span>
+          </button>
+        </div>
+
+        <div class="info">
+          <label><span tt="status:">Статус:</span><span class="value" id="scanner-status">inactive</span></label>
+          <label><span tt="hosts-scanned:">Хостов просканировано:</span><span class="value" id="scanner-hosts-scanned">0/0</span></label>
+          <label><span tt="servers-found:">Найдено серверов:</span><span class="value" id="scanner-servers-found">0</span></label>
+        </div>
+      </div>
+
+      <div id="scanner-server-list"></div>
+    </div>
+  </div>
+
+  <div class="main-wrapper" id="ping-container" style="display: none;" global="true">
+    <div class="ping-wrapper">
+      <div style="display: flex; gap: 10px; justify-content: center; align-items: center;">
+        <div class="input-with-button" style="margin-top: 10px;">
+          <input type="text" id="ping-server-address" placeholder="mineblaze.net" keep private>
+
+          <button class="min" id="ping-server">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-activity">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M3 12h4l3 8l4 -16l3 8h4" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="info" id="ping-info"></div>
+    </div>
+  </div>
+
+  <div class="main-wrapper" id="radar-container" style="display: none;" global="true">
+    <div class="radar-panel">
+      <div class="input-with-button">
+        <input type="text" id="radar-target-username" placeholder="player_123">
+
+        <button class="min" id="radar-add-target">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-current-location">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M9 12a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+            <path d="M4 12a8 8 0 1 0 16 0a8 8 0 1 0 -16 0" />
+            <path d="M12 2l0 2" />
+            <path d="M12 20l0 2" />
+            <path d="M20 12l2 0" />
+            <path d="M2 12l2 0" />
+          </svg>
+        </button>
+      </div>
+
+      <div style="display: flex; width: 100%; align-items: center; justify-content: right; gap: 8px;">
+        <button class="min" id="radar-open-settings">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-settings">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065" />
+            <path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
+          </svg>
+        </button>
+
+        <button class="min" id="radar-remove-all-targets">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-trash">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M4 7l16 0" />
+            <path d="M10 11l0 6" />
+            <path d="M14 11l0 6" />
+            <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+            <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="cover radar" id="radar-settings">
+      <div class="panel with-header">
+        <div class="left">
+          <div class="header">Настройки радара</div>
+        </div>
+
+        <div class="right">
+          <button class="min" id="radar-close-settings">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-x">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M18 6l-12 12" />
+              <path d="M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="custom-select" style="margin-top: 40px;">
+        <label tt="radar-update-frequency:">Частота обновления:</label>
+        <select id="radar_select_update-frequency" style="width: 110px;">
+          <option value="500">500 мс</option>
+          <option value="1500" selected>1500 мс</option>
+          <option value="2000">2000 мс</option>
+          <option value="4000">4000 мс</option>
+          <option value="6000">6000 мс</option>
+        </select>
+      </div>
+
+      <div class="auto-save-settings">
+        <div class="form-input">
+          <label for="radar_option_path" class="text" tt="radar-full-path">Полный путь</label>
+          <input type="text" id="radar_option_path" placeholder="/home/User/MyFolder/" keep private>
+        </div>
+
+        <div class="form-input">
+          <label for="radar_option_filename" class="text" tt="radar-file-name">Имя файла</label>
+          <input type="text" id="radar_option_filename" placeholder="radar_#t" value="radar_#t" keep private>
+        </div>
+
+        <div style="display: flex; width: max-content; margin-top: 20px; justify-content: left; align-items: start; padding-left: 5px;">
+          <label class="checkbox-container radar-chbx">
+            <input type="checkbox" id="radar_chbx_auto-save">
+            <span class="checkmark"></span>
+            <span tt="radar-auto-save">Авто сохранение</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="radar-wrapper" id="radar-target-cards-container"></div>
+    <div id="radar-target-wrappers-container"></div>
+  </div>
+
+  <div class="main-wrapper" id="journal-container" style="display: none;" global="true">
+    <div class="log-content" id="log-content"></div>
+
+    <div class="log-options-wrap">
+      <div class="checkbox-group">
+        <label class="checkbox-container">
+          <input type="checkbox" id="journal_chbx_show-system-logs" keep trigger checked>
+          <span class="checkmark"></span>
+          <span tt="journal-system-logs">Системные логи</span>
+        </label>
+
+        <label class="checkbox-container">
+          <input type="checkbox" id="journal_chbx_show-extended-logs" keep trigger>
+          <span class="checkmark"></span>
+          <span tt="journal-extended-logs">Расширенные логи</span>
+        </label>
+
+        <label class="checkbox-container">
+          <input type="checkbox" id="journal_chbx_auto-scroll" keep>
+          <span class="checkmark"></span>
+          <span tt="journal-auto-scroll">Авто скролл</span>
+        </label>
+      </div>
+
+      <button class="min" id="clear-journal">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-trash">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <path d="M4 7l16 0" />
+          <path d="M10 11l0 6" />
+          <path d="M14 11l0 6" />
+          <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+          <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="main-wrapper" id="config-container" style="display: none;" global="true">
+    <div class="config-panel">
+      <div class="input-with-button">
+        <input type="text" id="config-search-query" placeholder="my-config-123">
+
+        <button class="min" disabled>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-search">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M3 10a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
+            <path d="M21 21l-6 -6" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="buttons">
+        <button class="min" id="import-configs">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-download">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" />
+            <path d="M7 11l5 5l5 -5" />
+            <path d="M12 4l0 12" />
+          </svg>
+        </button>
+
+        <div class="splitter"></div>
+
+        <button class="min" id="export-current-config">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-share">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M3 12a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+            <path d="M15 6a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+            <path d="M15 18a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+            <path d="M8.7 10.7l6.6 -3.4" />
+            <path d="M8.7 13.3l6.6 3.4" />
+          </svg>
+        </button>
+
+        <button class="min" id="archive-current-config">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-archive">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M3 6a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2" />
+            <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+            <path d="M10 12l4 0" />
+          </svg>
+        </button>
+
+        <div class="splitter"></div>
+
+        <button class="min" id="refresh-configs">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-refresh">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4" />
+            <path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4" />
+          </svg>
+        </button>
+
+        <button class="min" id="open-configs-directory">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-folder-open">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M5 19l2.757 -7.351a1 1 0 0 1 .936 -.649h12.307a1 1 0 0 1 .986 1.164l-.996 5.211a2 2 0 0 1 -1.964 1.625h-14.026a2 2 0 0 1 -2 -2v-11a2 2 0 0 1 2 -2h4l3 3h7a2 2 0 0 1 2 2v2" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div id="config-list"></div>
+  </div>
+
+  <div class="main-wrapper" id="session-container" style="display: none;" global="true">
+    <div class="session-wrapper">
+      <div class="panel">
+        <div class="inputs">
+          <div class="form-input">
+            <label class="text" tt="server-address">Адрес сервера</label>
+            <input type="text" id="session-address" placeholder="127.0.0.1:48736" keep private>
+          </div>
+
+          <div class="form-input">
+            <label class="text" tt="password">Пароль</label>
+            <input type="text" id="session-password" placeholder="qwe123" keep private>
+          </div>
+        </div>
+
+        <div class="buttons">
+          <button id="change-session">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-broadcast">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M18.364 19.364a9 9 0 1 0 -12.728 0" />
+              <path d="M15.536 16.536a5 5 0 1 0 -7.072 0" />
+              <path d="M11 13a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+            </svg>
+            <span tt="connect">Подключиться</span>
+          </button>
+
+          <button class="min" id="setup-default-session">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-restore">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M3.06 13a9 9 0 1 0 .49 -4.087" />
+              <path d="M3 4.001v5h5" />
+              <path d="M11 12a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+            </svg>
+            <span tt="reset">Сбросить</span>
+          </button>
+        </div>
+
+        <div class="info">
+          <label><span tt="current-address:">Текущий адрес:</span><span class="default-value" id="current-session-address">?</span></label>
+          <label><span tt="current-password:">Текущий пароль:</span><span class="copy-value" id="current-session-password">?</span></label>
+        </div>
+      </div>
+
+      <div class="chat">
+        <div class="content" id="session-chat-content"></div>
+
+        <div class="input-with-button">
+          <input type="text" id="session-message" placeholder="Hello, chat!">
+
+          <button class="min" id="send-session-message">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-send-2">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M4.698 4.034l16.302 7.966l-16.302 7.966a.503 .503 0 0 1 -.546 -.124a.555 .555 0 0 1 -.12 -.568l2.468 -7.274l-2.468 -7.274a.555 .555 0 0 1 .12 -.568a.503 .503 0 0 1 .546 -.124" />
+              <path d="M6.5 12h14.5" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-wrapper centered" id="documentation-container" style="display: none;" global="true">
+    <div class="documentation-wrapper">
+      <div class="text"></div>
+      <div class="navigation"></div>
+    </div>
+  </div>
+
+  <div class="main-wrapper" id="about-container" style="display: none;" global="true">
+    <div class="about-wrapper">
+      <p class="description">
+        <span class="highlight">salarixi</span> - <span tt="client-description">современный, функциональный и оптимизированный клиент, который позволяет запускать ботов на сервера Minecraft и управлять ими в реальном времени.</span>
+      </p>
+
+      <p class="features-title" tt="why-choose-us">Почему нас стоит выбрать?</p>
+
+      <div class="feature-cards-container">
+        <ul class="feature-card">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-cpu">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M5 6a1 1 0 0 1 1 -1h12a1 1 0 0 1 1 1v12a1 1 0 0 1 -1 1h-12a1 1 0 0 1 -1 -1l0 -12" />
+            <path d="M9 9h6v6h-6l0 -6" />
+            <path d="M3 10h2" />
+            <path d="M3 14h2" />
+            <path d="M10 3v2" />
+            <path d="M14 3v2" />
+            <path d="M21 10h-2" />
+            <path d="M21 14h-2" />
+            <path d="M14 21v-2" />
+            <path d="M10 21v-2" />
+          </svg>
+          <label tt="optimization">Оптимизация</label>
+        </ul>
+
+        <ul class="feature-card">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-settings">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065" />
+            <path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
+          </svg>
+          <label tt="flexibility">Гибкость</label>
+        </ul>
+
+        <ul class="feature-card">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-bolt">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M13 3l0 7l6 0l-8 11l0 -7l-6 0l8 -11" />
+          </svg>
+          <label tt="speed">Скорость</label>
+        </ul>
+      </div>
+
+      <div class="about-panel">
+        <div class="info">
+          <div class="element">
+            <label tt="total-releases:">Всего выпусков:</label>
+            <label id="release-count">?</label>
+          </div>
+
+          <div class="element">
+            <label tt="stars-count:">Количество звёзд:</label>
+            <label id="stars-count">?</label>
+          </div>
+
+          <div class="element">
+            <label tt="forks-count:">Количество форков:</label>
+            <label id="forks-count">?</label>
+          </div>
+        </div>
+
+        <div class="social-card">
+          <a class="btn-social" id="telegram" role="button" aria-label="Telegram">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telegram" viewBox="0 0 16 16">
+              <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.287 5.906q-1.168.486-4.666 2.01-.567.225-.595.442c-.03.243.275.339.69.47l.175.055c.408.133.958.288 1.243.294q.39.01.868-.32 3.269-2.206 3.374-2.23c.05-.012.12-.026.166.016s.042.12.037.141c-.03.129-1.227 1.241-1.846 1.817-.193.18-.33.307-.358.336a8 8 0 0 1-.188.186c-.38.366-.664.64.015 1.088.327.216.589.393.85.571.284.194.568.387.936.629q.14.092.27.187c.331.236.63.448.997.414.214-.02.435-.22.547-.82.265-1.417.786-4.486.906-5.751a1.4 1.4 0 0 0-.013-.315.34.34 0 0 0-.114-.217.53.53 0 0 0-.31-.093c-.3.005-.763.166-2.984 1.09"/>
+            </svg>
+          </a>
+
+          <a class="btn-social" id="discord" role="button" aria-label="Discord">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-discord" viewBox="0 0 16 16">
+              <path d="M13.545 2.907a13.2 13.2 0 0 0-3.257-1.011.05.05 0 0 0-.052.025c-.141.25-.297.577-.406.833a12.2 12.2 0 0 0-3.658 0 8 8 0 0 0-.412-.833.05.05 0 0 0-.052-.025c-1.125.194-2.22.534-3.257 1.011a.04.04 0 0 0-.021.018C.356 6.024-.213 9.047.066 12.032q.003.022.021.037a13.3 13.3 0 0 0 3.995 2.02.05.05 0 0 0 .056-.019q.463-.63.818-1.329a.05.05 0 0 0-.01-.059l-.018-.011a9 9 0 0 1-1.248-.595.05.05 0 0 1-.02-.066l.015-.019q.127-.095.248-.195a.05.05 0 0 1 .051-.007c2.619 1.196 5.454 1.196 8.041 0a.05.05 0 0 1 .053.007q.121.1.248.195a.05.05 0 0 1-.004.085 8 8 0 0 1-1.249.594.05.05 0 0 0-.03.03.05.05 0 0 0 .003.041c.24.465.515.909.817 1.329a.05.05 0 0 0 .056.019 13.2 13.2 0 0 0 4.001-2.02.05.05 0 0 0 .021-.037c.334-3.451-.559-6.449-2.366-9.106a.03.03 0 0 0-.02-.019m-8.198 7.307c-.789 0-1.438-.724-1.438-1.612s.637-1.613 1.438-1.613c.807 0 1.45.73 1.438 1.613 0 .888-.637 1.612-1.438 1.612m5.316 0c-.788 0-1.438-.724-1.438-1.612s.637-1.613 1.438-1.613c.807 0 1.451.73 1.438 1.613 0 .888-.631 1.612-1.438 1.612"/>
+            </svg>
+          </a>
+
+          <a class="btn-social" id="codeberg" role="button" aria-label="Codeberg">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-git" viewBox="0 0 16 16">
+              <path d="M15.698 7.287 8.712.302a1.03 1.03 0 0 0-1.457 0l-1.45 1.45 1.84 1.84a1.223 1.223 0 0 1 1.55 1.56l1.773 1.774a1.224 1.224 0 0 1 1.267 2.025 1.226 1.226 0 0 1-2.002-1.334L8.58 5.963v4.353a1.226 1.226 0 1 1-1.008-.036V5.887a1.226 1.226 0 0 1-.666-1.608L5.093 2.465l-4.79 4.79a1.03 1.03 0 0 0 0 1.457l6.986 6.986a1.03 1.03 0 0 0 1.457 0l6.953-6.953a1.031 1.031 0 0 0 0-1.457"/>
+            </svg>
+          </a>
+
+          <a class="btn-social" id="youtube" role="button" aria-label="YouTube">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-youtube" viewBox="0 0 16 16">
+              <path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.01 2.01 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.01 2.01 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31 31 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.01 2.01 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A100 100 0 0 1 7.858 2zM6.4 5.209v4.818l4.157-2.408z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

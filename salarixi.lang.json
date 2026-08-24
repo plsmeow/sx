@@ -1,0 +1,3436 @@
+{
+  "languages": [
+    {
+      "code": "ru",
+      "name": "Русский"
+    },
+    {
+      "code": "en",
+      "name": "English"
+    },
+    {
+      "code": "tr",
+      "name": "Türkçe"
+    },
+    {
+      "code": "ja",
+      "name": "日本語"
+    },
+    {
+      "code": "zh",
+      "name": "中文"
+    }
+  ],
+  "data": [
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "main",
+      "lang": {
+        "ru": "Главная",
+        "en": "Main",
+        "tr": "Ana Sayfa",
+        "ja": "メイン",
+        "zh": "主页"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "settings",
+      "lang": {
+        "ru": "Настройки",
+        "en": "Settings",
+        "tr": "Ayarlar",
+        "ja": "設定",
+        "zh": "设置"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "accounts",
+      "lang": {
+        "ru": "Аккаунты",
+        "en": "Accounts",
+        "tr": "Hesaplar",
+        "ja": "アカウント",
+        "zh": "账户"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "plugins",
+      "lang": {
+        "ru": "Плагины",
+        "en": "Plugins",
+        "tr": "Eklentiler",
+        "ja": "プラグイン",
+        "zh": "插件"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "proxy",
+      "lang": {
+        "ru": "Прокси",
+        "en": "Proxy",
+        "tr": "Vekil",
+        "ja": "プロキシ",
+        "zh": "代理"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "anti-captcha",
+      "lang": {
+        "ru": "Анти-Капча",
+        "en": "Anti-Captcha",
+        "tr": "Anti-Captcha",
+        "ja": "アンチキャプチャ",
+        "zh": "反验证码"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "webhook",
+      "lang": {
+        "ru": "Вебхук",
+        "en": "Webhook",
+        "tr": "Webhook",
+        "ja": "ウェブフック",
+        "zh": "Webhook"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "control",
+      "lang": {
+        "ru": "Управление",
+        "en": "Control",
+        "tr": "Yönetim",
+        "ja": "制御",
+        "zh": "控制"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "script",
+      "lang": {
+        "ru": "Сценарий",
+        "en": "Script",
+        "tr": "Senaryo",
+        "ja": "スクリプト",
+        "zh": "脚本"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "graphic",
+      "lang": {
+        "ru": "График",
+        "en": "Graphic",
+        "tr": "Grafik",
+        "ja": "グラフ",
+        "zh": "图表"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "monitoring",
+      "lang": {
+        "ru": "Мониторинг",
+        "en": "Monitoring",
+        "tr": "Izleme",
+        "ja": "監視",
+        "zh": "监控"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "analysis",
+      "lang": {
+        "ru": "Анализ",
+        "en": "Analysis",
+        "tr": "Analiz",
+        "ja": "分析",
+        "zh": "分析"
+      }
+    },
+    {
+      "versions": "1.2.0-rc1",
+      "tag": "scanner",
+      "lang": {
+      "ru": "Сканер",
+      "en": "Scanner",
+      "tr": "Tarayıcı",
+      "ja": "スキャナー",
+      "zh": "掃描器"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "radar",
+      "lang": {
+        "ru": "Радар",
+        "en": "Radar",
+        "tr": "Radar",
+        "ja": "レーダー",
+        "zh": "雷达"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "ping",
+      "lang": {
+        "ru": "Пинг",
+        "en": "Ping",
+        "tr": "Ping",
+        "ja": "ピング",
+        "zh": "Ping"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "journal",
+      "lang": {
+        "ru": "Журнал",
+        "en": "Journal",
+        "tr": "Dergi",
+        "ja": "ジャーナル",
+        "zh": "日志"
+      }
+    },
+    {
+      "versions": "1.1.0:1.1.1",
+      "tag": "interface",
+      "lang": {
+        "ru": "Интерфейс",
+        "en": "Interface",
+        "tr": "Arayüz",
+        "ja": "インターフェース",
+        "zh": "界面"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "config",
+      "lang": {
+        "ru": "Конфиг",
+        "en": "Config",
+        "tr": "Config",
+        "ja": "コンフィグ",
+        "zh": "配置"
+      }
+    },
+    {
+      "versions": "1.2.0-rc1",
+      "tag": "session",
+      "lang": {
+        "ru": "Сессия",
+        "en": "Session",
+        "tr": "Oturum",
+        "ja": "セッション",
+        "zh": "會議"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "about",
+      "lang": {
+        "ru": "О проекте",
+        "en": "About",
+        "tr": "Hakkımızda",
+        "ja": "概要",
+        "zh": "关于"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "documentation",
+      "lang": {
+        "ru": "Документация",
+        "en": "Documentation",
+        "tr": "Dokümantasyon",
+        "ja": "ドキュメント",
+        "zh": "文档"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "server-address",
+      "lang": {
+        "ru": "Адрес сервера",
+        "en": "Server Address",
+        "tr": "Sunucu Adresi",
+        "ja": "サーバーアドレス",
+        "zh": "服务器地址"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "bots-count",
+      "lang": {
+        "ru": "Кол-во ботов",
+        "en": "Bots Count",
+        "tr": "Bot Sayısı",
+        "ja": "ボット数",
+        "zh": "机器人数量"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "join-delay",
+      "lang": {
+        "ru": "Задержка подключений",
+        "en": "Connection Delay",
+        "tr": "Bağlantı Gecikmesi",
+        "ja": "接続遅延",
+        "zh": "连接延迟"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "launch",
+      "lang": {
+        "ru": "Запустить",
+        "en": "Launch",
+        "tr": "Başlat",
+        "ja": "起動",
+        "zh": "启动"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "stop",
+      "lang": {
+        "ru": "Остановить",
+        "en": "Stop",
+        "tr": "Durdur",
+        "ja": "停止",
+        "zh": "停止"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "generate",
+      "lang": {
+        "ru": "Генерация",
+        "en": "Generate",
+        "tr": "Oluştur",
+        "ja": "生成",
+        "zh": "生成"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "clear",
+      "lang": {
+        "ru": "Очистить",
+        "en": "Clear",
+        "tr": "Temizle",
+        "ja": "クリア",
+        "zh": "清除"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "basic-settings",
+      "lang": {
+        "ru": "Основные настройки",
+        "en": "Basic Settings",
+        "tr": "Temel ayarlar",
+        "ja": "基本設定",
+        "zh": "基本設定"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "nickname-type",
+      "lang": {
+        "ru": "Никнейм",
+        "en": "Nickname",
+        "tr": "Nickname",
+        "ja": "ニックネーム",
+        "zh": "昵称"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "nickname-legit",
+      "lang": {
+        "ru": "Легитный",
+        "en": "Legit",
+        "tr": "Legit",
+        "ja": "正規",
+        "zh": "正规"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "nickname-random",
+      "lang": {
+        "ru": "Случайный",
+        "en": "Random",
+        "tr": "Rastgele",
+        "ja": "ランダム",
+        "zh": "随机"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "nickname-custom",
+      "lang": {
+        "ru": "Кастомный",
+        "en": "Custom",
+        "tr": "Özel",
+        "ja": "カスタム",
+        "zh": "自定义"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "password-type",
+      "lang": {
+        "ru": "Пароль",
+        "en": "Password",
+        "tr": "Şifre",
+        "ja": "パスワード",
+        "zh": "密码"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "without-password",
+      "lang": {
+        "ru": "Без пароля",
+        "en": "Without password",
+        "tr": "Şifresiz",
+        "ja": "パスワードなし",
+        "zh": "无密码"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "password-legit",
+      "lang": {
+        "ru": "Легитный",
+        "en": "Legit",
+        "tr": "Legit",
+        "ja": "正規",
+        "zh": "正规"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "password-random",
+      "lang": {
+        "ru": "Случайный",
+        "en": "Random",
+        "tr": "Rastgele",
+        "ja": "ランダム",
+        "zh": "随机"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "password-custom",
+      "lang": {
+        "ru": "Кастомный",
+        "en": "Custom",
+        "tr": "Özel",
+        "ja": "カスタム",
+        "zh": "自定义"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "email-type",
+      "lang": {
+        "ru": "Эл. почта",
+        "en": "Email",
+        "tr": "E-posta",
+        "ja": "メール",
+        "zh": "邮箱"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "without-email",
+      "lang": {
+        "ru": "Без почты",
+        "en": "Without email",
+        "tr": "E-posta olmadan",
+        "ja": "メールなし",
+        "zh": "无邮箱"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "email-random",
+      "lang": {
+        "ru": "Случайная",
+        "en": "Random",
+        "tr": "Rastgele",
+        "ja": "ランダム",
+        "zh": "随机"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "nickname-template",
+      "lang": {
+        "ru": "Шаблон никнейма",
+        "en": "Nickname Template",
+        "tr": "Nickname Şablonu",
+        "ja": "ニックネームテンプレート",
+        "zh": "昵称模板"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "password-template",
+      "lang": {
+        "ru": "Шаблон пароля",
+        "en": "Password Template",
+        "tr": "Şifre Şablonu",
+        "ja": "パスワードテンプレート",
+        "zh": "密码模板"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "register-settings",
+      "lang": {
+        "ru": "Настройки регистрации",
+        "en": "Registration Settings",
+        "tr": "Kayıt ayarları",
+        "ja": "登録設定",
+        "zh": "註冊設定"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "register-command",
+      "lang": {
+        "ru": "Команда регистрации",
+        "en": "Register Command",
+        "tr": "Kayıt Komutu",
+        "ja": "登録コマンド",
+        "zh": "注册命令"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "register-template",
+      "lang": {
+        "ru": "Шаблон регистрации",
+        "en": "Register Template",
+        "tr": "Kayıt Şablonu",
+        "ja": "登録テンプレート",
+        "zh": "注册模板"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "login-settings",
+      "lang": {
+        "ru": "Настройки логина",
+        "en": "Login Settings",
+        "tr": "Giriş ayarları",
+        "ja": "ログイン設定",
+        "zh": "登入設定"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "login-command",
+      "lang": {
+        "ru": "Команда логина",
+        "en": "Login Command",
+        "tr": "Giriş Komutu",
+        "ja": "ログインコマンド",
+        "zh": "登录命令"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "login-template",
+      "lang": {
+        "ru": "Шаблон логина",
+        "en": "Login Template",
+        "tr": "Giriş Şablonu",
+        "ja": "ログインテンプレート",
+        "zh": "登录模板"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "mode",
+      "lang": {
+        "ru": "Режим",
+        "en": "Mode",
+        "tr": "Mod",
+        "ja": "モード",
+        "zh": "模式"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "mode-default",
+      "lang": {
+        "ru": "Обычный",
+        "en": "Default",
+        "tr": "Normal",
+        "ja": "デフォルト",
+        "zh": "默认"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "mode-trigger",
+      "lang": {
+        "ru": "Триггер",
+        "en": "Trigger",
+        "tr": "Trigger",
+        "ja": "トリガー",
+        "zh": "触发器"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "min-delay",
+      "lang": {
+        "ru": "Задержка (минимум)",
+        "en": "Delay (minimum)",
+        "tr": "Gecikme (Min)",
+        "ja": "遅延（最小）",
+        "zh": "延迟（最小）"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "max-delay",
+      "lang": {
+        "ru": "Задержка (максимум)",
+        "en": "Delay (maximum)",
+        "tr": "Gecikme (Max)",
+        "ja": "遅延（最大）",
+        "zh": "延迟（最大）"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "trigger-message",
+      "lang": {
+        "ru": "Триггер (сообщение)",
+        "en": "Trigger (message)",
+        "tr": "Trigger (Mesaj)",
+        "ja": "トリガー（メッセージ）",
+        "zh": "触发器（消息）"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "reconnection-settings",
+      "lang": {
+        "ru": "Настройки переподключения",
+        "en": "Reconnection Settings",
+        "tr": "Yeniden bağlantı ayarları",
+        "ja": "再接続設定",
+        "zh": "重新連接設定"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "rejoin-delay",
+      "lang": {
+        "ru": "Задержка переподключения",
+        "en": "Reconnection Delay",
+        "tr": "Yeniden Bağlanma Gecikmesi",
+        "ja": "再接続遅延",
+        "zh": "重连延迟"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "monitoring-settings",
+      "lang": {
+        "ru": "Настройки мониторинга",
+        "en": "Monitoring Settings",
+        "tr": "İzleme ayarları",
+        "ja": "監視",
+        "zh": "监控"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "chat-history-length",
+      "lang": {
+        "ru": "Длина истории чата",
+        "en": "Chat History Length",
+        "tr": "Sohbet Geçmişi",
+        "ja": "チャット履歴の長さ",
+        "zh": "聊天历史长度"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "update-frequency",
+      "lang": {
+        "ru": "Частота обновлений",
+        "en": "Update Frequency",
+        "tr": "Güncelleme Sıklığı",
+        "ja": "更新頻度",
+        "zh": "更新频率"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "additional-settings",
+      "lang": {
+        "ru": "Дополнительные настройки",
+        "en": "Additional Settings",
+        "tr": "Ek ayarları",
+        "ja": "追加設定",
+        "zh": "其他設定"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "view-distance",
+      "lang": {
+        "ru": "Дистанция прогрузки",
+        "en": "View Distance",
+        "tr": "Görüş Mesafesi",
+        "ja": "描画距離",
+        "zh": "视距"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "chat-colors",
+      "lang": {
+        "ru": "Включить цвета в чате",
+        "en": "Enable Chat Colors",
+        "tr": "Sohbet Renklerini Etkinleştir",
+        "ja": "チャット色を有効化",
+        "zh": "启用聊天颜色"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "dominant-hand",
+      "lang": {
+        "ru": "Ведущая рука",
+        "en": "Dominant Hand",
+        "tr": "Baskın El",
+        "ja": "利き手",
+        "zh": "主手"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "use-auto-register",
+      "lang": {
+        "ru": "Использовать Auto-Register",
+        "en": "Use Auto-Register",
+        "tr": "Otomatik Kayıt Kullan",
+        "ja": "自動登録を使用",
+        "zh": "使用自动注册"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "use-auto-login",
+      "lang": {
+        "ru": "Использовать Auto-Login",
+        "en": "Use Auto-Login",
+        "tr": "Otomatik Giriş Kullan",
+        "ja": "自動ログインを使用",
+        "zh": "使用自动登录"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "use-double-auth",
+      "lang": {
+        "ru": "Использовать Double-Auth",
+        "en": "Use Double-Auth",
+        "tr": "Çift Doğrulama Kullan",
+        "ja": "二段階認証を使用",
+        "zh": "使用双重认证"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "use-auto-rejoin",
+      "lang": {
+        "ru": "Использовать Auto-Rejoin",
+        "en": "Use Auto-Rejoin",
+        "tr": "Otomatik Yeniden Bağlanmayı Kullan",
+        "ja": "自動再接続を使用",
+        "zh": "使用自动重连"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "use-chat-signing",
+      "lang": {
+        "ru": "Использовать Chat-Signing",
+        "en": "Use Chat-Signing",
+        "tr": "Sohbet İmzalama Kullan",
+        "ja": "チャット署名を使用",
+        "zh": "使用聊天签名"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "use-auto-respawn",
+      "lang": {
+        "ru": "Использовать Auto-Respawn",
+        "en": "Use Auto-Respawn",
+        "tr": "Otomatik Yeniden Doğmayı Kullan",
+        "ja": "自動リスポーンを使用",
+        "zh": "使用自动重生"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "use-accept-rp",
+      "lang": {
+        "ru": "Использовать Accept-RP",
+        "en": "Use Accept-RP",
+        "tr": "RP Kabul Et Kullan",
+        "ja": "RP承認を使用",
+        "zh": "使用接受RP"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "use-pathfinder",
+      "lang": {
+        "ru": "Использовать Pathfinder",
+        "en": "Use Pathfinder",
+        "tr": "Yol Bulucu Kullan",
+        "ja": "パスファインダーを使用",
+        "zh": "使用寻路"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "use-auto-script",
+      "lang": {
+        "ru": "Использовать Auto-Script",
+        "en": "Use Auto-Script",
+        "tr": "Otomatik Senaryo Kullan",
+        "ja": "自動スクリプトを使用",
+        "zh": "使用自动脚本"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "use-proxy",
+      "lang": {
+        "ru": "Использовать прокси",
+        "en": "Use Proxy",
+        "tr": "Vekil Kullan",
+        "ja": "プロキシを使用",
+        "zh": "使用代理"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "use-anti-captcha",
+      "lang": {
+        "ru": "Использовать анти-капчу",
+        "en": "Use Anti-Captcha",
+        "tr": "Anti-Captcha Kullan",
+        "ja": "アンチキャプチャを使用",
+        "zh": "使用反验证码"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "use-webhook",
+      "lang": {
+        "ru": "Использовать вебхук",
+        "en": "Use Webhook",
+        "tr": "Webhook Kullan",
+        "ja": "ウェブフックを使用",
+        "zh": "使用Webhook"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "use-accounts",
+      "lang": {
+        "ru": "Использовать аккаунты",
+        "en": "Use Accounts",
+        "tr": "Hesapları Kullan",
+        "ja": "アカウントを使用",
+        "zh": "使用账户"
+      }
+    },
+    {
+      "versions": "1.2.0-rc1",
+      "tag": "monitoring-optimization",
+      "lang": {
+        "ru": "Оптимизация мониторинга",
+        "en": "Monitoring Optimization",
+        "tr": "İzlemenin optimize edilmesi",
+        "ja": "監視の最適化",
+        "zh": "優化監測"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "import",
+      "lang": {
+        "ru": "Импорт",
+        "en": "Import",
+        "tr": "İçe aktarmak",
+        "ja": "輸入",
+        "zh": "進口"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "export",
+      "lang": {
+        "ru": "Экспорт",
+        "en": "Export",
+        "tr": "İhracat",
+        "ja": "輸出",
+        "zh": "出口"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "total-accounts",
+      "lang": {
+        "ru": "Всего аккаунтов",
+        "en": "Total Accounts",
+        "tr": "Toplam hesaplar",
+        "ja": "合計アカウント数",
+        "zh": "總帳戶"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "username",
+      "lang": {
+        "ru": "Имя пользователя",
+        "en": "Username",
+        "tr": "Kullanıcı adı",
+        "ja": "ユーザー名",
+        "zh": "使用者名稱"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "creation-date",
+      "lang": {
+        "ru": "Дата создания",
+        "en": "Creation Date",
+        "tr": "Oluşturulma tarihi",
+        "ja": "作成日",
+        "zh": "建立日期"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "dominant-hand",
+      "lang": {
+        "ru": "Ведущая рука",
+        "en": "Dominant Hand",
+        "tr": "Baskın El",
+        "ja": "利き手",
+        "zh": "主手"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "script-for-bots",
+      "lang": {
+        "ru": "Сценарий для ботов",
+        "en": "Script for bots",
+        "tr": "Baskın El",
+        "ja": "ボット用スクリプト",
+        "zh": "機器人腳本"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "proxy-list",
+      "lang": {
+        "ru": "Список прокси",
+        "en": "Proxy List",
+        "tr": "Vekil Listesi",
+        "ja": "プロキシリスト",
+        "zh": "代理列表"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "clear-list",
+      "lang": {
+        "ru": "Очистить список",
+        "en": "Clear List",
+        "tr": "Listeyi Temizle",
+        "ja": "リストをクリア",
+        "zh": "清除列表"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "check-proxies",
+      "lang": {
+        "ru": "Проверить прокси",
+        "en": "Check proxies",
+        "tr": "Kontrol etmek",
+        "ja": "プロキシを確認する",
+        "zh": "檢查代理"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "algorithm",
+      "lang": {
+        "ru": "Алгоритм",
+        "en": "Algorithm",
+        "tr": "Algoritma",
+        "ja": "アルゴリズム",
+        "zh": "算法"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "country",
+      "lang": {
+        "ru": "Страна",
+        "en": "Country",
+        "tr": "Ülke",
+        "ja": "国",
+        "zh": "国家"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "country-any",
+      "lang": {
+        "ru": "Любая",
+        "en": "Any",
+        "tr": "Herhangi",
+        "ja": "任意",
+        "zh": "任意"
+      }
+    },
+    {
+      "versions": "1.2.0-rc1",
+      "tag": "country-ru",
+      "lang": {
+        "ru": "Россия",
+        "en": "Russia",
+        "tr": "Rusya",
+        "ja": "ロシア",
+        "zh": "俄羅斯"
+      }
+    },
+    {
+      "versions": "1.2.0-rc1",
+      "tag": "country-us",
+      "lang": {
+        "ru": "США",
+        "en": "United States",
+        "tr": "Amerika Birleşik Devletleri",
+        "ja": "アメリカ合衆国",
+        "zh": "美國"
+      }
+    },
+    {
+      "versions": "1.2.0-rc1",
+      "tag": "country-cn",
+      "lang": {
+        "ru": "Китай",
+        "en": "China",
+        "tr": "Çin",
+        "ja": "中国",
+        "zh": "中國"
+      }
+    },
+    {
+      "versions": "1.2.0-rc1",
+      "tag": "country-fr",
+      "lang": {
+        "ru": "Франция",
+        "en": "France",
+        "tr": "Fransa",
+        "ja": "フランス",
+        "zh": "法國"
+      }
+    },
+    {
+      "versions": "1.2.0-rc1",
+      "tag": "country-de",
+      "lang": {
+        "ru": "Германия",
+        "en": "Germany",
+        "tr": "Almanya",
+        "ja": "ドイツ",
+        "zh": "德國"
+      }
+    },
+    {
+      "versions": "1.2.0-rc1",
+      "tag": "country-jp",
+      "lang": {
+        "ru": "Япония",
+        "en": "Japan",
+        "tr": "Japonya",
+        "ja": "日本",
+        "zh": "日本"
+      }
+    },
+    {
+      "versions": "1.2.0-rc1",
+      "tag": "country-br",
+      "lang": {
+        "ru": "Бразилия",
+        "en": "Brazil",
+        "tr": "Brezilya",
+        "ja": "ブラジル",
+        "zh": "巴西"
+      }
+    },
+    {
+      "versions": "1.2.0-rc1",
+      "tag": "country-ua",
+      "lang": {
+        "ru": "Украина",
+        "en": "Ukraine",
+        "tr": "Ukrayna",
+        "ja": "ウクライナ",
+        "zh": "烏克蘭"
+      }
+    },
+    {
+      "versions": "1.2.0-rc1",
+      "tag": "country-nl",
+      "lang": {
+        "ru": "Нидерланды",
+        "en": "Netherlands",
+        "tr": "Hollanda",
+        "ja": "オランダ",
+        "zh": "荷蘭"
+      }
+    },
+    {
+      "versions": "1.2.0-rc1",
+      "tag": "country-ca",
+      "lang": {
+        "ru": "Канада",
+        "en": "Canada",
+        "tr": "Kanada",
+        "ja": "カナダ",
+        "zh": "加拿大"
+      }
+    },
+    {
+      "versions": "1.2.0-rc1",
+      "tag": "country-id",
+      "lang": {
+        "ru": "Индонезия",
+        "en": "Indonesia",
+        "tr": "Endonezya",
+        "ja": "インドネシア",
+        "zh": "印尼"
+      }
+    },
+    {
+      "versions": "1.2.0-rc1",
+      "tag": "country-th",
+      "lang": {
+        "ru": "Таиланд",
+        "en": "Thailand",
+        "tr": "Tayland",
+        "ja": "タイ",
+        "zh": "泰國"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "port",
+      "lang": {
+        "ru": "Порт",
+        "en": "Port",
+        "tr": "Port",
+        "ja": "ポート",
+        "zh": "端口"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "port-any",
+      "lang": {
+        "ru": "Любой",
+        "en": "Any",
+        "tr": "Herhangi",
+        "ja": "任意",
+        "zh": "任意"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "count",
+      "lang": {
+        "ru": "Кол-во",
+        "en": "Count",
+        "tr": "Sayı",
+        "ja": "数",
+        "zh": "数量"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "count-max",
+      "lang": {
+        "ru": "Максимум",
+        "en": "Maximum",
+        "tr": "Maksimum",
+        "ja": "最大",
+        "zh": "最大"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "find-proxies",
+      "lang": {
+        "ru": "Найти прокси",
+        "en": "Find Proxies",
+        "tr": "Vekil Bul",
+        "ja": "プロキシを探す",
+        "zh": "查找代理"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "proxy-counter",
+      "lang": {
+        "ru": "Кол-во прокси",
+        "en": "Proxy Count",
+        "tr": "Vekil Sayısı",
+        "ja": "プロキシ数",
+        "zh": "代理数量"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "captcha-type",
+      "lang": {
+        "ru": "Тип капчи",
+        "en": "Captcha Type",
+        "tr": "Captcha Türü",
+        "ja": "キャプチャタイプ",
+        "zh": "验证码类型"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "captcha-subtype",
+      "lang": {
+        "ru": "Подтип капчи",
+        "en": "Captcha Subtype",
+        "tr": "Captcha Alt Türü",
+        "ja": "キャプチャサブタイプ",
+        "zh": "验证码子类型"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "api-service",
+      "lang": {
+        "ru": "API сервис",
+        "en": "API Service",
+        "tr": "API Servisi",
+        "ja": "APIサービス",
+        "zh": "API服务"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "captcha-solve-mode",
+      "lang": {
+        "ru": "Режим",
+        "en": "Mode",
+        "tr": "Mod",
+        "ja": "モード",
+        "zh": "模式"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "captcha-regex",
+      "lang": {
+        "ru": "Регулярное выражение",
+        "en": "Regular Expression",
+        "tr": "Düzenli İfade",
+        "ja": "正規表現",
+        "zh": "正则表达式"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "captcha-url-part",
+      "lang": {
+        "ru": "Обязательная часть ссылки",
+        "en": "Required URL Part",
+        "tr": "Gerekli URL Parçası",
+        "ja": "必須URL部分",
+        "zh": "必填URL部分"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "number-of-columns",
+      "lang": {
+        "ru": "Количество колонн",
+        "en": "Number of Columns",
+        "tr": "Sütun Sayısı",
+        "ja": "列数",
+        "zh": "列数"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "number-of-rows",
+      "lang": {
+        "ru": "Количество рядов",
+        "en": "Number of Rows",
+        "tr": "Satır Sayısı",
+        "ja": "行数",
+        "zh": "行数"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "api-key",
+      "lang": {
+        "ru": "API ключ",
+        "en": "API Key",
+        "tr": "API Anahtarı",
+        "ja": "APIキー",
+        "zh": "API密钥"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "webhook-link",
+      "lang": {
+        "ru": "Ссылка",
+        "en": "Link",
+        "tr": "Bağlantı",
+        "ja": "リンク",
+        "zh": "链接"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "webhook-information",
+      "lang": {
+        "ru": "Информация",
+        "en": "Information",
+        "tr": "Bilgi",
+        "ja": "情報",
+        "zh": "信息"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "webhook-data",
+      "lang": {
+        "ru": "Данные",
+        "en": "Data",
+        "tr": "Veri",
+        "ja": "データ",
+        "zh": "数据"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "webhook-actions",
+      "lang": {
+        "ru": "Действия",
+        "en": "Actions",
+        "tr": "Eylemler",
+        "ja": "アクション",
+        "zh": "操作"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "chat",
+      "lang": {
+        "ru": "Чат",
+        "en": "Chat",
+        "tr": "Chat",
+        "ja": "チャット",
+        "zh": "聊天"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "actions",
+      "lang": {
+        "ru": "Действия",
+        "en": "Actions",
+        "tr": "Eylemler",
+        "ja": "アクション",
+        "zh": "操作"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "inventory",
+      "lang": {
+        "ru": "Инвентарь",
+        "en": "Inventory",
+        "tr": "Envanter",
+        "ja": "インベントリ",
+        "zh": "物品栏"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "movement",
+      "lang": {
+        "ru": "Движение",
+        "en": "Movement",
+        "tr": "Hareket",
+        "ja": "移動",
+        "zh": "移动"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "imitation",
+      "lang": {
+        "ru": "Имитация",
+        "en": "Imitation",
+        "tr": "Taklit",
+        "ja": "模倣",
+        "zh": "模拟"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "anti-afk",
+      "lang": {
+        "ru": "Анти-АФК",
+        "en": "Anti-AFK",
+        "tr": "Anti-AFK",
+        "ja": "Anti-AFK",
+        "zh": "防挂机"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "stalker",
+      "lang": {
+        "ru": "Сталкер",
+        "en": "Stalker",
+        "tr": "Takip",
+        "ja": "ストーカー",
+        "zh": "追踪"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "flight",
+      "lang": {
+        "ru": "Полёт",
+        "en": "Flight",
+        "tr": "Uçuş",
+        "ja": "飛行",
+        "zh": "飞行"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "killaura",
+      "lang": {
+        "ru": "Киллаура",
+        "en": "Killaura",
+        "tr": "Killaura",
+        "ja": "キルオーラ",
+        "zh": "杀戮光环"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "scaffold",
+      "lang": {
+        "ru": "Скаффолд",
+        "en": "Scaffold",
+        "tr": "Scaffold",
+        "ja": "スカフォールド",
+        "zh": "脚手架"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "anti-fall",
+      "lang": {
+        "ru": "Анти-Падение",
+        "en": "Anti-Fall",
+        "tr": "Anti-Fall",
+        "ja": "落下防止",
+        "zh": "防跌落"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "bow-aim",
+      "lang": {
+        "ru": "Лук аим",
+        "en": "Bow Aim",
+        "tr": "Yay Nişanı",
+        "ja": "弓エイム",
+        "zh": "弓瞄准"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "stealer",
+      "lang": {
+        "ru": "Стиллер",
+        "en": "Stealer",
+        "tr": "Stealer",
+        "ja": "スティーラー",
+        "zh": "窃取者"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "miner",
+      "lang": {
+        "ru": "Майнер",
+        "en": "Miner",
+        "tr": "Miner",
+        "ja": "マイナー",
+        "zh": "矿工"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "farmer",
+      "lang": {
+        "ru": "Фермер",
+        "en": "Farmer",
+        "tr": "Farmer",
+        "ja": "ファーマー",
+        "zh": "农民"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "info-text",
+      "lang": {
+        "ru": "Данный раздел не работает",
+        "en": "This section does not work",
+        "tr": "Bu bölüm aktif değil",
+        "ja": "このセクションは機能しません",
+        "zh": "此部分不可用"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "radar-update-frequency",
+      "lang": {
+        "ru": "Частота обновления",
+        "en": "Refresh Rate",
+        "tr": "Güncelleme Hızı",
+        "ja": "更新レート",
+        "zh": "刷新率"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "radar-full-path",
+      "lang": {
+        "ru": "Полный путь",
+        "en": "Full Path",
+        "tr": "Tam Yol",
+        "ja": "フルパス",
+        "zh": "完整路径"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "radar-file-name",
+      "lang": {
+        "ru": "Имя файла",
+        "en": "File Name",
+        "tr": "Dosya Adı",
+        "ja": "ファイル名",
+        "zh": "文件名"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "radar-auto-save",
+      "lang": {
+        "ru": "Авто сохранение",
+        "en": "Auto Save",
+        "tr": "Otomatik Kaydet",
+        "ja": "自動保存",
+        "zh": "自动保存"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "journal-system-logs",
+      "lang": {
+        "ru": "Системные логи",
+        "en": "System Logs",
+        "tr": "Sistem Log",
+        "ja": "システムログ",
+        "zh": "系统日志"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "journal-extended-logs",
+      "lang": {
+        "ru": "Расширенные логи",
+        "en": "Extended Logs",
+        "tr": "Genişletilmiş Log",
+        "ja": "拡張ログ",
+        "zh": "扩展日志"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "journal-auto-scroll",
+      "lang": {
+        "ru": "Авто скролл",
+        "en": "Auto Scroll",
+        "tr": "Otomatik Kaydır",
+        "ja": "自動スクロール",
+        "zh": "自动滚动"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "execute",
+      "lang": {
+        "ru": "Выполнить",
+        "en": "Execute",
+        "tr": "Yerine getirmek",
+        "ja": "実行する",
+        "zh": "執行"
+      }
+    },
+    {
+      "versions": "1.2.0-rc1",
+      "tag": "execute-separately",
+      "lang": {
+        "ru": "Выполнить отдельно",
+        "en": "Execute Separately",
+        "tr": "Ayrı olarak yürütün",
+        "ja": "別々に実行する",
+        "zh": "分別執行"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "interface-section-global",
+      "lang": {
+        "ru": "Глобальные",
+        "en": "Global",
+        "tr": "Global",
+        "ja": "グローバル",
+        "zh": "全局"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "interface-particles",
+      "lang": {
+        "ru": "Партиклы",
+        "en": "Particles",
+        "tr": "Partiküller",
+        "ja": "パーティクル",
+        "zh": "粒子"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "interface-theme",
+      "lang": {
+        "ru": "Тема",
+        "en": "Theme",
+        "tr": "Tema",
+        "ja": "テーマ",
+        "zh": "主题"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "interface-font",
+      "lang": {
+        "ru": "Шрифт",
+        "en": "Font",
+        "tr": "Font",
+        "ja": "フォント",
+        "zh": "字体"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "interface-messages",
+      "lang": {
+        "ru": "Сообщения",
+        "en": "Messages",
+        "tr": "Mesajlar",
+        "ja": "メッセージ",
+        "zh": "消息"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "interface-section-panel",
+      "lang": {
+        "ru": "Панель",
+        "en": "Panel",
+        "tr": "Panel",
+        "ja": "パネル",
+        "zh": "面板"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "interface-icons",
+      "lang": {
+        "ru": "Иконки",
+        "en": "Icons",
+        "tr": "İkonlar",
+        "ja": "アイコン",
+        "zh": "图标"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "interface-show",
+      "lang": {
+        "ru": "Показать",
+        "en": "Show",
+        "tr": "Göster",
+        "ja": "表示",
+        "zh": "显示"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "interface-hide",
+      "lang": {
+        "ru": "Скрыть",
+        "en": "Hide",
+        "tr": "Gizle",
+        "ja": "非表示",
+        "zh": "隐藏"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "interface-font-size",
+      "lang": {
+        "ru": "Размер шрифта",
+        "en": "Font Size",
+        "tr": "Font Boyutu",
+        "ja": "フォントサイズ",
+        "zh": "字体大小"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "interface-internal-gap",
+      "lang": {
+        "ru": "Внутренний отступ",
+        "en": "Internal Gap",
+        "tr": "Padding",
+        "ja": "内部余白",
+        "zh": "内边距"
+      }
+    },
+    {
+      "versions": "1.1.1:1.2.0-rc1",
+      "tag": "interface-separators",
+      "lang": {
+        "ru": "Разделители",
+        "en": "Separators",
+        "tr": "Ayırıcılar",
+        "ja": "分離器",
+        "zh": "分離器"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "interface-language",
+      "lang": {
+        "ru": "Язык",
+        "en": "Language",
+        "tr": "Dil",
+        "ja": "言語",
+        "zh": "语言"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "stylekit",
+      "lang": {
+        "ru": "Набор стилей",
+        "en": "Style Kit",
+        "tr": "Bir dizi stil",
+        "ja": "スタイルセット",
+        "zh": "樣式集"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "enable",
+      "lang": {
+        "ru": "Включить",
+        "en": "Enable",
+        "tr": "Etkinleştir",
+        "ja": "有効",
+        "zh": "启用"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "disable",
+      "lang": {
+        "ru": "Выключить",
+        "en": "Disable",
+        "tr": "Devre Dışı",
+        "ja": "無効",
+        "zh": "禁用"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "upload-config",
+      "lang": {
+        "ru": "Загрузить конфиг",
+        "en": "Upload Config",
+        "tr": "Config Yükle",
+        "ja": "コンフィグをアップロード",
+        "zh": "上传配置"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "share-config",
+      "lang": {
+        "ru": "Поделиться конфигом",
+        "en": "Share Config",
+        "tr": "Config Paylaş",
+        "ja": "コンフィグを共有",
+        "zh": "分享配置"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "mode",
+      "lang": {
+        "ru": "Режим",
+        "en": "Mode",
+        "tr": "Mod",
+        "ja": "モード",
+        "zh": "模式"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "message",
+      "lang": {
+        "ru": "Сообщение",
+        "en": "Message",
+        "tr": "Mesaj",
+        "ja": "メッセージ",
+        "zh": "消息"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "spamming",
+      "lang": {
+        "ru": "Спамминг",
+        "en": "Spamming",
+        "tr": "Spam",
+        "ja": "スパム",
+        "zh": "刷屏"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "send",
+      "lang": {
+        "ru": "Отправить",
+        "en": "Send",
+        "tr": "Gönder",
+        "ja": "送信",
+        "zh": "发送"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "control-start",
+      "lang": {
+        "ru": "Старт",
+        "en": "Start",
+        "tr": "Başlat",
+        "ja": "開始",
+        "zh": "开始"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "control-stop",
+      "lang": {
+        "ru": "Стоп",
+        "en": "Stop",
+        "tr": "Durdur",
+        "ja": "停止",
+        "zh": "停止"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "sync",
+      "lang": {
+        "ru": "Синхронность",
+        "en": "Synchronization",
+        "tr": "Senkronizasyon",
+        "ja": "同期",
+        "zh": "同步"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "global-chat",
+      "lang": {
+        "ru": "Глобальный чат",
+        "en": "Global chat",
+        "tr": "Global sohbet",
+        "ja": "グローバルチャット",
+        "zh": "全局聊天"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "text-mutation",
+      "lang": {
+        "ru": "Мутация текста",
+        "en": "Text mutation",
+        "tr": "Metin mutasyonu",
+        "ja": "テキスト変異",
+        "zh": "文本变异"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "magic-text",
+      "lang": {
+        "ru": "Магический текст",
+        "en": "Magic text",
+        "tr": "Sihirli metin",
+        "ja": "魔法テキスト",
+        "zh": "魔法文本"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "anti-repetition",
+      "lang": {
+        "ru": "Анти-Повтор",
+        "en": "Anti-Repetition",
+        "tr": "Anti-Tekrar",
+        "ja": "アンチリピート",
+        "zh": "防重复"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "bypass",
+      "lang": {
+        "ru": "Обход",
+        "en": "Bypass",
+        "tr": "Atlatma",
+        "ja": "バイパス",
+        "zh": "绕过"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "action",
+      "lang": {
+        "ru": "Действие",
+        "en": "Action",
+        "tr": "Eylem",
+        "ja": "アクション",
+        "zh": "操作"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "jumping",
+      "lang": {
+        "ru": "Джампинг",
+        "en": "Jumping",
+        "tr": "Zıplama",
+        "ja": "ジャンプ",
+        "zh": "跳跃"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "shifting",
+      "lang": {
+        "ru": "Шифтинг",
+        "en": "Shifting",
+        "tr": "Eğilme",
+        "ja": "シフト",
+        "zh": "潜行"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "waving",
+      "lang": {
+        "ru": "Махание рукой",
+        "en": "Waving",
+        "tr": "El sallama",
+        "ja": "手を振る",
+        "zh": "挥手"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "impulsiveness",
+      "lang": {
+        "ru": "Импульсивность",
+        "en": "Impulsiveness",
+        "tr": "Dürtüsellik",
+        "ja": "衝動性",
+        "zh": "冲动性"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "basic",
+      "lang": {
+        "ru": "Базовый",
+        "en": "Basic",
+        "tr": "Temel",
+        "ja": "基本",
+        "zh": "基础"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "swap",
+      "lang": {
+        "ru": "Перемещение",
+        "en": "Swap",
+        "tr": "Değiştirme",
+        "ja": "入れ替え",
+        "zh": "交换"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "interaction",
+      "lang": {
+        "ru": "Взаимодействие",
+        "en": "Interaction",
+        "tr": "Etkileşim",
+        "ja": "相互作用",
+        "zh": "交互"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "slot-index",
+      "lang": {
+        "ru": "Индекс слота",
+        "en": "Slot index",
+        "tr": "Slot indeksi",
+        "ja": "スロットインデックス",
+        "zh": "槽位索引"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "target-slot",
+      "lang": {
+        "ru": "Заменить на",
+        "en": "Replace with",
+        "tr": "Şununla değiştir",
+        "ja": "置き換え",
+        "zh": "替换为"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "select",
+      "lang": {
+        "ru": "Выбрать",
+        "en": "Select",
+        "tr": "Seç",
+        "ja": "選択",
+        "zh": "选择"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "drop",
+      "lang": {
+        "ru": "Выбросить",
+        "en": "Drop",
+        "tr": "Bırak",
+        "ja": "ドロップ",
+        "zh": "丢弃"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "left-click",
+      "lang": {
+        "ru": "Клик (ЛКМ)",
+        "en": "Left Click",
+        "tr": "Sol Tık",
+        "ja": "左クリック",
+        "zh": "左键点击"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "right-click",
+      "lang": {
+        "ru": "Клик (ПКМ)",
+        "en": "Right Click",
+        "tr": "Sağ Tık",
+        "ja": "右クリック",
+        "zh": "右键点击"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "move",
+      "lang": {
+        "ru": "Переместить",
+        "en": "Move",
+        "tr": "Taşı",
+        "ja": "移動",
+        "zh": "移动"
+      }
+    },
+    {
+      "versions": "1.2.0-rc1",
+      "tag": "start-use",
+      "lang": {
+        "ru": "Использовать",
+        "en": "Start Use",
+        "tr": "Kullanmak",
+        "ja": "使用を開始する",
+        "zh": "開始使用"
+      }
+    },
+    {
+      "versions": "1.2.0-rc1",
+      "tag": "release-use",
+      "lang": {
+        "ru": "Завершить",
+        "en": "Release Use",
+        "tr": "Sona ermek",
+        "ja": "使用を中止する",
+        "zh": "停止使用"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "default",
+      "lang": {
+        "ru": "Обычный",
+        "en": "Default",
+        "tr": "Normal",
+        "ja": "デフォルト",
+        "zh": "默认"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "pathfinder",
+      "lang": {
+        "ru": "Pathfinder",
+        "en": "Pathfinder",
+        "tr": "Yol Bulucu",
+        "ja": "パスファインダー",
+        "zh": "寻路"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "direction",
+      "lang": {
+        "ru": "Движение",
+        "en": "Direction",
+        "tr": "Yön",
+        "ja": "方向",
+        "zh": "方向"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "forward",
+      "lang": {
+        "ru": "Вперёд",
+        "en": "Forward",
+        "tr": "İleri",
+        "ja": "前",
+        "zh": "向前"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "backward",
+      "lang": {
+        "ru": "Назад",
+        "en": "Backward",
+        "tr": "Geri",
+        "ja": "後",
+        "zh": "向后"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "left",
+      "lang": {
+        "ru": "Влево",
+        "en": "Left",
+        "tr": "Sol",
+        "ja": "左",
+        "zh": "向左"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "right",
+      "lang": {
+        "ru": "Вправо",
+        "en": "Right",
+        "tr": "Sağ",
+        "ja": "右",
+        "zh": "向右"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "forward-left",
+      "lang": {
+        "ru": "Вперёд и влево",
+        "en": "Forward Left",
+        "tr": "İleri Sol",
+        "ja": "前左",
+        "zh": "左前"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "forward-right",
+      "lang": {
+        "ru": "Вперёд и вправо",
+        "en": "Forward Right",
+        "tr": "İleri Sağ",
+        "ja": "前右",
+        "zh": "右前"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "backward-left",
+      "lang": {
+        "ru": "Назад и влево",
+        "en": "Backward Left",
+        "tr": "Geri Sol",
+        "ja": "後左",
+        "zh": "左后"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "backward-right",
+      "lang": {
+        "ru": "Назад и вправо",
+        "en": "Backward Right",
+        "tr": "Geri Sağ",
+        "ja": "後右",
+        "zh": "右后"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "coord-x",
+      "lang": {
+        "ru": "Координата X",
+        "en": "X Coordinate",
+        "tr": "X Koordinatı",
+        "ja": "X座標",
+        "zh": "X坐标"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "coord-z",
+      "lang": {
+        "ru": "Координата Z",
+        "en": "Z Coordinate",
+        "tr": "Z Koordinatı",
+        "ja": "Z座標",
+        "zh": "Z坐标"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "minimal",
+      "lang": {
+        "ru": "Минимальный",
+        "en": "Minimal",
+        "tr": "Minimal",
+        "ja": "最小限",
+        "zh": "最小"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "normal",
+      "lang": {
+        "ru": "Нормальный",
+        "en": "Normal",
+        "tr": "Normal",
+        "ja": "通常",
+        "zh": "正常"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "advanced",
+      "lang": {
+        "ru": "Продвинутый",
+        "en": "Advanced",
+        "tr": "Gelişmiş",
+        "ja": "高度",
+        "zh": "高级"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "target-nickname",
+      "lang": {
+        "ru": "Никнейм цели",
+        "en": "Target Nickname",
+        "tr": "Hedef Nickname",
+        "ja": "ターゲットのニックネーム",
+        "zh": "目标昵称"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "min-distance",
+      "lang": {
+        "ru": "Минимальная дистанция",
+        "en": "Min Distance",
+        "tr": "Min Mesafe",
+        "ja": "最小距離",
+        "zh": "最小距离"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "max-distance",
+      "lang": {
+        "ru": "Максимальная дистанция",
+        "en": "Max Distance",
+        "tr": "Max Mesafe",
+        "ja": "最大距離",
+        "zh": "最大距离"
+      }
+    },
+    {
+      "versions": "1.2.0-rc1",
+      "tag": "prediction",
+      "lang": {
+        "ru": "Предугадывание",
+        "en": "Prediction",
+        "tr": "Tahmin",
+        "ja": "予測",
+        "zh": "預言"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "vanilla",
+      "lang": {
+        "ru": "Vanilla",
+        "en": "Vanilla",
+        "tr": "Vanilla",
+        "ja": "バニラ",
+        "zh": "原版"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "jump-fly",
+      "lang": {
+        "ru": "Jump-Fly",
+        "en": "Jump-Fly",
+        "tr": "Jump-Fly",
+        "ja": "ジャンプフライ",
+        "zh": "跳跃飞行"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "teleport-fly",
+      "lang": {
+        "ru": "Teleport-Fly",
+        "en": "Teleport-Fly",
+        "tr": "Teleport-Fly",
+        "ja": "テレポートフライ",
+        "zh": "传送飞行"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "bug-fly",
+      "lang": {
+        "ru": "Bug-Fly",
+        "en": "Bug-Fly",
+        "tr": "Bug-Fly",
+        "ja": "バグフライ",
+        "zh": "漏洞飞行"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "settings",
+      "lang": {
+        "ru": "Настройки",
+        "en": "Settings",
+        "tr": "Ayarlar",
+        "ja": "設定",
+        "zh": "设置"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "adaptive-settings",
+      "lang": {
+        "ru": "Адаптивные",
+        "en": "Adaptive",
+        "tr": "Uyarlanabilir",
+        "ja": "適応的",
+        "zh": "自适应"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "manual-settings",
+      "lang": {
+        "ru": "Ручные",
+        "en": "Manual",
+        "tr": "Manuel",
+        "ja": "手動",
+        "zh": "手动"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "auto-mode",
+      "lang": {
+        "ru": "Авто",
+        "en": "Auto",
+        "tr": "Otomatik",
+        "ja": "自動",
+        "zh": "汽車"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "manual-mode",
+      "lang": {
+        "ru": "Ручной",
+        "en": "Manual",
+        "tr": "Manuel",
+        "ja": "マニュアル",
+        "zh": "手動的"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "anti-cheat",
+      "lang": {
+        "ru": "Анти-чит",
+        "en": "Anti-cheat",
+        "tr": "Anti-hile",
+        "ja": "アンチチート",
+        "zh": "反作弊"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "min-change-y",
+      "lang": {
+        "ru": "Изменение по Y (минимум)",
+        "en": "Y Change (min)",
+        "tr": "Y Değişimi (Min)",
+        "ja": "Y変化（最小）",
+        "zh": "Y轴变化（最小）"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "max-change-y",
+      "lang": {
+        "ru": "Изменение по Y (максимум)",
+        "en": "Y Change (max)",
+        "tr": "Y Değişimi (Max)",
+        "ja": "Y変化（最大）",
+        "zh": "Y轴变化（最大）"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "use-ground-spoof",
+      "lang": {
+        "ru": "Использовать Ground-Spoof",
+        "en": "Use Ground-Spoof",
+        "tr": "Ground-Spoof Kullan",
+        "ja": "Ground-Spoofを使用",
+        "zh": "使用地面欺骗"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "behavior",
+      "lang": {
+        "ru": "Поведение",
+        "en": "Behavior",
+        "tr": "Davranış",
+        "ja": "動作",
+        "zh": "行为"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "moderate",
+      "lang": {
+        "ru": "Умеренное",
+        "en": "Moderate",
+        "tr": "Orta",
+        "ja": "中程度",
+        "zh": "中等"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "aggressive",
+      "lang": {
+        "ru": "Агрессивное",
+        "en": "Aggressive",
+        "tr": "Agresif",
+        "ja": "攻撃的",
+        "zh": "激进"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "target",
+      "lang": {
+        "ru": "Цель",
+        "en": "Target",
+        "tr": "Hedef",
+        "ja": "ターゲット",
+        "zh": "目标"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "player",
+      "lang": {
+        "ru": "Игрок",
+        "en": "Player",
+        "tr": "Oyuncu",
+        "ja": "プレイヤー",
+        "zh": "玩家"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "monster",
+      "lang": {
+        "ru": "Монстр",
+        "en": "Monster",
+        "tr": "Canavar",
+        "ja": "モンスター",
+        "zh": "怪物"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "animal",
+      "lang": {
+        "ru": "Животное",
+        "en": "Animal",
+        "tr": "Hayvan",
+        "ja": "動物",
+        "zh": "动物"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "vehicle",
+      "lang": {
+        "ru": "Транспорт",
+        "en": "Vehicle",
+        "tr": "Araç",
+        "ja": "乗り物",
+        "zh": "载具"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "any",
+      "lang": {
+        "ru": "Любая",
+        "en": "Any",
+        "tr": "Herhangi",
+        "ja": "任意",
+        "zh": "任意"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "custom-target",
+      "lang": {
+        "ru": "Своя цель",
+        "en": "Custom",
+        "tr": "Özel",
+        "ja": "カスタム",
+        "zh": "自定义"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "weapon",
+      "lang": {
+        "ru": "Оружие",
+        "en": "Weapon",
+        "tr": "Silah",
+        "ja": "武器",
+        "zh": "武器"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "sword",
+      "lang": {
+        "ru": "Меч",
+        "en": "Sword",
+        "tr": "Kılıç",
+        "ja": "剣",
+        "zh": "剑"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "axe",
+      "lang": {
+        "ru": "Топор",
+        "en": "Axe",
+        "tr": "Balta",
+        "ja": "斧",
+        "zh": "斧"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "weapon-slot",
+      "lang": {
+        "ru": "Слот оружия",
+        "en": "Weapon Slot",
+        "tr": "Silah Slotu",
+        "ja": "武器スロット",
+        "zh": "武器槽位"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "attack-distance",
+      "lang": {
+        "ru": "Дистанция атаки",
+        "en": "Attack Distance",
+        "tr": "Saldırı Mesafesi",
+        "ja": "攻撃距離",
+        "zh": "攻击距离"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "delay",
+      "lang": {
+        "ru": "Задержка",
+        "en": "Delay",
+        "tr": "Gecikme",
+        "ja": "遅延",
+        "zh": "延迟"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "max-chase-distance",
+      "lang": {
+        "ru": "Макс. дистанция преследования",
+        "en": "Max Chase Distance",
+        "tr": "Max Takip Mesafesi",
+        "ja": "最大追跡距離",
+        "zh": "最大追击距离"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "min-chase-distance",
+      "lang": {
+        "ru": "Мин. дистанция преследования",
+        "en": "Min Chase Distance",
+        "tr": "Min Takip Mesafesi",
+        "ja": "最小追跡距離",
+        "zh": "最小追击距离"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "auto-weapon",
+      "lang": {
+        "ru": "Авто оружие",
+        "en": "Auto Weapon",
+        "tr": "Otomatik Silah",
+        "ja": "自動武器",
+        "zh": "自动武器"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "dodging",
+      "lang": {
+        "ru": "Доджинг",
+        "en": "Dodging",
+        "tr": "Kaçınma",
+        "ja": "ドッジ",
+        "zh": "闪避"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "chase",
+      "lang": {
+        "ru": "Преследование",
+        "en": "Chase",
+        "tr": "Takip",
+        "ja": "追跡",
+        "zh": "追击"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "critical-hits",
+      "lang": {
+        "ru": "Критические удары",
+        "en": "Critical Hits",
+        "tr": "Kritik Vuruşlar",
+        "ja": "クリティカルヒット",
+        "zh": "暴击"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "noob-bridge",
+      "lang": {
+        "ru": "Noob Bridge",
+        "en": "Noob Bridge",
+        "tr": "Noob Bridge",
+        "ja": "ヌーブブリッジ",
+        "zh": "新手桥"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "ninja-bridge",
+      "lang": {
+        "ru": "Ninja Bridge",
+        "en": "Ninja Bridge",
+        "tr": "Ninja Bridge",
+        "ja": "ニンジャブリッジ",
+        "zh": "忍者桥"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "god-bridge",
+      "lang": {
+        "ru": "God Bridge",
+        "en": "God Bridge",
+        "tr": "God Bridge",
+        "ja": "ゴッドブリッジ",
+        "zh": "神仙桥"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "jump-bridge",
+      "lang": {
+        "ru": "Jump Bridge",
+        "en": "Jump Bridge",
+        "tr": "Jump Bridge",
+        "ja": "ジャンプブリッジ",
+        "zh": "跳跃桥"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "min-gaze-x",
+      "lang": {
+        "ru": "Взгляд по X (минимум)",
+        "en": "Gaze X (min)",
+        "tr": "Bakış X (Min)",
+        "ja": "X視点（最小）",
+        "zh": "X轴视角（最小）"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "max-gaze-x",
+      "lang": {
+        "ru": "Взгляд по X (максимум)",
+        "en": "Gaze X (max)",
+        "tr": "Bakış X (Max)",
+        "ja": "X視点（最大）",
+        "zh": "X轴视角（最大）"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "hovering",
+      "lang": {
+        "ru": "Hovering",
+        "en": "Hovering",
+        "tr": "Hovering",
+        "ja": "ホバリング",
+        "zh": "悬停"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "teleport",
+      "lang": {
+        "ru": "Teleport",
+        "en": "Teleport",
+        "tr": "Teleport",
+        "ja": "テレポート",
+        "zh": "传送"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "water-drop",
+      "lang": {
+        "ru": "Water-Drop",
+        "en": "Water-Drop",
+        "tr": "Water-Drop",
+        "ja": "ウォータードロップ",
+        "zh": "水滴"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "fall-spoof",
+      "lang": {
+        "ru": "Fall-Spoof",
+        "en": "Fall-Spoof",
+        "tr": "Fall-Spoof",
+        "ja": "フォールスプーフ",
+        "zh": "坠落欺骗"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "trigger-distance",
+      "lang": {
+        "ru": "Триггер (расстояние до земли)",
+        "en": "Trigger (distance to ground)",
+        "tr": "Tetikleyici (Yere mesafe)",
+        "ja": "トリガー（地面までの距離）",
+        "zh": "触发器（距地面距离）"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "trigger-velocity",
+      "lang": {
+        "ru": "Триггер (скорость падения)",
+        "en": "Trigger (fall velocity)",
+        "tr": "Tetikleyici (Düşüş hızı)",
+        "ja": "トリガー（落下速度）",
+        "zh": "触发器（下落速度）"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "chest",
+      "lang": {
+        "ru": "Сундук",
+        "en": "Chest",
+        "tr": "Sandık",
+        "ja": "チェスト",
+        "zh": "箱子"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "barrel",
+      "lang": {
+        "ru": "Бочка",
+        "en": "Barrel",
+        "tr": "Varil",
+        "ja": "バレル",
+        "zh": "木桶"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "shulker",
+      "lang": {
+        "ru": "Шалкер",
+        "en": "Shulker",
+        "tr": "Shulker",
+        "ja": "シュルカー",
+        "zh": "潜影贝"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "interaction-radius",
+      "lang": {
+        "ru": "Радиус взаимодействия",
+        "en": "Interaction Radius",
+        "tr": "Etkileşim Yarıçapı",
+        "ja": "相互作用半径",
+        "zh": "交互半径"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "tunnel",
+      "lang": {
+        "ru": "Тунель",
+        "en": "Tunnel",
+        "tr": "Tünel",
+        "ja": "トンネル",
+        "zh": "隧道"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "extended",
+      "lang": {
+        "ru": "Расширенный",
+        "en": "Extended",
+        "tr": "Uzatılmış",
+        "ja": "拡張版",
+        "zh": "擴充"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "look",
+      "lang": {
+        "ru": "Поворот",
+        "en": "Look",
+        "tr": "Bakış",
+        "ja": "向き",
+        "zh": "朝向"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "smooth",
+      "lang": {
+        "ru": "Плавный",
+        "en": "Smooth",
+        "tr": "Pürüzsüz",
+        "ja": "スムーズ",
+        "zh": "平滑"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "cutting",
+      "lang": {
+        "ru": "Резкий",
+        "en": "Cutting",
+        "tr": "Keskin",
+        "ja": "カッティング",
+        "zh": "锐利"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "direction-y",
+      "lang": {
+        "ru": "Направление взгляда по Y",
+        "en": "Look Direction Y",
+        "tr": "Bakış Yönü Y",
+        "ja": "Y方向の向き",
+        "zh": "Y轴朝向"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "tool-slot",
+      "lang": {
+        "ru": "Слот с инструментом",
+        "en": "Tool Slot",
+        "tr": "Alet Slotu",
+        "ja": "ツールスロット",
+        "zh": "工具槽位"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "quick",
+      "lang": {
+        "ru": "Быстрый",
+        "en": "Quick",
+        "tr": "Hızlı",
+        "ja": "クイック",
+        "zh": "快速"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "ultra",
+      "lang": {
+        "ru": "Ультра",
+        "en": "Ultra",
+        "tr": "Ultra",
+        "ja": "ウルトラ",
+        "zh": "极限"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "client-description",
+      "lang": {
+        "ru": "современный, функциональный и оптимизированный клиент, который позволяет запускать ботов на сервера Minecraft и управлять ими в реальном времени.",
+        "en": "a modern, functional, and optimized client that allows running bots on Minecraft servers and managing them in real time.",
+        "tr": "Minecraft sunucularında bot çalıştırmanıza ve gerçek zamanlı olarak yönetmenize olanak tanıyan modern, işlevsel ve optimize edilmiş bir istemci.",
+        "ja": "Minecraftサーバーでボットを実行し、リアルタイムで管理できる、現代的で機能的かつ最適化されたクライアント。",
+        "zh": "现代、功能丰富且经过优化的客户端，允许您在Minecraft服务器上运行机器人并实时管理它们。"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "why-choose-us",
+      "lang": {
+        "ru": "Почему нас стоит выбрать?",
+        "en": "Why choose us?",
+        "tr": "Neden bizi seçmelisiniz?",
+        "ja": "なぜ私たちを選ぶべきなのか？",
+        "zh": "为什么选择我们？"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "optimization",
+      "lang": {
+        "ru": "Оптимизация",
+        "en": "Optimization",
+        "tr": "Optimizasyon",
+        "ja": "最適化",
+        "zh": "优化"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "flexibility",
+      "lang": {
+        "ru": "Гибкость",
+        "en": "Flexibility",
+        "tr": "Esneklik",
+        "ja": "柔軟性",
+        "zh": "灵活性"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "speed",
+      "lang": {
+        "ru": "Скорость",
+        "en": "Speed",
+        "tr": "Hız",
+        "ja": "速度",
+        "zh": "速度"
+      }
+    },
+    {
+      "versions": "1.1.0",
+      "tag": "total-downloads",
+      "lang": {
+        "ru": "Всего скачиваний",
+        "en": "Total downloads",
+        "tr": "Toplam indirme",
+        "ja": "総ダウンロード数",
+        "zh": "总下载量"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "total-releases",
+      "lang": {
+        "ru": "Всего выпусков",
+        "en": "Total releases",
+        "tr": "Toplam sürüm",
+        "ja": "総リリース数",
+        "zh": "总发布数"
+      }
+    },
+    {
+      "versions": "1.1.1:1.2.0-rc1",
+      "tag": "stars-count",
+      "lang": {
+        "ru": "Количество звёзд",
+        "en": "Stars count",
+        "tr": "Yıldız sayısı",
+        "ja": "星の数",
+        "zh": "星級"
+      }
+    },
+    {
+      "versions": "1.1.1:1.2.0-rc1",
+      "tag": "forks-count",
+      "lang": {
+        "ru": "Количество форков",
+        "en": "Forks count",
+        "tr": "Çatal sayısı",
+        "ja": "フォークの数",
+        "zh": "分叉數量"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "update-available",
+      "lang": {
+        "ru": "Доступно обновление",
+        "en": "Update available",
+        "tr": "Güncelleme mevcut",
+        "ja": "アップデートが利用可能です",
+        "zh": "有更新版本可用"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "version",
+      "lang": {
+        "ru": "Версия",
+        "en": "Version",
+        "tr": "Sürüm",
+        "ja": "バージョン",
+        "zh": "版本"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "published",
+      "lang": {
+        "ru": "Опубликовано",
+        "en": "Published",
+        "tr": "Yayınlandı",
+        "ja": "公開済み",
+        "zh": "已發布"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "tag",
+      "lang": {
+        "ru": "Бирка",
+        "en": "Tag",
+        "tr": "Etiket",
+        "ja": "タグ",
+        "zh": "標籤"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "download-new-version",
+      "lang": {
+        "ru": "Скачать новую версию",
+        "en": "Download new version",
+        "tr": "Yeni sürümü indirin",
+        "ja": "新しいバージョンをダウンロード",
+        "zh": "下載新版本"
+      }
+    },
+    {
+      "versions": "1.1.0:1.2.0-rc1",
+      "tag": "update-warning",
+      "lang": {
+        "ru": "ПРЕДУПРЕЖДЕНИЕ: Мы не заставляем вас срочно обновить данный клиент, мы лишь предлагаем более оптимизированную и универсальную версию! Выбор комфортной версии никак не ограничен.",
+        "en": "WARNING: We don't force you to update this client immediately; we're simply offering a more optimized and versatile version! Your choice of the most convenient version is completely unlimited.",
+        "tr": "YASAL UYARI: Bu istemciyi hemen güncellemenizi zorunlu tutmuyoruz; sadece daha optimize edilmiş ve çok yönlü bir sürüm sunuyoruz! En uygun sürümü seçme özgürlüğünüz tamamen sınırsızdır.",
+        "ja": "免責事項：このクライアントをすぐにアップデートする必要はありません。より最適化され、多機能なバージョンを提供しているだけです。最も便利なバージョンを選択する権利は完全に無制限です。",
+        "zh": "免責聲明：我們不會強制您立即更新此客戶端；我們只是提供一個更優化、更全面的版本！您可以完全自由地選擇最方便的版本。"
+      }
+    },
+    {
+      "versions": "1.2.0-rc1",
+      "tag": "cidr",
+      "lang": {
+      "ru": "Диапазон (CIDR)",
+      "en": "CIDR range",
+      "tr": "CIDR aralığı",
+      "ja": "CIDR範囲",
+      "zh": "CIDR 范围"
+      }
+    },
+    {
+      "versions": "1.2.0-rc1",
+      "tag": "task-count",
+      "lang": {
+        "ru": "Количество задач",
+        "en": "Task count",
+        "tr": "Görev sayısı",
+        "ja": "タスク数",
+        "zh": "任务数量"
+      }
+    },
+    {
+      "versions": "1.2.0-rc1",
+      "tag": "target-port",
+      "lang": {
+        "ru": "Целевой порт",
+        "en": "Target port",
+        "tr": "Hedef bağlantı noktası",
+        "ja": "ターゲットポート",
+        "zh": "目标端口"
+      }
+    },
+    {
+      "versions": "1.2.0-rc1",
+      "tag": "timeout-ms",
+      "lang": {
+        "ru": "Таймаут (мс)",
+        "en": "Timeout (ms)",
+        "tr": "Zaman aşımı (ms)",
+        "ja": "タイムアウト (ms)",
+        "zh": "超时时间（毫秒）"
+      }
+    },
+    {
+      "versions": "1.2.0-rc1",
+      "tag": "scan",
+      "lang": {
+        "ru": "Сканировать",
+        "en": "Scan",
+        "tr": "Tara",
+        "ja": "スキャン",
+        "zh": "扫描"
+      }
+    },
+    {
+      "versions": "1.2.0-rc1",
+      "tag": "status",
+      "lang": {
+        "ru": "Статус",
+        "en": "Status",
+        "tr": "Durum",
+        "ja": "ステータス",
+        "zh": "状态"
+      }
+    },
+    {
+      "versions": "1.2.0-rc1",
+      "tag": "hosts-scanned",
+      "lang": {
+        "ru": "Хостов просканировано",
+        "en": "Hosts scanned",
+        "tr": "Taranan ana bilgisayarlar",
+        "ja": "スキャンしたホスト数",
+        "zh": "已扫描的主机数"
+      }
+    },
+    {
+    "versions": "1.2.0-rc1",
+      "tag": "servers-found",
+      "lang": {
+        "ru": "Найдено серверов",
+        "en": "Servers found",
+        "tr": "Bulunan sunucular",
+        "ja": "見つかったサーバー数",
+        "zh": "找到的服务器数"
+      }
+    },
+    {
+      "versions": "1.2.0-rc1",
+      "tag": "password",
+      "lang": {
+        "ru": "Пароль",
+        "en": "Password",
+        "tr": "Parola",
+        "ja": "パスワード",
+        "zh": "密码"
+      }
+    },
+    {
+      "versions": "1.2.0-rc1",
+      "tag": "connect",
+      "lang": {
+        "ru": "Подключиться",
+        "en": "Connect",
+        "tr": "Bağlan",
+        "ja": "接続",
+        "zh": "连接"
+      }
+    },
+    {
+      "versions": "1.2.0-rc1",
+      "tag": "reset",
+      "lang": {
+        "ru": "Сбросить",
+        "en": "Reset",
+        "tr": "Sıfırla",
+        "ja": "リセット",
+        "zh": "重置"
+      }
+    },
+    {
+      "versions": "1.2.0-rc1",
+      "tag": "current-address",
+      "lang": {
+        "ru": "Текущий адрес",
+        "en": "Current address",
+        "tr": "Geçerli adres",
+        "ja": "現在のアドレス",
+        "zh": "当前地址"
+      }
+    },
+    {
+      "versions": "1.2.0-rc1",
+      "tag": "current-password",
+      "lang": {
+        "ru": "Текущий пароль",
+        "en": "Current password",
+        "tr": "Geçerli parola",
+        "ja": "現在のパスワード",
+        "zh": "当前密码"
+      }
+    },
+    {
+      "versions": "1.2.0-rc1",
+      "tag": "bots-objects-missing",
+      "lang": {
+        "ru": "Объекты ботов отсутствуют",
+        "en": "There are no bot objects",
+        "tr": "Bot nesnesi yok",
+        "ja": "ボットオブジェクトはありません",
+        "zh": "沒有機器人"
+      }
+    },
+    {
+      "versions": "1.2.0-rc1",
+      "tag": "size",
+      "lang": {
+        "ru": "Размер",
+        "en": "Size",
+        "tr": "Boyut",
+        "ja": "サイズ",
+        "zh": "尺寸"
+      }
+    },
+    {
+      "versions": "1.2.0-rc1",
+      "tag": "size-fixed",
+      "lang": {
+        "ru": "Фиксированный",
+        "en": "Fixed",
+        "tr": "Sabit",
+        "ja": "修理済み",
+        "zh": "固定的"
+      }
+    },
+    {
+      "versions": "1.2.0-rc1",
+      "tag": "size-dynamic",
+      "lang": {
+        "ru": "Динамический",
+        "en": "Dynamic",
+        "tr": "Dinamik",
+        "ja": "動的",
+        "zh": "動態的"
+      }
+    },
+    {
+      "versions": "1.2.0-rc1",
+      "tag": "max-pause",
+      "lang": {
+        "ru": "Максимальная пауза",
+        "en": "Maximum pause",
+        "tr": "Maksimum duraklama",
+        "ja": "最大一時停止",
+        "zh": "最大暫停"
+      }
+    },
+    {
+      "versions": "1.2.0-rc1",
+      "tag": "support-project",
+      "lang": {
+        "ru": "Поддержи проект",
+        "en": "Support the project",
+        "tr": "Projeyi destekleyin",
+        "ja": "プロジェクトを支援する",
+        "zh": "支持該項目"
+      }
+    },
+    {
+      "versions": "1.2.0-rc1",
+      "tag": "support-text",
+      "lang": {
+        "ru": "salarixi - это некоммерческий проект с открытым исходным кодом. Поддержка в виде доната может улучшить мою мотивацию, соответственно и качество проекта!",
+        "en": "salarixi is a non-profit, open-source project. Donating can improve my motivation and, consequently, the quality of the project!",
+        "tr": "salarixi, kar amacı gütmeyen, açık kaynaklı bir projedir. Bağış yapmak motivasyonumu ve dolayısıyla projenin kalitesini artırabilir!",
+        "ja": "salarixiは非営利のオープンソースプロジェクトです。ご寄付いただくことで、私のモチベーションが高まり、結果としてプロジェクトの品質向上につながります！",
+        "zh": "salarixi 是一個非營利的開源專案。您的捐贈可以提升我的工作動力，從而提升專案品質！"
+      }
+    },
+    {
+      "versions": "1.2.0-rc1",
+      "tag": "support",
+      "lang": {
+        "ru": "Поддержать",
+        "en": "Support",
+        "tr": "Destek",
+        "ja": "サポート",
+        "zh": "支援"
+      }
+    }
+  ]
+}

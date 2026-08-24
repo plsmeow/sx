@@ -1,0 +1,31 @@
+[package]
+name = "salarixi-kernel"
+description = "kernel of salarixi"
+version.workspace = true
+repository.workspace = true
+authors.workspace = true
+edition.workspace = true
+
+[dependencies]
+salarixi-extensions.workspace = true
+salarixi-macros.workspace = true
+tokio.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+aes-gcm.workspace = true
+azalea.workspace = true
+socks5-impl.workspace = true
+reqwest.workspace = true
+chrono.workspace = true
+rand.workspace = true
+regex.workspace = true
+once_cell.workspace = true
+base64.workspace = true
+image.workspace = true
+dashmap.workspace = true
+md-5.workspace = true
+rhai.workspace = true
+hashbrown.workspace = true
+dirs.workspace = true
+bytes.workspace = true
+pkcs8.workspace = true
