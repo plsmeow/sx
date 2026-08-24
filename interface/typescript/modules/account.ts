@@ -17,6 +17,9 @@ const ACCOUNT_TYPE_INDEX: Record<AccountType, number> = {
 	session: 2,
 };
 
+/** Ссылка на страницу привязки Microsoft аккаунта */
+const MICROSOFT_LINK_URL = "https://www.microsoft.com/link";
+
 /** Структура данных аккаунта */
 interface Account {
 	creation_date: string;
@@ -59,6 +62,8 @@ class AccountModule {
 		const selectedAccountsProxy = document.getElementById("selected-accounts-proxy") as HTMLInputElement;
 
 		const addAccountBtn = document.getElementById("add-account") as HTMLButtonElement;
+		const accountTypeSelect = document.getElementById("account-type") as HTMLSelectElement;
+		const microsoftLoginBtn = document.getElementById("microsoft-login") as HTMLButtonElement;
 		const openSelectedAccountsEditorBtn = document.getElementById("edit-selected-accounts") as HTMLButtonElement;
 		const closeSelectedAccountsEditorBtn = document.getElementById("close-selected-accounts-editor") as HTMLButtonElement;
 		const removeSelectedAccountsBtn = document.getElementById("remove-selected-accounts") as HTMLButtonElement;
@@ -108,6 +113,10 @@ class AccountModule {
 		selectedAccountsEmail.addEventListener("input", () => this.setValueForAllSelected("email", selectedAccountsEmail.value));
 		selectedAccountsProxy.addEventListener("input", () => this.setValueForAllSelected("proxy", selectedAccountsProxy.value));
 
+		accountTypeSelect.addEventListener("change", () => this.updateAccountPanel(accountTypeSelect.value as AccountType));
+		microsoftLoginBtn.addEventListener("click", async () => await this.loginMicrosoft());
+
+		this.updateAccountPanel(accountTypeSelect.value as AccountType);
 		addAccountBtn.addEventListener("click", () => this.addAccount());
 		importAccounts.addEventListener("click", async () => await this.importAccounts());
 		exportAccounts.addEventListener("click", async () => await this.exportAccounts());
@@ -184,6 +193,9 @@ class AccountModule {
 	private updateAccountCounter(): void {
 		if (!this.accountCounter) return;
 		this.accountCounter.innerText = this.accounts.size.toString();
+
+		const emptyState = document.getElementById("account-empty");
+		if (emptyState) emptyState.style.display = this.accounts.size > 0 ? "none" : "flex";
 	}
 
 	/** Метод обновления счётчика выбранных аккаунтов */
@@ -271,11 +283,86 @@ class AccountModule {
 	/** Метод добавления аккаунта */
 	private addAccount(): void {
 		const usernameInput = document.getElementById("account-username") as HTMLInputElement;
-		const username = usernameInput.value;
+		const accountType = (document.getElementById("account-type") as HTMLSelectElement).value as AccountType;
+		const value = usernameInput.value.trim();
+
+		if (accountType === "session" && value === "") {
+			logger.log(`Не удалось создать аккаунт: укажите токен сессии`, "warning");
+			messages.message("Аккаунты", `Не удалось создать аккаунт: укажите токен сессии`);
+			return;
+		}
+
+		const username = value;
 
 		const status = this.createAccountCard(username, {
 			creation_date: date("exact"),
-			account_type: (document.getElementById("account-type") as HTMLSelectElement).value as AccountType,
+			account_type: accountType,
+			initial_group: null,
+			password: null,
+			email: null,
+			proxy: null,
+			access_token: accountType === "session" ? value : null,
+			uuid: null,
+			selected: false,
+		});
+
+		switch (status) {
+			case 0:
+				this.updateAccountCounter();
+				usernameInput.value = "";
+				logger.log(`Создан новый аккаунт "${this.displayName(username)}"`, "system");
+				break;
+			case 1:
+				logger.log(`Не удалось создать аккаунт: Accounts with empty usernames are prohibited`, "warning");
+				break;
+			case 2:
+				logger.log(`Не удалось создать аккаунт "${this.displayName(username)}": Account with this username already exists`, "warning");
+				break;
+			case 3:
+				logger.log(`Не удалось создать аккаунт: Number of generated accounts is out of limits (minimum 1, maximum 200)`, "warning");
+				break;
+		}
+
+		if (status !== 0) {
+			messages.message("Аккаунты", `Не удалось создать аккаунт`);
+		}
+	}
+
+	/** Метод обновления панели добавления аккаунта под выбранный тип */
+	private updateAccountPanel(accountType: AccountType): void {
+		const usernameInput = document.getElementById("account-username") as HTMLInputElement;
+		const addAccountBtn = document.getElementById("add-account") as HTMLButtonElement;
+		const microsoftLoginBtn = document.getElementById("microsoft-login") as HTMLButtonElement;
+
+		const isMicrosoft = accountType === "microsoft";
+		const isSession = accountType === "session";
+
+		usernameInput.style.display = isMicrosoft ? "none" : "flex";
+		addAccountBtn.style.display = isMicrosoft ? "none" : "flex";
+		microsoftLoginBtn.style.display = isMicrosoft ? "flex" : "none";
+
+		usernameInput.placeholder = isSession ? "access token" : "username";
+
+		if (isSession) {
+			usernameInput.removeAttribute("maxlength");
+		} else {
+			usernameInput.setAttribute("maxlength", "16");
+		}
+	}
+
+	/** Метод входа в Microsoft аккаунт через браузер */
+	private async loginMicrosoft(): Promise<void> {
+		try {
+			await invoke("open_url", { url: MICROSOFT_LINK_URL });
+		} catch (error) {
+			logger.log(`Ошибка открытия URL: ${error}`, "error");
+		}
+
+		const username = this.nextMicrosoftName();
+
+		const status = this.createAccountCard(username, {
+			creation_date: date("exact"),
+			account_type: "microsoft",
 			initial_group: null,
 			password: null,
 			email: null,
@@ -285,26 +372,26 @@ class AccountModule {
 			selected: false,
 		});
 
-		switch (status) {
-			case 0:
-				this.updateAccountCounter();
-				usernameInput.value = "";
-				logger.log(`Создан новый аккаунт "${username}"`, "system");
-				break;
-			case 1:
-				logger.log(`Не удалось создать аккаунт "${username}": Accounts with empty usernames are prohibited`, "warning");
-				break;
-			case 2:
-				logger.log(`Не удалось создать аккаунт "${username}": Account with this username already exists`, "warning");
-				break;
-			case 3:
-				logger.log(`Не удалось создать аккаунт "${username}": Number of generated accounts is out of limits (minimum 1, maximum 200)`, "warning");
-				break;
+		if (status !== 0) {
+			messages.message("Аккаунты", `Не удалось создать аккаунт`);
+			return;
 		}
 
-		if (status !== 0) {
-			messages.message("Аккаунты", `Не удалось создать аккаунт "${username}"`);
-		}
+		this.updateAccountCounter();
+		logger.log(`Создан новый аккаунт "${username}": код для привязки Microsoft появится в логе при запуске`, "system");
+		messages.message("Аккаунты", `Аккаунт "${username}" создан. Браузер открыт для привязки Microsoft, код входа появится в логе при запуске`);
+	}
+
+	/** Метод генерации имени для Microsoft аккаунта */
+	private nextMicrosoftName(): string {
+		let index = 1;
+		while (this.accounts.has(`Microsoft-${index}`)) index++;
+		return `Microsoft-${index}`;
+	}
+
+	/** Метод получения отображаемого имени аккаунта */
+	private displayName(username: string): string {
+		return username.length > 24 ? `${username.slice(0, 10)}…${username.slice(-8)}` : username;
 	}
 
 	/** Метод удаления всех выбранных аккаунтов */
@@ -551,7 +638,8 @@ class AccountModule {
 		accountSelectorMark.className = "checkmark";
 
 		const usernameText = document.createElement("span");
-		usernameText.innerText = username;
+		usernameText.innerText = this.displayName(username);
+		usernameText.title = username;
 
 		chbxContainer.appendChild(accountSelectorFlag);
 		chbxContainer.appendChild(accountSelectorMark);

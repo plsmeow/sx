@@ -936,6 +936,28 @@
       }
     },
     {
+      "versions": "1.2.0-rc1",
+      "tag": "sign-in",
+      "lang": {
+        "ru": "Войти",
+        "en": "Sign In",
+        "tr": "Giriş yap",
+        "ja": "ログイン",
+        "zh": "登录"
+      }
+    },
+    {
+      "versions": "1.2.0-rc1",
+      "tag": "no-accounts",
+      "lang": {
+        "ru": "Нет аккаунтов",
+        "en": "No accounts",
+        "tr": "Hesap yok",
+        "ja": "アカウントがありません",
+        "zh": "暂无账户"
+      }
+    },
+    {
       "versions": "1.1.0:1.2.0-rc1",
       "tag": "dominant-hand",
       "lang": {

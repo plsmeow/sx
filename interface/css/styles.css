@@ -762,6 +762,55 @@ body {
   min-width: 200px;
 }
 
+.accounts-top-panel .account-type-select {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.accounts-top-panel .account-type-select select {
+  appearance: none;
+  -webkit-appearance: none;
+  height: 100%;
+  padding: 0 32px 0 12px;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  outline: none;
+  font-family: var(--global-font-family);
+  font-size: 15px;
+  color: var(--default-color);
+  cursor: pointer;
+}
+
+.accounts-top-panel .account-type-select select:hover {
+  background: var(--hover-bg);
+}
+
+.accounts-top-panel .account-type-select select option {
+  background: var(--select-bg);
+  color: var(--default-color);
+}
+
+.accounts-top-panel .account-type-select::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  width: 12px;
+  height: 12px;
+  background: var(--select-mark-color);
+  clip-path: polygon(50% 80%, 0 20%, 100% 20%);
+}
+
+.accounts-top-panel .input-with-button button.min {
+  gap: 6px;
+  border-left: 1px solid var(--input-border);
+}
+
 .account-table-wrapper {
   display: flex;
   flex-direction: column;
@@ -771,10 +820,10 @@ body {
 }
 
 .account-table-header {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 100px;
   width: 100%;
   padding: 12px;
-  padding-right: 18px;
   background: var(--secondary-bg);
   border: 1px solid var(--secondary-border);
   border-bottom: none;
@@ -794,13 +843,23 @@ body {
 
 .account-table-header .header-cell.date-header {
   justify-content: end;
-  padding-right: 45px;
-  width: 100%;
+  margin-right: 20px;
 }
 
 .account-table-header .header-cell.actions-header {
-  min-width: 72px;
   justify-content: center;
+}
+
+.account-list .account-empty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  padding: 16px;
+  font-family: var(--global-font-family);
+  font-size: 14px;
+  color: var(--dim-color);
+  user-select: none;
 }
 
 .account-list {
@@ -837,10 +896,19 @@ body {
   align-items: center;
 }
 
+.account-list .account-row:hover {
+  background: var(--hover-bg);
+}
+
 .account-list .account-row .account-cell.username-cell {
   display: flex;
   justify-content: start;
   align-items: center;
+  min-width: 0;
+}
+
+.account-list .account-row .account-cell.username-cell .checkbox-container {
+  min-width: 0;
 }
 
 .account-list .account-row .account-cell.username-cell .checkbox-container span {
@@ -848,6 +916,10 @@ body {
   font-size: 17px;
   font-weight: 500;
   color: var(--default-color);
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .account-list .account-row .account-cell.date-cell {
@@ -886,7 +958,7 @@ body {
 
 .accounts-bottom-panel {
   display: flex;
-  width: 90%;
+  width: 720px;
   justify-content: space-between;
   align-items: center;
   margin-top: 20px;
