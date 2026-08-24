@@ -163,15 +163,20 @@ export function replenishTriggerRegistry(): void {
 		const antiCaptchaType = (document.getElementById("captcha-bypass_select_captcha-type") as HTMLSelectElement).value;
 		const antiMapCaptchaApiInputContainer = document.getElementById("anti-map-captcha-api-key-container") as HTMLElement;
 		const antiMapCaptchaApiServiceSelectContainer = document.getElementById("anti-map-captcha-select-api-service-container") as HTMLElement;
+		const antiMapCaptchaApiServiceSelect = document.getElementById("captcha-bypass_select_captcha-service") as HTMLSelectElement;
+		const antiMapCaptchaUserIdContainer = document.getElementById("anti-map-captcha-user-id-container") as HTMLElement;
+		const antiMapCaptchaCustomApiUrlContainer = document.getElementById("anti-map-captcha-custom-api-url-container") as HTMLElement;
 
-		if (current.value === "auto") {
-			if (antiCaptchaType === "map") {
-				antiMapCaptchaApiInputContainer.style.display = "flex";
-				antiMapCaptchaApiServiceSelectContainer.style.display = "grid";
-			}
+		if (current.value === "auto" && antiCaptchaType === "map") {
+			antiMapCaptchaApiInputContainer.style.display = "flex";
+			antiMapCaptchaApiServiceSelectContainer.style.display = "grid";
+			antiMapCaptchaUserIdContainer.style.display = antiMapCaptchaApiServiceSelect.value === "truecaptcha" ? "flex" : "none";
+			antiMapCaptchaCustomApiUrlContainer.style.display = antiMapCaptchaApiServiceSelect.value === "custom" ? "flex" : "none";
 		} else {
 			antiMapCaptchaApiInputContainer.style.display = "none";
 			antiMapCaptchaApiServiceSelectContainer.style.display = "none";
+			antiMapCaptchaUserIdContainer.style.display = "none";
+			antiMapCaptchaCustomApiUrlContainer.style.display = "none";
 		}
 	});
 
@@ -204,8 +209,14 @@ export function replenishTriggerRegistry(): void {
 	});
 
 	triggerRegistry.register("captcha-bypass_select_captcha-service", "select", (current: HTMLSelectElement) => {
-		const antiMapCaptchaUserIdInput = document.getElementById("anti-map-captcha-user-id-container") as HTMLElement;
-		antiMapCaptchaUserIdInput.style.display = current.value === "truecaptcha" ? "flex" : "none";
+		const antiCaptchaType = (document.getElementById("captcha-bypass_select_captcha-type") as HTMLSelectElement).value;
+		const antiCaptchaSolveMode = (document.getElementById("captcha-bypass_select_solve-mode") as HTMLSelectElement).value;
+		const antiMapCaptchaUserIdContainer = document.getElementById("anti-map-captcha-user-id-container") as HTMLElement;
+		const antiMapCaptchaCustomApiUrlContainer = document.getElementById("anti-map-captcha-custom-api-url-container") as HTMLElement;
+		const autoModeOnMap = antiCaptchaType === "map" && antiCaptchaSolveMode === "auto";
+
+		antiMapCaptchaUserIdContainer.style.display = autoModeOnMap && current.value === "truecaptcha" ? "flex" : "none";
+		antiMapCaptchaCustomApiUrlContainer.style.display = autoModeOnMap && current.value === "custom" ? "flex" : "none";
 	});
 
 	triggerRegistry.register("captcha-bypass_select_captcha-size", "select", (current: HTMLSelectElement) => {

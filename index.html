@@ -674,6 +674,31 @@
           <label for="settings_option_humanoid-arm" class="text" tt="dominant-hand">Ведущая рука</label>
           <input type="text" id="settings_option_humanoid-arm" placeholder="left / right" value="right" keep key="humanoid_arm" launch-option>
         </div>
+
+        <div class="custom-select between">
+          <label tt="target-version:">Версия сервера:</label>
+          <select id="settings_select_target-version" keep>
+            <option value="" selected tt="version-auto">Авто</option>
+            <option value="1.8.9">1.8.9</option>
+            <option value="1.12.2">1.12.2</option>
+            <option value="1.16.5">1.16.5</option>
+            <option value="1.17.1">1.17.1</option>
+            <option value="1.18.2">1.18.2</option>
+            <option value="1.19.2">1.19.2</option>
+            <option value="1.19.4">1.19.4</option>
+            <option value="1.20.1">1.20.1</option>
+            <option value="1.20.4">1.20.4</option>
+            <option value="1.20.6">1.20.6</option>
+            <option value="1.21.1">1.21.1</option>
+            <option value="1.21.4">1.21.4</option>
+            <option value="1.21.5">1.21.5</option>
+            <option value="1.21.7">1.21.7</option>
+            <option value="1.21.8">1.21.8</option>
+            <option value="1.21.10">1.21.10</option>
+            <option value="1.21.11">1.21.11</option>
+            <option value="26.1">26.1</option>
+          </select>
+        </div>
       </div>
 
       <div class="settings-column right">
@@ -781,7 +806,11 @@
 
         <div class="input-with-button" id="default-account-panel">
           <input type="text" id="account-username" placeholder="username" maxlength="16">
-
+          <select id="account-type">
+            <option value="offline" selected>Offline</option>
+            <option value="microsoft">Microsoft</option>
+            <option value="session">Session</option>
+          </select>
           <button class="min" id="add-account">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-user-plus">
               <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -1073,9 +1102,10 @@
 
           <div class="custom-select between" id="anti-map-captcha-select-api-service-container" style="display: none;">
             <label tt="api-service:">API сервис:</label>
-            <select id="captcha-bypass_select_captcha-service" section="captcha_bypass" key="api_service" keep launch-option>
+            <select id="captcha-bypass_select_captcha-service" section="captcha_bypass" key="api_service" keep trigger launch-option>
               <option value="2captcha">2captcha.com</option>
               <option value="truecaptcha">truecaptcha.org</option>
+              <option value="custom" tt="custom-service">Кастом</option>
             </select>
           </div>
           
@@ -1133,6 +1163,11 @@
         <div class="form-input" id="anti-map-captcha-api-key-container" style="display: none;">
           <label for="captcha-bypass_web_map-captcha-api-key" class="text" tt="api-key">API ключ</label>
           <input type="text" id="captcha-bypass_map-captcha-api-key" placeholder="xxxx-xxxx-xxxxxxxx-xx" section="captcha_bypass" key="api_key" launch-option keep private>
+        </div>
+
+        <div class="form-input" id="anti-map-captcha-custom-api-url-container" style="display: none;">
+          <label for="captcha-bypass_map-captcha-custom-api-url" class="text" tt="custom-api-url">Ссылка на API</label>
+          <input type="text" id="captcha-bypass_map-captcha-custom-api-url" placeholder="http://127.0.0.1/" section="captcha_bypass" key="custom_api_url" launch-option keep private>
         </div>
       </div>
     </div>

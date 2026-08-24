@@ -13,15 +13,13 @@ pub trait BotPhysicsExt {
 
 impl BotPhysicsExt for Client {
   fn get_physics(&self) -> Option<Physics> {
-    if let Some(physics) = self.get_component::<Physics>() {
-      return Some(physics);
-    }
+    let physics = self.component::<Physics>().ok()?;
 
-    None
+    Some(physics.clone())
   }
 
   fn set_velocity(&self, axis: &str, velocity: f64) {
-    let mut ecs = self.ecs.lock();
+    let mut ecs = self.ecs.write();
 
     if let Some(mut physics) = ecs.get_mut::<Physics>(self.entity) {
       match axis {
@@ -40,7 +38,7 @@ impl BotPhysicsExt for Client {
   }
 
   fn set_on_ground(&self, on_ground: bool) {
-    let mut ecs = self.ecs.lock();
+    let mut ecs = self.ecs.write();
 
     if let Some(mut physics) = ecs.get_mut::<Physics>(self.entity) {
       physics.set_on_ground(on_ground);
@@ -48,7 +46,7 @@ impl BotPhysicsExt for Client {
   }
 
   fn set_old_position(&self, x: f64, y: f64, z: f64) {
-    let mut ecs = self.ecs.lock();
+    let mut ecs = self.ecs.write();
 
     if let Some(mut physics) = ecs.get_mut::<Physics>(self.entity) {
       let pos = Vec3::new(x, y, z);
@@ -57,7 +55,7 @@ impl BotPhysicsExt for Client {
   }
 
   fn set_no_jump_delay(&self, delay: u32) {
-    let mut ecs = self.ecs.lock();
+    let mut ecs = self.ecs.write();
 
     if let Some(mut physics) = ecs.get_mut::<Physics>(self.entity) {
       physics.no_jump_delay = delay;
@@ -65,7 +63,7 @@ impl BotPhysicsExt for Client {
   }
 
   fn set_was_touching_water(&self, state: bool) {
-    let mut ecs = self.ecs.lock();
+    let mut ecs = self.ecs.write();
 
     if let Some(mut physics) = ecs.get_mut::<Physics>(self.entity) {
       physics.was_touching_water = state;
@@ -73,7 +71,7 @@ impl BotPhysicsExt for Client {
   }
 
   fn set_has_impulse(&self, state: bool) {
-    let mut ecs = self.ecs.lock();
+    let mut ecs = self.ecs.write();
 
     if let Some(mut physics) = ecs.get_mut::<Physics>(self.entity) {
       physics.has_impulse = state;

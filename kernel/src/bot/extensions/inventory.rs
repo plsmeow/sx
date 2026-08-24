@@ -180,7 +180,7 @@ impl BotInventoryExt for Client {
 
     if let Some(enchantments) = item.get_component::<Enchantments>() {
       for (enchantment, level) in &enchantments.levels {
-        let Some(id) = self.resolve_registry_name(enchantment) else {
+        let Ok(Some(id)) = self.resolve_registry_name(enchantment) else {
           continue;
         };
 

@@ -43,7 +43,7 @@ class ConfigModule {
 	}
 
 	/** Метод запуска цикла сохранения пользовательского конфига */
-	private watch = (): number => setInterval(async () => await this.saveCurrentConfig(), 5000);
+	private watch = (): ReturnType<typeof setInterval> => setInterval(async () => await this.saveCurrentConfig(), 5000);
 
 	/** Метод сбора текущего конфига */
 	private collectCurrentConfig(pub: boolean): string {

@@ -49,11 +49,11 @@ impl AntiAfkModule {
     let max_delay = options.max_delay.unwrap_or(2500);
 
     loop {
-      let original_direction = bot.direction();
+      let original_direction = bot.direction().unwrap_or_default();
 
-      bot.set_direction(
-        original_direction.0 + randnum(-50.0, 50.0) as f32,
-        original_direction.1 + randnum(-12.0, 12.0) as f32,
+      let _ = bot.set_direction(
+        original_direction.y_rot() + randnum(-50.0, 50.0) as f32,
+        original_direction.x_rot() + randnum(-12.0, 12.0) as f32,
       );
 
       if randchance(0.4) {
@@ -62,9 +62,9 @@ impl AntiAfkModule {
 
       sleep!(randnum(400, 800));
 
-      bot.set_direction(
-        original_direction.0 + randnum(-10.0, 10.0) as f32,
-        original_direction.1 + randnum(-4.5, 4.5) as f32,
+      let _ = bot.set_direction(
+        original_direction.y_rot() + randnum(-10.0, 10.0) as f32,
+        original_direction.x_rot() + randnum(-4.5, 4.5) as f32,
       );
 
       sleep!(randnum(min_delay, max_delay));
@@ -91,11 +91,11 @@ impl AntiAfkModule {
 
       bot.start_walking(index, *walk_direction).await;
 
-      let direction = bot.direction();
+      let direction = bot.direction().unwrap_or_default();
 
-      bot.set_direction(
-        direction.0 + randnum(-35.0, 35.0) as f32,
-        direction.1 + randnum(-20.0, 20.0) as f32,
+      let _ = bot.set_direction(
+        direction.y_rot() + randnum(-35.0, 35.0) as f32,
+        direction.x_rot() + randnum(-20.0, 20.0) as f32,
       );
 
       sleep!(randnum(150, 400));
@@ -113,11 +113,11 @@ impl AntiAfkModule {
     let extra_task = tokio::spawn(async move {
       loop {
         take_bot!(&index, async |bot| {
-          let direction = bot.direction();
+          let direction = bot.direction().unwrap_or_default();
 
-          bot.set_direction(
-            direction.0 + randnum(-35.0, 35.0) as f32,
-            direction.1 + randnum(-10.0, 10.0) as f32,
+          let _ = bot.set_direction(
+            direction.y_rot() + randnum(-35.0, 35.0) as f32,
+            direction.x_rot() + randnum(-10.0, 10.0) as f32,
           );
         });
 

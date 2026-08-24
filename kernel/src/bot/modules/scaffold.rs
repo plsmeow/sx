@@ -90,22 +90,17 @@ impl ScaffoldModule {
     false
   }
 
-  fn simulate_inaccuracy(bot: &Client, direction: (f32, f32)) {
-    let inaccurate_direction = (
-      direction.0 + randnum(-0.08, 0.08) as f32,
-      direction.1 + randnum(-0.08, 0.08) as f32,
-    );
-
-    bot.set_direction(inaccurate_direction.0, inaccurate_direction.1);
+  fn simulate_inaccuracy(bot: &Client, y_rot: f32, x_rot: f32) {
+    let _ = bot.set_direction(y_rot + randnum(-0.08, 0.08) as f32, x_rot + randnum(-0.08, 0.08) as f32);
   }
 
   fn direct_gaze(bot: &Client, min_x_rot: Option<f32>, max_x_rot: Option<f32>) {
-    let direction = bot.direction();
+    let direction = bot.direction().unwrap_or_default();
 
     let min_x = if let Some(rot) = min_x_rot { rot } else { 80.0 } as f64;
     let max_x = if let Some(rot) = max_x_rot { rot } else { 83.0 } as f64;
 
-    bot.set_direction(direction.0, randnum(min_x, max_x) as f32);
+    let _ = bot.set_direction(direction.y_rot(), randnum(min_x, max_x) as f32);
   }
 
   async fn go_back(index: u8) {
@@ -143,7 +138,10 @@ impl ScaffoldModule {
 
       Self::direct_gaze(bot, options.min_gaze_degree_x, options.max_gaze_degree_x);
 
-      let pos = bot.position();
+      let Ok(pos) = bot.position() else {
+        continue;
+      };
+
       let block_under = BlockPos::new(pos.x.floor() as i32, (pos.y - 0.5).floor() as i32, pos.z.floor() as i32);
 
       let is_air = if let Some(state) = get_block_state(bot, block_under) {
@@ -156,7 +154,9 @@ impl ScaffoldModule {
         bot.block_interact(block_under);
         bot.swing_arm();
         sleep!(randnum(50, 100));
-        Self::simulate_inaccuracy(bot, bot.direction());
+        let dir = bot.direction().unwrap_or_default();
+
+        Self::simulate_inaccuracy(bot, dir.y_rot(), dir.x_rot());
         sleep!(randnum(100, 150));
       }
 
@@ -184,7 +184,10 @@ impl ScaffoldModule {
 
       Self::direct_gaze(bot, options.min_gaze_degree_x, options.max_gaze_degree_x);
 
-      let pos = bot.position();
+      let Ok(pos) = bot.position() else {
+        continue;
+      };
+
       let block_under = BlockPos::new(pos.x.floor() as i32, (pos.y - 0.5).floor() as i32, pos.z.floor() as i32);
 
       let is_air = if let Some(state) = get_block_state(bot, block_under) {
@@ -198,7 +201,9 @@ impl ScaffoldModule {
         bot.block_interact(block_under);
         bot.swing_arm();
         sleep!(randnum(50, 100));
-        Self::simulate_inaccuracy(bot, bot.direction());
+        let dir = bot.direction().unwrap_or_default();
+
+        Self::simulate_inaccuracy(bot, dir.y_rot(), dir.x_rot());
         sleep!(50);
         bot.set_crouching(false);
       }
@@ -227,7 +232,10 @@ impl ScaffoldModule {
 
       Self::direct_gaze(bot, options.min_gaze_degree_x, options.max_gaze_degree_x);
 
-      let pos = bot.position();
+      let Ok(pos) = bot.position() else {
+        continue;
+      };
+
       let block_under = BlockPos::new(pos.x.floor() as i32, (pos.y - 0.5).floor() as i32, pos.z.floor() as i32);
 
       let is_air = if let Some(state) = get_block_state(bot, block_under) {
@@ -239,7 +247,9 @@ impl ScaffoldModule {
       if is_air {
         bot.block_interact(block_under);
         bot.swing_arm();
-        Self::simulate_inaccuracy(bot, bot.direction());
+        let dir = bot.direction().unwrap_or_default();
+
+        Self::simulate_inaccuracy(bot, dir.y_rot(), dir.x_rot());
       }
 
       setmst(&index, StateName::Looking, false).await;
@@ -272,7 +282,10 @@ impl ScaffoldModule {
         Vec3::ZERO
       };
 
-      let pos = bot.position();
+      let Ok(pos) = bot.position() else {
+        continue;
+      };
+
       let block_under = BlockPos::new(
         pos.x.floor() as i32,
         (if velocity.y != 0.0 { pos.y - 1.0 } else { pos.y - 0.5 }).floor() as i32,
@@ -290,7 +303,9 @@ impl ScaffoldModule {
         sleep!(50);
         bot.block_interact(block_under);
         bot.swing_arm();
-        Self::simulate_inaccuracy(bot, bot.direction());
+        let dir = bot.direction().unwrap_or_default();
+
+        Self::simulate_inaccuracy(bot, dir.y_rot(), dir.x_rot());
       }
 
       setmst(&index, StateName::Looking, false).await;

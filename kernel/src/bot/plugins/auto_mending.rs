@@ -93,10 +93,10 @@ impl AutoMendingPlugin {
 
         if current_damage != 0 && max_durability - current_damage < max_durability / 2 {
           take_bot!(index, async |bot| {
-            let direction = bot.direction();
+            let direction = bot.direction().unwrap_or_default();
 
-            if direction.1 < 84.0 {
-              bot.set_direction(direction.0, randnum(84.0, 90.0) as f32);
+            if direction.x_rot() < 84.0 {
+              let _ = bot.set_direction(direction.y_rot(), randnum(84.0, 90.0) as f32);
               sleep!(randnum(150, 200));
             }
 
@@ -138,7 +138,7 @@ impl AutoMendingPlugin {
   fn item_has_mending(&self, bot: &Client, item: &ItemStack) -> bool {
     if let Some(enchantments) = item.get_component::<Enchantments>() {
       for (enchantment, _) in &enchantments.levels {
-        if let Some(id) = bot.resolve_registry_name(enchantment) {
+        if let Ok(Some(id)) = bot.resolve_registry_name(enchantment) {
           if id.to_string().contains("minecraft:mending") {
             return true;
           }

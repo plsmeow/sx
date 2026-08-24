@@ -82,7 +82,7 @@ impl StealerModule {
   }
 
   async fn extract_all_items(bot: &Client, index: &u8, container: &ContainerHandle) {
-    if let Some(menu) = container.menu() {
+    if let Ok(Some(menu)) = container.menu() {
       bot.freeze_move(index).await;
 
       setst(index, State::CanAttacking, false).await;
@@ -109,8 +109,9 @@ impl StealerModule {
 
   async fn start(bot: &Client, index: &u8, options: &StealerOptions) {
     loop {
-      let position = bot.position();
-      let direction = bot.direction();
+      let Ok(position) = bot.position() else {
+        continue;
+      };
 
       let target_positions = Self::find_nearest_targets(bot, position, &options.target, options.radius.unwrap_or(5));
 
@@ -123,7 +124,7 @@ impl StealerModule {
 
           sleep!(randnum(50, 100));
 
-          if let Some(container) = bot.open_container_at(pos).await {
+          if let Ok(Some(container)) = bot.open_container_at(pos).await {
             Self::extract_all_items(bot, index, &container).await;
             container.close();
             sleep!(randnum(200, 350));
@@ -135,9 +136,11 @@ impl StealerModule {
       }
 
       if getst(index, State::CanLooking).await {
-        bot.set_direction(
-          direction.0 + randnum(-2.5, 2.5) as f32,
-          direction.1 + randnum(-2.5, 2.5) as f32,
+        let direction = bot.direction().unwrap_or_default();
+
+        let _ = bot.set_direction(
+          direction.y_rot() + randnum(-2.5, 2.5) as f32,
+          direction.x_rot() + randnum(-2.5, 2.5) as f32,
         );
       }
 

@@ -27,7 +27,7 @@ impl BotMovementExt for Client {
     if getst(index, State::CanWalking).await {
       setmst(index, StateName::Walking, true).await;
 
-      self.ecs.lock().write_message(StartWalkEvent {
+      self.ecs.write().write_message(StartWalkEvent {
         entity: self.entity,
         direction: direction,
       });
@@ -38,7 +38,7 @@ impl BotMovementExt for Client {
     if getst(index, State::CanSprinting).await {
       setmst(index, StateName::Sprinting, true).await;
 
-      self.ecs.lock().write_message(StartSprintEvent {
+      self.ecs.write().write_message(StartSprintEvent {
         entity: self.entity,
         direction: direction,
       });
@@ -50,7 +50,7 @@ impl BotMovementExt for Client {
       return;
     }
 
-    self.ecs.lock().write_message(StartWalkEvent {
+    self.ecs.write().write_message(StartWalkEvent {
       entity: self.entity,
       direction: WalkDirection::None,
     });
@@ -60,7 +60,7 @@ impl BotMovementExt for Client {
   }
 
   async fn freeze_move(&self, index: &u8) {
-    self.ecs.lock().write_message(StartWalkEvent {
+    self.ecs.write().write_message(StartWalkEvent {
       entity: self.entity,
       direction: WalkDirection::None,
     });

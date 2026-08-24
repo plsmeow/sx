@@ -83,9 +83,7 @@ impl BotDefaultExt for Client {
   }
 
   fn id(&self) -> MinecraftEntityId {
-    self
-      .get_component::<MinecraftEntityId>()
-      .unwrap_or(MinecraftEntityId::default())
+    self.get_component::<MinecraftEntityId>().map(|id| *id).unwrap_or(MinecraftEntityId::default())
   }
 
   fn ping(&self) -> u32 {
@@ -144,7 +142,7 @@ impl BotDefaultExt for Client {
   }
 
   fn get_players(&self) -> Option<TabList> {
-    self.get_component::<TabList>()
+    self.get_component::<TabList>().map(|tab| tab.clone())
   }
 
   fn swing_arm(&self) {
@@ -208,39 +206,39 @@ impl BotDefaultExt for Client {
 
     match filter {
       EntityFilter::Player => {
-        return self.nearest_entity_by::<(&GameProfileComponent, &Position, &MinecraftEntityId), (With<Player>, Without<LocalEntity>, Without<Dead>)>(
+        return self.nearest_entity_id_by::<(&GameProfileComponent, &Position, &MinecraftEntityId), (With<Player>, Without<LocalEntity>, Without<Dead>)>(
           |data: (&GameProfileComponent, &Position, &MinecraftEntityId)| {
             *data.0 .0.name != excluded_name && eye_pos.distance_to(**data.1) <= distance && *data.2 != excluded_id
           },
-        );
+        ).ok().flatten();
       }
       EntityFilter::Monster => {
-        return self.nearest_entity_by::<(&Position, &MinecraftEntityId), (With<AbstractMonster>, Without<LocalEntity>, Without<Dead>)>(
+        return self.nearest_entity_id_by::<(&Position, &MinecraftEntityId), (With<AbstractMonster>, Without<LocalEntity>, Without<Dead>)>(
           |data: (&Position, &MinecraftEntityId)| eye_pos.distance_to(**data.0) <= distance && *data.1 != excluded_id,
-        );
+        ).ok().flatten();
       }
       EntityFilter::Animal => {
-        return self.nearest_entity_by::<(&Position, &MinecraftEntityId), (With<AbstractAnimal>, Without<LocalEntity>, Without<Dead>)>(
+        return self.nearest_entity_id_by::<(&Position, &MinecraftEntityId), (With<AbstractAnimal>, Without<LocalEntity>, Without<Dead>)>(
           |data: (&Position, &MinecraftEntityId)| eye_pos.distance_to(**data.0) <= distance && *data.1 != excluded_id,
-        );
+        ).ok().flatten();
       }
       EntityFilter::Vehicle => {
-        return self.nearest_entity_by::<(&Position, &MinecraftEntityId), (With<AbstractVehicle>, Without<LocalEntity>, Without<Dead>)>(
+        return self.nearest_entity_id_by::<(&Position, &MinecraftEntityId), (With<AbstractVehicle>, Without<LocalEntity>, Without<Dead>)>(
           |data: (&Position, &MinecraftEntityId)| eye_pos.distance_to(**data.0) <= distance && *data.1 != excluded_id,
-        );
+        ).ok().flatten();
       }
       EntityFilter::Any => {
-        return self.nearest_entity_by::<(&Position, &MinecraftEntityId), (Without<LocalEntity>, Without<Dead>)>(
+        return self.nearest_entity_id_by::<(&Position, &MinecraftEntityId), (Without<LocalEntity>, Without<Dead>)>(
           |data: (&Position, &MinecraftEntityId)| eye_pos.distance_to(**data.0) <= distance && *data.1 != excluded_id,
-        );
+        ).ok().flatten();
       }
       EntityFilter::Custom(username) => {
         let username_clone = username.clone();
-        return self.nearest_entity_by::<(&GameProfileComponent, &Position, &MinecraftEntityId), (With<Player>, Without<LocalEntity>, Without<Dead>)>(
+        return self.nearest_entity_id_by::<(&GameProfileComponent, &Position, &MinecraftEntityId), (With<Player>, Without<LocalEntity>, Without<Dead>)>(
           |data: (&GameProfileComponent, &Position, &MinecraftEntityId)| {
             data.0 .0.name == username_clone && eye_pos.distance_to(**data.1) <= distance && *data.2 != excluded_id
           },
-        );
+        ).ok().flatten();
       }
     }
   }

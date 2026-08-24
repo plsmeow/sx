@@ -97,11 +97,11 @@ impl AutoEatPlugin {
       match effect {
         MobEffect::Regeneration => {
           effects_data.has_regeneration = true;
-          effects_data.regeneration_amplifier = data.amplifier;
+          effects_data.regeneration_amplifier = data.amplifier.max(0) as u32;
         }
         MobEffect::Saturation => {
           effects_data.has_saturation = true;
-          effects_data.saturation_amplifier = data.amplifier;
+          effects_data.saturation_amplifier = data.amplifier.max(0) as u32;
         }
         _ => {}
       }

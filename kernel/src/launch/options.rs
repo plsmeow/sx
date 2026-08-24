@@ -65,6 +65,7 @@ pub struct BasicOptions {
   pub monitoring_update_rate: u32,
   pub view_distance: u8,
   pub humanoid_arm: Option<String>,
+  pub target_version: Option<String>,
   pub use_auto_rejoin: bool,
   pub use_auto_register: bool,
   pub use_double_auth: bool,
@@ -109,6 +110,7 @@ impl BasicOptions {
       monitoring_update_rate: u32::read(buf)?,
       view_distance: u8::read(buf)?,
       humanoid_arm: Option::read(buf)?,
+      target_version: Option::read(buf)?,
       use_auto_rejoin: bool::read(buf)?,
       use_auto_register: bool::read(buf)?,
       use_double_auth: bool::read(buf)?,
@@ -176,21 +178,34 @@ pub enum AuthMode {
   Trigger = 0x01,
 }
 
+#[derive(Clone, PartialEq, Index)]
+pub enum AccountType {
+  Offline = 0x00,
+  Microsoft = 0x01,
+  Session = 0x02,
+}
+
 #[derive(Clone)]
 pub struct AccountOptions {
+  pub account_type: AccountType,
   pub initial_group: Option<String>,
   pub password: Option<String>,
   pub email: Option<String>,
   pub proxy: Option<String>,
+  pub access_token: Option<String>,
+  pub uuid: Option<String>,
 }
 
 impl AccountOptions {
   pub fn read(buf: &mut bytes::Bytes) -> Option<Self> {
     Some(Self {
+      account_type: AccountType::from_index(u8::read(buf)?)?,
       initial_group: Option::read(buf)?,
       password: Option::read(buf)?,
       email: Option::read(buf)?,
       proxy: Option::read(buf)?,
+      access_token: Option::read(buf)?,
+      uuid: Option::read(buf)?,
     })
   }
 }
@@ -236,6 +251,7 @@ pub struct CaptchaBypassOptions {
   pub user_id: Option<String>,
   pub api_key: Option<String>,
   pub api_service: CaptchaApiService,
+  pub custom_api_url: Option<String>,
 }
 
 impl CaptchaBypassOptions {
@@ -253,6 +269,7 @@ impl CaptchaBypassOptions {
       user_id: Option::read(buf)?,
       api_key: Option::read(buf)?,
       api_service: CaptchaApiService::from_index(u8::read(buf)?)?,
+      custom_api_url: Option::read(buf)?,
     })
   }
 }
@@ -285,6 +302,7 @@ pub enum CaptchaSize {
 pub enum CaptchaApiService {
   TwoCaptcha = 0x00,
   TrueCaptcha = 0x01,
+  Custom = 0x02,
 }
 
 #[derive(Clone)]

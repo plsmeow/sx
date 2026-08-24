@@ -18,8 +18,8 @@ use crate::bot::systems::profile::{ProfileProxy, PROFILE_SYSTEM};
 use crate::bot::systems::registry::REGISTRY_SYSTEM;
 use crate::bot::systems::states::STATE_SYSTEM;
 use crate::bot::systems::tasks::TASK_SYSTEM;
-use crate::bot::utils::acaptcha::MAP_CAPTCHA_BYPASS;
 use crate::bot::PLUGINS;
+use crate::bot::utils::acaptcha::MAP_CAPTCHA_BYPASS;
 use crate::launch::process::update_process_status;
 use crate::launch::process::BOTS_WERE_FULLY_CONNECTED;
 use crate::launch::process::STOPPING;
@@ -28,9 +28,11 @@ use crate::sleep;
 use crate::take_profile;
 use crate::webhook::send_webhook;
 
+use super::accounts::build_account;
 use super::generators::{generate_email, generate_unique_username, generate_username_or_password};
-use super::options::{AccountOptions, LaunchOptions};
+use super::options::{AccountOptions, AccountType, LaunchOptions};
 use super::process::{current_options, process_is_active, set_options, set_process_activity};
+use azalea_viaversion::ViaVersionPlugin;
 
 struct CustomAccount {
   object: Account,
@@ -204,14 +206,38 @@ pub async fn launch_bots_on_server(options: LaunchOptions) -> u8 {
           .set_swarm_handler(swarm_handler)
           .set_handler(single_handler);
 
+        if let Some(version) = options.basic.target_version.clone().filter(|v| !v.is_empty()) {
+          emit_log(
+            format!("Подключение ViaProxy, целевая версия сервера: {}", version),
+            "system",
+          );
+
+          let proxies_used = options.basic.use_proxy
+            || options.accounts.values().any(|account| account.proxy.is_some());
+
+          if proxies_used {
+            emit_log(
+              "Внимание: прокси и ViaVersion одновременно не поддерживаются, прокси будут проигнорированы",
+              "warning",
+            );
+          }
+
+          swarm = swarm.add_plugins(ViaVersionPlugin::start(version).await);
+        }
+
         let mut accounts = Vec::new();
 
         if options.basic.use_accounts {
           for (username, opts) in &options.accounts {
-            let index = INDEX_SYSTEM.register(username).await;
+            let Some(account) = build_account(username, opts).await else {
+              continue;
+            };
+
+            let real_username = account.username().to_owned();
+            let index = INDEX_SYSTEM.register(&real_username).await;
 
             accounts.push(CustomAccount {
-              object: Account::offline(username),
+              object: account,
               options: opts.clone(),
               index,
             });
@@ -241,10 +267,13 @@ pub async fn launch_bots_on_server(options: LaunchOptions) -> u8 {
             accounts.push(CustomAccount {
               object: Account::offline(&username),
               options: AccountOptions {
+                account_type: AccountType::Offline,
                 initial_group: None,
                 password: None,
                 email: None,
                 proxy: None,
+                access_token: None,
+                uuid: None,
               },
               index,
             });

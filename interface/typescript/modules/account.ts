@@ -7,13 +7,26 @@ import { join } from "@tauri-apps/api/path";
 import { messages } from "../utils/message";
 import { invoke } from "@tauri-apps/api/core";
 
+/** Тип аккаунта */
+type AccountType = "offline" | "microsoft" | "session";
+
+/** Индексы типов аккаунтов, соответствующие ядру */
+const ACCOUNT_TYPE_INDEX: Record<AccountType, number> = {
+	offline: 0,
+	microsoft: 1,
+	session: 2,
+};
+
 /** Структура данных аккаунта */
 interface Account {
 	creation_date: string;
+	account_type: AccountType;
 	initial_group: string | null;
 	password: string | null;
 	email: string | null;
 	proxy: string | null;
+	access_token: string | null;
+	uuid: string | null;
 	selected: boolean;
 }
 
@@ -111,10 +124,13 @@ class AccountModule {
 			if (!account.selected) continue;
 
 			cleanAccounts.set(username, {
+				account_type: ACCOUNT_TYPE_INDEX[account.account_type] ?? 0,
 				initial_group: account.initial_group,
 				password: account.password,
 				email: account.email,
 				proxy: account.proxy,
+				access_token: account.access_token,
+				uuid: account.uuid,
 			});
 		}
 
@@ -136,10 +152,13 @@ class AccountModule {
 			for (const [username, account] of this.accounts) {
 				cleanAccounts[username] = {
 					creation_date: account.creation_date,
+					account_type: account.account_type,
 					initial_group: account.initial_group,
 					password: account.password,
 					email: account.email,
 					proxy: account.proxy,
+					access_token: account.access_token,
+					uuid: account.uuid,
 				};
 			}
 
@@ -234,6 +253,12 @@ class AccountModule {
 		const decoded = decoder.decode(uint8arr);
 		const accounts = Object.entries<Account>(JSON.parse(decoded));
 
+		for (const [_, account] of accounts) {
+			account.account_type ??= "offline";
+			account.access_token ??= null;
+			account.uuid ??= null;
+		}
+
 		if (accounts.length < 1) return;
 
 		for (const [username, account] of accounts) this.createAccountCard(username, account);
@@ -250,10 +275,13 @@ class AccountModule {
 
 		const status = this.createAccountCard(username, {
 			creation_date: date("exact"),
+			account_type: (document.getElementById("account-type") as HTMLSelectElement).value as AccountType,
 			initial_group: null,
 			password: null,
 			email: null,
 			proxy: null,
+			access_token: null,
+			uuid: null,
 			selected: false,
 		});
 
@@ -329,18 +357,25 @@ class AccountModule {
 			const buffer = await readFile(path);
 
 			const decoder = new TextDecoder();
-			const accounts = JSON.parse(decoder.decode(buffer));
+			const accounts = JSON.parse(decoder.decode(buffer)) as Record<string, Record<string, unknown>>;
 
 			for (const username in accounts) {
-				const account = accounts[username];
-				if (!account) continue;
+				const raw = accounts[username];
+				if (!raw) continue;
+
+				const importedType = raw["account_type"];
+				const account_type: AccountType = importedType === "microsoft" || importedType === "session" ? importedType : "offline";
+				const asString = (value: unknown): string | null => (typeof value === "string" ? value : null);
 
 				this.createAccountCard(username, {
 					creation_date: date("exact"),
-					initial_group: account["initial_group"],
-					password: account["password"],
-					email: account["email"],
-					proxy: account["proxy"],
+					account_type,
+					initial_group: asString(raw["initial_group"]),
+					password: asString(raw["password"]),
+					email: asString(raw["email"]),
+					proxy: asString(raw["proxy"]),
+					access_token: asString(raw["access_token"]),
+					uuid: asString(raw["uuid"]),
 					selected: false,
 				});
 			}
@@ -367,10 +402,13 @@ class AccountModule {
 
 			for (const [username, account] of this.accounts) {
 				accounts[username] = {
+					account_type: account.account_type,
 					initial_group: account.initial_group,
 					password: account.password,
 					email: account.email,
 					proxy: account.proxy,
+					access_token: account.access_token,
+					uuid: account.uuid,
 				};
 			}
 
@@ -413,10 +451,13 @@ class AccountModule {
 
 			const status = this.createAccountCard(username, {
 				creation_date: date("exact"),
+				account_type: "offline",
 				initial_group: null,
 				password: null,
 				email: null,
 				proxy: null,
+				access_token: null,
+				uuid: null,
 				selected: false,
 			});
 
@@ -567,8 +608,7 @@ class AccountModule {
 
 		return 0;
 	}
-
-	/** Метод создания обёркти редактора настроек аккаунта */
+	/** Метод создания обёртки редактора настроек аккаунта */
 	private createEditWrapper(username: string, account: any): HTMLDivElement {
 		const wrapper = document.createElement("div");
 		wrapper.className = "cover";
@@ -625,6 +665,16 @@ class AccountModule {
 				name: "Прокси SOCKS5",
 				tag: "proxy",
 				placeholder: "socks5://35.91.83.91:1111",
+			},
+			{
+				name: "Access Token (Session)",
+				tag: "access_token",
+				placeholder: "token сессии Minecraft",
+			},
+			{
+				name: "UUID (Session)",
+				tag: "uuid",
+				placeholder: "069a79f4-44e9-4726-a5be-fca90e38aaf5",
 			},
 		];
 

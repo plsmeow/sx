@@ -11,12 +11,12 @@ pub trait BotInteractExt {
 
 impl BotInteractExt for Client {
   fn start_use_item_by(&self, hand: InteractionHand) {
-    let direction = self.direction();
+    let direction = self.direction().unwrap_or_default();
 
     self.write_packet(ServerboundUseItem {
       hand: hand,
-      y_rot: direction.0,
-      x_rot: direction.1,
+      y_rot: direction.y_rot(),
+      x_rot: direction.x_rot(),
       seq: 0,
     });
   }

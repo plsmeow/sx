@@ -54,7 +54,9 @@ impl AntiFallModule {
   }
 
   fn exist_blocks_below(bot: &Client, distance_to_ground: i32) -> bool {
-    let pos = bot.position();
+    let Ok(pos) = bot.position() else {
+      return false;
+    };
 
     for y in 0..=distance_to_ground {
       let block_pos = BlockPos::new(pos.x.floor() as i32, (pos.y.floor() as i32) - y, pos.z.floor() as i32);
@@ -70,7 +72,9 @@ impl AntiFallModule {
   }
 
   fn exist_water_below(bot: &Client, distance_to_ground: i32) -> bool {
-    let pos = bot.position();
+    let Ok(pos) = bot.position() else {
+      return false;
+    };
 
     for y in 0..=distance_to_ground {
       let block_pos = BlockPos::new(pos.x.floor() as i32, (pos.y.floor() as i32) - y, pos.z.floor() as i32);
@@ -88,7 +92,9 @@ impl AntiFallModule {
   }
 
   async fn take_water_bucket(bot: &Client, index: &u8) -> bool {
-    let menu = bot.menu();
+    let Ok(menu) = bot.menu() else {
+      return false;
+    };
 
     for (slot, item) in menu.slots().iter().enumerate() {
       if !item.is_empty() {
@@ -140,7 +146,10 @@ impl AntiFallModule {
 
         if velocity_y < options.fall_velocity.unwrap_or(-0.5) {
           if Self::exist_blocks_below(bot, options.distance_to_ground.unwrap_or(4)) {
-            let pos = bot.position();
+            let Ok(pos) = bot.position() else {
+              continue;
+            };
+
             let fake_pos = Vec3::new(pos.x, pos.y + randnum(0.015, 0.022), pos.z);
 
             bot.write_packet(ServerboundMovePlayerPos {
@@ -170,21 +179,21 @@ impl AntiFallModule {
 
       if velocity_y < options.fall_velocity.unwrap_or(-0.5) {
         if Self::exist_blocks_below(bot, distance_to_ground) {
-          let y_rot = bot.direction().0;
+          let y_rot = bot.direction().map(|d| d.y_rot()).unwrap_or_default();
 
-          bot.set_direction(y_rot, randnum(85.0, 89.0) as f32);
+          let _ = bot.set_direction(y_rot, randnum(85.0, 89.0) as f32);
 
           if Self::take_water_bucket(bot, index).await {
             if !Self::exist_water_below(bot, distance_to_ground) {
               sleep!(50);
 
-              let direction = bot.direction();
+              let direction = bot.direction().unwrap_or_default();
 
               bot.write_packet(ServerboundUseItem {
                 hand: InteractionHand::MainHand,
                 seq: 0,
-                y_rot: direction.0,
-                x_rot: direction.1,
+                y_rot: direction.y_rot(),
+                x_rot: direction.x_rot(),
               });
             }
           }
@@ -192,13 +201,13 @@ impl AntiFallModule {
           sleep!(50);
 
           if Self::exist_water_below(bot, distance_to_ground) {
-            let direction = bot.direction();
+            let direction = bot.direction().unwrap_or_default();
 
             bot.write_packet(ServerboundUseItem {
               hand: InteractionHand::MainHand,
               seq: 0,
-              y_rot: direction.0,
-              x_rot: direction.1,
+              y_rot: direction.y_rot(),
+              x_rot: direction.x_rot(),
             });
           }
         }

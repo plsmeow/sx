@@ -341,6 +341,17 @@ impl MapCaptchaBypass {
 
           Self::solve_with_true_captcha(&index, username, b64, user_id, api_key).await;
         }
+        CaptchaApiService::Custom => {
+          let Some(base_url) = Self::normalize_custom_api_url(options.custom_api_url.as_deref()) else {
+            emit_log(
+              format!("Бот {} не смог решить капчу: custom API URL not specified", username),
+              "error",
+            );
+            return;
+          };
+
+          Self::solve_with_custom_api(&index, username, b64, api_key, base_url).await;
+        }
       }
     });
 
@@ -488,6 +499,168 @@ impl MapCaptchaBypass {
           "error",
         );
         return;
+      }
+    }
+  }
+
+  /// Метод нормализации пользовательской ссылки на API, совместимый с `2captcha.com`
+  fn normalize_custom_api_url(raw: Option<&str>) -> Option<String> {
+    let mut base = raw?.trim();
+
+    for endpoint in ["in.php", "res.php", "out.php"] {
+      if let Some(stripped) = base.strip_suffix(endpoint) {
+        base = stripped;
+        break;
+      }
+    }
+
+    let base = base.trim_end_matches('/');
+
+    if base.is_empty() {
+      return None;
+    }
+
+    if base.contains("://") {
+      Some(base.to_string())
+    } else {
+      Some(format!("http://{}", base))
+    }
+  }
+
+  /// Метод разбора ответа API, совместимого с `2captcha.com`
+  fn parse_custom_api_response(body: &str) -> Result<String, String> {
+    let body = body.trim();
+
+    if let Ok(json) = serde_json::from_str::<Value>(body) {
+      let request = json["request"].as_str().unwrap_or_default().trim().to_string();
+
+      let status = match &json["status"] {
+        Value::Number(number) => number.as_i64().unwrap_or_default(),
+        Value::String(string) => string.parse().unwrap_or_default(),
+        _ => 0,
+      };
+
+      if status == 1 {
+        return Ok(request);
+      }
+
+      return Err(if request.is_empty() {
+        "unknown error".to_string()
+      } else {
+        request
+      });
+    }
+
+    match body.split_once('|') {
+      Some(("OK", result)) => Ok(result.trim().to_string()),
+      _ => Err(if body.is_empty() {
+        "empty response".to_string()
+      } else {
+        body.to_string()
+      }),
+    }
+  }
+
+  /// Метод решения капчи при помощи собственного API, совместимого с `2captcha.com`
+  async fn solve_with_custom_api(index: &u8, username: String, b64: String, api_key: String, base_url: String) {
+    let client = reqwest::Client::new();
+    let create_url = format!("{}/in.php", base_url);
+    let result_url = format!("{}/res.php", base_url);
+
+    let resp = match client
+      .post(&create_url)
+      .form(&[
+        ("key", api_key.as_str()),
+        ("method", "base64"),
+        ("body", b64.as_str()),
+        ("json", "1"),
+      ])
+      .send()
+      .await
+    {
+      Ok(resp) => resp,
+      Err(e) => {
+        emit_log(format!("Бот {} не смог решить капчу: {}", username, e), "error");
+        return;
+      }
+    };
+
+    let create_body = match resp.text().await {
+      Ok(body) => body,
+      Err(e) => {
+        emit_log(format!("Бот {} не смог решить капчу: {}", username, e), "error");
+        return;
+      }
+    };
+
+    let captcha_id = match Self::parse_custom_api_response(&create_body) {
+      Ok(id) => id,
+      Err(e) => {
+        emit_log(format!("Бот {} не смог решить капчу: {}", username, e), "error");
+        return;
+      }
+    };
+
+    emit_log(
+      format!("Задача решения капчи бота {} создана, ожидание завершения...", username),
+      "extended",
+    );
+
+    let mut attempts = 0;
+    let max_attempts = 6;
+
+    loop {
+      if attempts >= max_attempts {
+        emit_log(
+          format!("Бот {} не смог решить капчу: timeout exceeded", username),
+          "error",
+        );
+        return;
+      }
+
+      tokio::time::sleep(Duration::from_secs(5)).await;
+      attempts += 1;
+
+      let res_resp = match client
+        .get(&result_url)
+        .query(&[
+          ("key", api_key.as_str()),
+          ("action", "get"),
+          ("id", captcha_id.as_str()),
+          ("json", "1"),
+        ])
+        .send()
+        .await
+      {
+        Ok(resp) => resp,
+        Err(e) => {
+          emit_log(format!("Бот {} не смог решить капчу: {}", username, e), "error");
+          return;
+        }
+      };
+
+      let res_body = match res_resp.text().await {
+        Ok(body) => body,
+        Err(e) => {
+          emit_log(format!("Бот {} не смог решить капчу: {}", username, e), "error");
+          return;
+        }
+      };
+
+      match Self::parse_custom_api_response(&res_body) {
+        Ok(result) => {
+          take_bot!(index, async |bot| {
+            bot.chat(&result);
+            emit_log(format!("Бот {} решил капчу (текст: {})", username, result), "info");
+          });
+          return;
+        }
+        Err(e) => {
+          if !e.contains("NOT_READY") {
+            emit_log(format!("Бот {} не смог решить капчу: {}", username, e), "error");
+            return;
+          }
+        }
       }
     }
   }

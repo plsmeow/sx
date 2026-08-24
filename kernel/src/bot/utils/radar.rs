@@ -37,7 +37,7 @@ impl Radar {
         };
 
         for uuid in tab_list.keys() {
-          let Some(entity) = bot.entity_by_uuid(*uuid) else {
+          let Some(entity) = bot.entity_id_by_uuid(*uuid) else {
             continue;
           };
 

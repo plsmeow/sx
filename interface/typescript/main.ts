@@ -175,6 +175,8 @@ async function startBots(): Promise<void> {
 		buf.writeU32(options.basic["monitoring_update_rate"]);
 		buf.writeU8(options.basic["view_distance"]);
 		buf.writeOption<string>(options.basic["humanoid_arm"], (some) => buf.writeString(some));
+		const targetVersionSelect = document.getElementById("settings_select_target-version") as HTMLSelectElement;
+		buf.writeOption<string>(targetVersionSelect.value || null, (some) => buf.writeString(some));
 		buf.writeBoolean(options.basic["use_auto_rejoin"]);
 		buf.writeBoolean(options.basic["use_auto_register"]);
 		buf.writeBoolean(options.basic["use_double_auth"]);
@@ -194,10 +196,13 @@ async function startBots(): Promise<void> {
 		buf.writeU8(options.accounts.size);
 		for (const [username, account] of options.accounts) {
 			buf.writeString(username);
+			buf.writeU8(account["account_type"]);
 			buf.writeOption(account["initial_group"], (some) => buf.writeString(some));
 			buf.writeOption(account["password"], (some) => buf.writeString(some));
 			buf.writeOption(account["email"], (some) => buf.writeString(some));
 			buf.writeOption(account["proxy"], (some) => buf.writeString(some));
+			buf.writeOption(account["access_token"], (some) => buf.writeString(some));
+			buf.writeOption(account["uuid"], (some) => buf.writeString(some));
 		}
 
 		buf.writeBoolean(options.plugins["instant_armor_equip"]);
@@ -221,6 +226,7 @@ async function startBots(): Promise<void> {
 		buf.writeOption<string>(options.captcha_bypass["user_id"], (some) => buf.writeString(some));
 		buf.writeOption<string>(options.captcha_bypass["api_key"], (some) => buf.writeString(some));
 		buf.writeU8(options.captcha_bypass["api_service"]);
+		buf.writeOption<string>(options.captcha_bypass["custom_api_url"], (some) => buf.writeString(some));
 
 		buf.writeOption<string>(options.webhook["url"], (some) => buf.writeString(some));
 		buf.writeBoolean(options.plugins["send_information"]);

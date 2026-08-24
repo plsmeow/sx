@@ -33,7 +33,7 @@ impl RegistrySystem {
   /// Метод уничтожения роя
   pub async fn destroy_swarm(&self) {
     if let Some(swarm) = self.swarm.write().await.take() {
-      swarm.ecs_lock.lock().write_message(AppExit::Success);
+      swarm.ecs.write().write_message(AppExit::Success);
     }
   }
 

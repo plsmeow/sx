@@ -136,8 +136,12 @@ impl SalarixiModule<ActionOptions> for ActionModule {
       killtsk(&index, task_name).await;
 
       take_bot!(&index, async |bot| match options.action {
-        Action::Jumping => bot.set_jumping(false),
-        Action::Shifting => bot.set_crouching(false),
+        Action::Jumping => {
+          let _ = bot.set_jumping(false);
+        }
+        Action::Shifting => {
+          let _ = bot.set_crouching(false);
+        }
         _ => {}
       });
     } else {
